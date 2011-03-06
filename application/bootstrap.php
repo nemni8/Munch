@@ -132,4 +132,5 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'action'     => 'index',
 		'directory'  => 'site'
 	));
-
+// attach the global variables
+Kohana::$config->attach(new Kohana_Config_File('global'));

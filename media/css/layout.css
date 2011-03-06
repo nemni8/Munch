@@ -1,3 +1,4 @@
 html {
-    direction: rtl;
+   /* direction: rtl;*/
 }
+.clear {clear: both; float: none; margin: 0; padding: 0;}
