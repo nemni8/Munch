@@ -19,12 +19,20 @@
 <?php endif;?>
 <?php if ( ! empty($is_supadmin)): ?>
 	<h1>List Of All Users</h1>
-	<ul class="dashbord_rest">
+	<ul class="dashbord_user">
 		<?php foreach($all_users as $user) { ?>
-				<li><?php echo html::anchor('admin/restaurants/add/'.$user->id,'edit '.$user->username); ?></li>
+				<li><?php echo html::anchor('admin/users/add/'.$user->id,'edit '.$user->username); ?></li>
 				<li><?php echo $user->email; ?></li>
 		<?php } ?>
-	</ul>	
+	</ul>
+    <h1>List Of All Ingredients</h1>
+        <ul class="dashbord_ingredients">
+		<?php foreach($all_ingredients as $ingredient) { ?>
+				<li><?php echo html::anchor('admin/ingredients/add/'.$ingredient->id,'edit '.$ingredient->name); ?></li>
+
+		<?php } ?>
+	</ul>
+
 <?php endif;?>
 <div class="clear"></div>
 

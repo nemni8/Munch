@@ -1,5 +1,5 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-<div class="restaurant">
+<div class="users">
 	<?php echo Form::open('admin/users/add/'.$edit_id);?>
 		<?php foreach( $arr_input as $input): ?>
 			<div>
@@ -26,6 +26,9 @@
 		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
 </div>
+
+
+
 
 
 

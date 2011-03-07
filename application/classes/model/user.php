@@ -12,7 +12,7 @@ class Model_User extends Model_Auth_User
 	{
 		return
 				array(
-						'username'   => array('col_name' => 'username','title' => 'Uset Name', 'type' => 'text'),
+						'username'   => array('col_name' => 'username','title' => 'User Name', 'type' => 'text'),
 						'email'      => array('col_name' => 'email','title' => 'User Email', 'type' => 'text'),
 						'password'   => array('col_name' => 'password','title' => 'User Password', 'type' => 'text')
 				 )
@@ -62,7 +62,8 @@ class Model_User extends Model_Auth_User
 		if (isset($post['user_role_supadmin']) AND ! $flag_supadmin)
 			$this->add('roles', ORM::factory('role', array('name' => 'supadmin')));
 		// delete role if needed
-		if ( ! isset($post['user_role_admin']) AND $flag_admin)
+		if  ($flag_supadmin) {
+        if ( ! isset($post['user_role_admin']) AND $flag_admin)
 			DB::delete('roles_users')
 				->where('user_id', '=', $this->id)
 				->where('role_id', '=', 2)
@@ -72,6 +73,7 @@ class Model_User extends Model_Auth_User
 				->where('user_id', '=', $this->id)
 				->where('role_id', '=', 3)
 				->execute();
+        }
 
 	}
 } // End User Model

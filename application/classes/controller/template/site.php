@@ -139,7 +139,7 @@ abstract class Controller_Template_Site extends Controller_Template {
 		$this->template->nav = $nav;
 
 		$scripts = array(
-			'media/js/jquery-1.5.min.js'
+			'media/js/jquery-1.5.1.min.js'
 			);
 
 		if($this->_admin)
