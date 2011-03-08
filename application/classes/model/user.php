@@ -37,7 +37,7 @@ class Model_User extends Model_Auth_User
 			$user->add('roles', ORM::factory('role', array('name' => 'supadmin')));
 
 	}
-	public function edit($post)
+	public function edit($post,$issupadmin)
 	{
 		$flag_admin = FALSE;
 		$flag_supadmin = FALSE;
@@ -48,7 +48,6 @@ class Model_User extends Model_Auth_User
 			$this->password = $post['password'];
 		$this->save();
 		$user_roles = DB::select()->from('roles_users')->where('user_id','=',$this->id)->execute()->as_array();
-		// set the flags to the right value
 		foreach($user_roles as $role)
 		{
 			if ($role['role_id'] == 2)
@@ -56,13 +55,14 @@ class Model_User extends Model_Auth_User
 			if ($role['role_id'] == 3)
 				$flag_supadmin = TRUE;
 		}
+
 		// add role if not exist
 		if (isset($post['user_role_admin']) AND ! $flag_admin)
 			$this->add('roles', ORM::factory('role', array('name' => 'admin')));
 		if (isset($post['user_role_supadmin']) AND ! $flag_supadmin)
 			$this->add('roles', ORM::factory('role', array('name' => 'supadmin')));
 		// delete role if needed
-		if  ($flag_supadmin) {
+		if  ($issupadmin) {
         if ( ! isset($post['user_role_admin']) AND $flag_admin)
 			DB::delete('roles_users')
 				->where('user_id', '=', $this->id)

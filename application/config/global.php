@@ -27,5 +27,8 @@ return ( array (
 					),
 					'creditcard_index' =>1,
 					'cash_index' =>2,
-					)
+					
+
+)
+
 		);

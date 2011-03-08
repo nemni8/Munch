@@ -6,7 +6,8 @@ abstract class Controller_Template_Admin extends Controller_Template
 	protected $_languages = array();
 	protected $_user = false;
 	protected $_admin = false;
-	protected $_errors = array();
+    protected $_supadmin = false;
+    protected $_errors = array();
 
 	public $template = 'admin/template';
 

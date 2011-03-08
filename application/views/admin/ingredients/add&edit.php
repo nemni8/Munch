@@ -14,9 +14,12 @@
 			</div>
 		<?php endforeach; ?>
 		<!-- choose meat, dairy or parve kitchen from the global.kosher_level variable-->
-		<?php echo Form::label('meat_dairy','Meat / Dairy');?>
-		<?php $default = ($type == 'edit') ? $ingredient->mdv : NULL; ?>
-		<?php  echo Form::select('mdv',Kohana::config ('global.meat_dairy'),$default);?>
+		<?php echo Form::label('ingredient_cat_id','Category');?>
+		<?php $default = ($type == 'edit') ? $ingredient->ingredient_cat_id : NULL; ?>
+	    <?php  echo Form::select('ingredient_cat_id',(DB::select('id','name')
+						  ->from('ingredientcategories')
+                          ->execute()->as_array('id','name')
+						 ),$default);?>
 		<div class="clear"></div>
 		<!-- end of the form -->
 		<?php echo Form::submit('submit', $type)?>

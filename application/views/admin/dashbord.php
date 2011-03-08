@@ -1,6 +1,8 @@
 <?php if ( ! empty($is_supadmin)): ?>
 	<?php echo html::anchor('admin/restaurants/add','add restaurant');?> |
 	<?php echo html::anchor('admin/users/add','add user');?> |
+    <?php echo html::anchor('admin/ingredients/add','add ingredient');?> |
+    <?php echo html::anchor('admin/ingredientcategories/add','add ingredient category');?> |
 <?php endif;?>
 <?php echo html::anchor('admin/users/add/'.$_SESSION['auth_user_munch']->id,'Edit my profile');?>
 <?php if (count($user_rest) > 0): ?>
@@ -32,6 +34,14 @@
 
 		<?php } ?>
 	</ul>
+        <h1>List Of All Ingredients Categories</h1>
+        <ul class="dashbord_ingredientcategories">
+		<?php foreach($all_ingredientcategories as $ingredientcategory) { ?>
+				<li><?php echo html::anchor('admin/ingredientcategories/add/'.$ingredientcategory->id,'edit '.$ingredientcategory->name); ?></li>
+
+		<?php } ?>
+	</ul>
+
 
 <?php endif;?>
 <div class="clear"></div>
