@@ -21,7 +21,7 @@
 	<h1>List Of All Users</h1>
 	<ul class="dashbord_rest">
 		<?php foreach($all_users as $user) { ?>
-				<li><?php echo html::anchor('admin/restaurants/add/'.$user->id,'edit '.$user->username); ?></li>
+				<li><?php echo html::anchor('admin/users/add/'.$user->id,'edit '.$user->username); ?></li>
 				<li><?php echo $user->email; ?></li>
 		<?php } ?>
 	</ul>	

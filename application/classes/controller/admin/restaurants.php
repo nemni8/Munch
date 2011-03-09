@@ -69,7 +69,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 
 	}
 
-	public function action_show($id)
+/*	public function action_show($id)
 	{
 		$rest = ORM::factory('restaurant', $id);
 		$this->template->content = View::factory('admin/restaurants/item')
@@ -78,5 +78,5 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 			->set('items', ORM::factory('restaurant')
 				->find_all()->as_array());
 	}
-
+*/
 } // End Welcome
