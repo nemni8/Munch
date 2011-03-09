@@ -58,7 +58,12 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 			// if rest not exist
 			else
 			{
-				$rest = ORM::factory('restaurant');
+				if( ! $this->_checkSupadmin())
+				{
+					echo 'you can not access to this page';
+					die();
+				}
+                $rest = ORM::factory('restaurant');
 				$this->template->content = View::factory('admin/restaurants/add&edit')
 				->set('type','add')
 				->set('admins', $admins)

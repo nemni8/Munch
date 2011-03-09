@@ -18,7 +18,7 @@ class Controller_Admin_Users extends Controller_Template_Admin
 					echo 'you can not access to this page';
 					die();
 				}
-				$user->edit($_POST);
+				$user->edit($_POST,$this->_checkSupadmin());
 			}
 			else
 			{
@@ -68,7 +68,12 @@ class Controller_Admin_Users extends Controller_Template_Admin
 			// if rest not exist
 			else
 			{
-				$user = ORM::factory('user');
+                if( ( ! $this->_checkSupadmin())) 
+				    {
+					    echo 'you can not access to this page';
+					    die();
+                    }
+			    $user = ORM::factory('user');
 				$this->template->content = View::factory('admin/users/add&edit')
 				->set('type','add')
 				->set('is_admin',$this->_checkSupadmin())

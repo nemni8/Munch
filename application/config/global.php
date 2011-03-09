@@ -22,12 +22,13 @@ return ( array (
 	
 					'payment_method' => array(
 						'',
-						'meat',
-						'dairy',
-						'parve'
+						'creditcard',
+						'cash',
 					),
-					'meat_index' =>1,
-					'dairy_index' =>2,
-					'parve_index' =>3,
-				)
+					'creditcard_index' =>1,
+					'cash_index' =>2,
+					
+
+)
+
 		);
