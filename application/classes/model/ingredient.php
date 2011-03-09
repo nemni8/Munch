@@ -2,10 +2,17 @@
 
 class Model_Ingredient extends ORM
 {
+	protected $_has_many = array(
+		'categories' => array(
+			'model' => 'category',
+			'through' => 'categories_ingredients'
+		)
+	);
+
 	protected $_rules = array(
 		'id' => array('not_empty' => NULL),
 		'name' => array('not_empty' => NULL),
-		'ingredient_cat_id' => array('not_empty' => NULL),
+		'user_id' => array('not_empty' => NULL),
         'approval_level' => array('not_empty' => NULL)
 	);
 
@@ -13,10 +20,8 @@ class Model_Ingredient extends ORM
 	{
 		return
 				array(
-						//'id'   => array('col_name' => 'id','title' => 'Ingredient Id', 'type' => 'int'),
-						'name'      => array('col_name' => 'name','title' => 'Ingredient Name', 'type' => 'text'),
-		    		    //'ingredient_cat_id'   => array('col_name' => 'ingredient_cat_id','title' => 'Meat Dairy Parve', 'type' => 'int'),
-                        // 'approval_level'   => array('col_name' => 'approval_level','title' => 'User Password', 'type' => 'int'),
+						'name'          => array('col_name' => 'name','title' => 'Ingredient Name', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => 'Ingredient Description', 'type' => 'text'),
 				 )
 		;
 	}
@@ -25,23 +30,37 @@ class Model_Ingredient extends ORM
 		return DB::select()->from('ingredients')->as_object()->execute();
 	}
 
-	public function add_new($post,$admin_level)
+	public function add_new($post)
 	{
 		$ingredient = ORM::factory('ingredient');
 		$ingredient->name = $post['name'];
-		$ingredient->ingredient_cat_id = $post['ingredient_cat_id'];
-		$ingredient->approval_level = $admin_level ;
+		$ingredient->description = $post['description'];
 		$ingredient->save();
+		if(isset($post['category_id']))
+		{
+			foreach($post['category_id'] as $cat)
+			{
+					$ingredient->add('categories',$cat);
+			}
+		}
+
         
 	}
-	public function edit($post,$admin_level)
+	public function edit($post)
 	{
 
 		$this->name = $post['name'];
-		$this->ingredient_cat_id = $post['ingredient_cat_id'];
-        $this->approval_level = $admin_level;
 		$this->save();
+		if(isset($post['category_id']))
+		{
+			$this->remove('categories');
+			/*add category*/
+			foreach($post['category_id'] as $cat)
+			{
+					$this->add('categories',$cat);
+			}
+		}
 
 
 	}
-} // End User Model
+} // End Ingredient Model

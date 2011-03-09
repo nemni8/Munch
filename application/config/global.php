@@ -1,6 +1,10 @@
 <?php
-return ( array (
-					'kosher_level' => array(
+return
+		( array
+				(
+					/*kosher level array*/
+					'kosher_level' => array
+					(
 						'',
 						'kosher',
 						'mehadrin kosher',
@@ -10,7 +14,9 @@ return ( array (
 					'mehadrin_index' =>2,
 					'not_kosher_index' =>3,
 
-					'meat_dairy' => array(
+					/*meat dairy array*/
+					'meat_dairy' => array
+					(
 						'',
 						'meat',
 						'dairy',
@@ -19,16 +25,23 @@ return ( array (
 					'meat_index' =>1,
 					'dairy_index' =>2,
 					'parve_index' =>3,
-	
-					'payment_method' => array(
+
+					/*payment method array*/
+					'payment_method' => array
+					(
 						'',
 						'creditcard',
 						'cash',
 					),
 					'creditcard_index' =>1,
 					'cash_index' =>2,
-					
 
-)
+					/*categories models array*/
+					'categories_models' => array
+					(
+						'ingredient' =>'ingredient',
+						'restaurant' =>'restaurant'
+					)
+				)
 
 		);

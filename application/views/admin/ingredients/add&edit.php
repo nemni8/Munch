@@ -13,18 +13,21 @@
 				?>
 			</div>
 		<?php endforeach; ?>
-		<!-- choose meat, dairy or parve kitchen from the global.kosher_level variable-->
-		<?php echo Form::label('ingredient_cat_id','Category');?>
-		<?php $default = ($type == 'edit') ? $ingredient->ingredient_cat_id : NULL; ?>
-	    <?php  echo Form::select('ingredient_cat_id',(DB::select('id','name')
-						  ->from('ingredientcategories')
-                          ->execute()->as_array('id','name')
-						 ),$default);?>
+		<?php if($admin_level) : ?>
+			<?php  echo Form::label('category_id','Ingredient Category');?>
+			<?php  $default = ($type == 'edit') ? $ingredient->categories->find_all()->as_array() : array() ; ?>
+			<?php  echo Form::select('category_id[]',
+										DB::select('id','name')
+											->from('categories')
+											->where('model','=','ingredient')
+											->execute()->as_array('id','name'),$default);?>
+		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
 		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
 </div>
+
 
 
 

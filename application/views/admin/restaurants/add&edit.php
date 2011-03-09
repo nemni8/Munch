@@ -26,6 +26,16 @@
 		<?php $default = ($type == 'edit') ? $rest->meat_dairy : NULL; ?>
 		<?php  echo Form::select('meat_dairy',Kohana::config ('global.meat_dairy'),$default);?>
 		<div class="clear"></div>
+		<?php if ($is_admin): ?>
+			<?php  echo Form::label('category_id','Restaurant Category');?>
+			<?php  $default = ($type == 'edit') ? $rest->categories->find_all()->as_array() : array() ; ?>
+			<?php  echo Form::select('category_id[]',
+										DB::select('id','name')
+											->from('categories')
+											->where('model','=','restaurant')
+											->execute()->as_array('id','name'),$default);?>
+		<?php endif;?>
+		<div class="clear"></div>
 		<!-- end of the form -->
 		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>

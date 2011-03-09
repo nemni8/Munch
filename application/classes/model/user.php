@@ -2,6 +2,12 @@
 
 class Model_User extends Model_Auth_User
 {
+
+	protected $_has_many = array(
+		'restaurants' => array(),
+		'user_tokens' => array('model' => 'user_token'),
+		'roles'       => array('model' => 'role', 'through' => 'roles_users'),
+	);
 	protected $_rules = array(
 		'username' => array('not_empty' => NULL),
 		'email' => array('not_empty' => NULL),

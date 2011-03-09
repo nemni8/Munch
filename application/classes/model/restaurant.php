@@ -3,12 +3,14 @@
 class Model_Restaurant extends ORM
 {
 	protected $_has_many = array(
-		//'customers'      => array('through' => 'order_customers'),
-		//'services'       => array('model'   => 'order_service'),
+		'categories' => array(
+			'model' => 'category',
+			'through' => 'categories_restaurants'
+		)
 	);
 
 	protected $_belongs_to = array(
-		//'user' => array(),
+		'user' => array(),
 	);
 
 	protected $_rules = array(
@@ -38,40 +40,21 @@ class Model_Restaurant extends ORM
 				 )
 		;
 	}
-	//protected $_created_column = array('column' => 'created',  'format' => 'Y-m-d H:i:s');
-	//protected $_updated_column = array('column' => 'modified', 'format' => 'Y-m-d H:i:s');
-
-	// table definitions
-//	protected $_table = array(
-//		'header' => array(
-//			'id'                 => array('title' => 'ID'),
-//			'source_id'          => array('title' => 'Source'),
-//			'sourceId'           => array('title' => 'SourceId'),
-//			'created'            => array('title' => 'Created'),
-//			'contact_name'       => array('title' => 'Contact name'),
-//			'contact_phone'      => array('title' => 'Phones'),
-//			'customers'          => array('title' => 'Customers Count'),
-//			'services'           => array('title' => 'Services'),
-//			'services_statuses'  => array('title' => 'Services Statuses'),
-//			'order_status_id'    => array('title' => 'Status'),
-//			'user_id'            => array('title' => 'User'),
-//			'agent_name'         => array('title' => 'Agent'),
-//		),
-//		'sort' => array('id' => 'desc')
-//	);
-
+	protected $_created_column = array('column' => 'created',  'format' => 'Y-m-d H:i:s');
+	protected $_updated_column = array('column' => 'modified', 'format' => 'Y-m-d H:i:s');
 	public function add_new($post)
 	{
 		$this->values($post);
-		if($this->check())
+		$this->save();
+		if(isset($post['category_id']))
 		{
-			$this->save();
-			echo 'saved';
+			$this->remove('categories');
+			foreach($post['category_id'] as $cat)
+			{
+					$this->add('categories',$cat);
+			}
 		}
-		else
-		{
-			echo 'not saved';
-		}
+
 	}
 	public function get_user_restaurants($id)
 	{
