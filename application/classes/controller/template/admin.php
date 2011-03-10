@@ -181,7 +181,8 @@ abstract class Controller_Template_Admin extends Controller_Template
 		$this->template->nav = $nav;
 
 		$scripts = array(
-			'media/js/jquery-1.5.1.min.js'
+			'media/js/jquery-1.5.1.min.js',
+			'media/jquery-ui/js/jquery-ui-1.8.10.custom.min.js'
 			);
 
 		if($this->_admin)
@@ -192,7 +193,8 @@ abstract class Controller_Template_Admin extends Controller_Template
 
 		$this->template->scripts  = $scripts;
 		$this->template->styles = array(
-			'media/css/layout.css'
+			'media/css/layout.css',
+			'media/jquery-ui/css/jquery-ui-1.8.10.custom.css'
 			);
 
 		$this->template->controller = Request::initial()->controller();
