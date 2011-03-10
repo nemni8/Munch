@@ -29,13 +29,18 @@ class Model_Ingredient extends ORM
 	{
 		return DB::select()->from('ingredients')->as_object()->execute();
 	}
-
-	public function add_new($post)
+public function get_all_ingredients_visible_for_user($id)
+    {
+    return DB::select()->from('ingredients')->where('user_id','=',$id)->or_where( 'user_id','=',0)->as_object()->execute();
+    }
+	public function add_new($post,$admin_level)
 	{
 		$ingredient = ORM::factory('ingredient');
 		$ingredient->name = $post['name'];
+        $ingredient->approval_level=$admin_level;
 		$ingredient->description = $post['description'];
-		$ingredient->save();
+		$ingredient->user_id = (!$admin_level) ? $_SESSION['auth_user_munch']->id  : 0 ;
+        $ingredient->save();
 		if(isset($post['category_id']))
 		{
 			foreach($post['category_id'] as $cat)
@@ -46,10 +51,11 @@ class Model_Ingredient extends ORM
 
         
 	}
-	public function edit($post)
+	public function edit($post,$admin_level)
 	{
 
 		$this->name = $post['name'];
+        $this->approval_level=$admin_level;
 		$this->save();
 		if(isset($post['category_id']))
 		{

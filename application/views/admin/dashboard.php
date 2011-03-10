@@ -1,9 +1,11 @@
 <?php if ( ! empty($is_supadmin)): ?>
 	<?php echo html::anchor('admin/restaurants/add','add restaurant');?> |
 	<?php echo html::anchor('admin/users/add','add user');?> |
-    <?php echo html::anchor('admin/ingredients/add','add ingredient');?> |
     <?php echo html::anchor('admin/categories/add','add category');?> |
 <?php endif;?>
+<?php if ( ! empty($is_admin)): ?>
+	<?php echo html::anchor('admin/ingredients/add','add ingredient');?> |
+   <?php endif;?>
 <?php echo html::anchor('admin/users/add/'.$_SESSION['auth_user_munch']->id,'Edit my profile');?>
 <?php if (count($user_rest) > 0): ?>
 <h2>List Of My Restaurant</h2>
@@ -28,7 +30,7 @@
 		<?php } ?>
 	</ul>
     <h2>List Of All Ingredients</h2>
-        <ul class="dashbord_ingredients">
+    <ul class="dashbord_ingredients">
 		<?php foreach($all_ingredients as $ingredient) { ?>
 				<li><?php echo html::anchor('admin/ingredients/add/'.$ingredient->id,'edit '.$ingredient->name); ?></li>
 		<?php } ?>
@@ -58,7 +60,15 @@
 				
 		<?php } ?>
 	</ul>
+<?php endif;?>
 
+<?php if (( empty($is_supadmin))and (! empty($is_admin))): ?>
+    <h2>List Of All Ingredients Visible For <?php echo ' '.$username ?></h2>
+            <ul class="dashbord_ingredients">
+            <?php foreach($all_ingredients as $ingredient) { ?>
+                    <li><?php echo '  '.$ingredient->name ?></li>
+            <?php } ?>
+        </ul>
 <?php endif;?>
 <div class="clear"></div>
 

@@ -148,6 +148,7 @@ abstract class Controller_Template_Admin extends Controller_Template
 								  ->set('is_admin', (bool)$this->_admin)
 								  ->set('is_supadmin', (bool)$this->_supadmin)
 								  ->set('username',$this->_user->username);
+
 		}
 		else
 		{

@@ -68,4 +68,12 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
 			}
 		}
 	}
+    public function action_delete($id)
+	{
+		$ingredient = ORM::factory('ingredient',$id);
+		$ingredient->remove('categories');
+		$ingredient->delete();
+		$this->request->redirect(Route::get('admin')->uri());
+
+	}
 }

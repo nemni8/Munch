@@ -84,4 +84,5 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 				->find_all()->as_array());
 	}
 */
+
 } // End Welcome

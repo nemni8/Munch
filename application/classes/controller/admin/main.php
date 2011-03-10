@@ -11,14 +11,15 @@ class Controller_Admin_Main extends Controller_Template_Admin
 			$user = ORM::factory('user');
             $ingredient = ORM::factory('ingredient');
             $category = ORM::factory('category');
-            $all_ingredients = $ingredient->get_all_ingredients();
+
             $all_ingredient_categories = $category->get_all_categories('ingredient');
 			$all_restaurant_categories = $category->get_all_categories('restaurant');
 
 			if (empty($this->_supadmin))
 			{
 				$user_rest = $rest->get_user_restaurants($this->_user->id);
-				$all_users = array();
+				$all_ingredients = $ingredient->get_all_ingredients_visible_for_user($this->_user->id);
+                $all_users = array();
 
             
 			}
@@ -26,14 +27,17 @@ class Controller_Admin_Main extends Controller_Template_Admin
 			{
 				$user_rest = $rest->get_all_restaurants();
 				$all_users = $user->get_all_users();
+                 $all_ingredients = $ingredient->get_all_ingredients();
 			}
 			$this->template->content = View::factory('admin/dashboard')
-									   ->set('user_rest',$user_rest)
+									   ->set('username',$this->_user->username)
+                                       ->set('user_rest',$user_rest)
 									   ->set('all_users',$all_users)
                                        ->set('all_ingredients',$all_ingredients)
                                        ->set('all_ingredient_categories',$all_ingredient_categories)
 										->set('all_restaurant_categories',$all_restaurant_categories)
-									   ->set('is_supadmin', (bool)$this->_supadmin);
+									   ->set('is_supadmin', (bool)$this->_supadmin)
+                                       ->set('is_admin', (bool)$this->_admin);
 		}
 		// if not logged in THEN show login page
 		else
