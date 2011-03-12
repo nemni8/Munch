@@ -50,6 +50,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 				$this->template->content = View::factory('admin/restaurants/add&edit')
 										   ->set('rest', $rest)
 										   ->set('type',$type)
+                                           ->set('active',$rest->active)
 										   ->set('id',$id)
 										   ->set('admins', $admins)
 										   ->set('is_admin',$this->_checkSupadmin())
@@ -67,6 +68,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 				$this->template->content = View::factory('admin/restaurants/add&edit')
 				->set('type','add')
 				->set('admins', $admins)
+                ->set('active',$rest->active)
 				->set('is_admin',$this->_checkSupadmin())
 				->set('arr_input',$rest->get_col());
 			}

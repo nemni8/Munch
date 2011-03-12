@@ -1,30 +1,30 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Ingredients extends Controller_Template_Admin
+class Controller_Admin_Dishes extends Controller_Template_Admin
 {
-	
+
 	public function action_add($id = NULL)
 	{
-		$admin_level = ($this->_checkSupadmin()) ? 1 : 0 ;
+
 		//POST
 		if ( ! empty($_POST))
 		{
 			// set ingredient to be new or old
 			if ( ! empty($id))
 			{
-				$ingredient = ORM::factory('ingredient',$id);
+				$dish = ORM::factory('dish',$id);
 				// check if the current user have access to change user details
 				if(!$this->_checkSupadmin())
 				{
 					echo 'you can not access to this page';
 					die();
 				}
-				$ingredient->edit($_POST,$admin_level);
+				$dish->edit($_POST);
 			}
 			else
 			{
-				$ingredient = ORM::factory('ingredient');
-				$ingredient->add_new($_POST,$admin_level);
+				$dish = ORM::factory('dish');
+				$dish->add_new($_POST);
 			}
 			// if user is new then add to table if old then update
 
@@ -37,19 +37,20 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
 			// IF user exist AND current user is trying to edit his profile THEN read all filed
 			if ( ! empty($id))
 				{
-				$ingredient = ORM::factory('ingredient', $id);
+				$dish = ORM::factory('dish', $id);
 				// check if the current user have access to change user details
 				if(  ! $this->_checkSupadmin())
 				{
 					echo 'you can not access to this page';
 					die();
 				}
-				$this->template->content = View::factory('admin/ingredients/add&edit')
-										   ->set('ingredient',$ingredient)
-                                           ->set('type','edit')
-										   ->set('admin_level',$admin_level)
+				$this->template->content = View::factory('admin/dishes/add&edit')
+										   ->set('dish',$dish)
                                            ->set('id',$id)
-										   ->set('arr_input',$ingredient->get_col());
+                                           ->set('type','edit')
+										   ->set('price',$dish->price)
+                                           ->set('description',$dish->description)
+                                           ->set('arr_input',$dish->get_col());
 			}
 			// if rest not exist
 			else
@@ -59,22 +60,23 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
 					echo 'you can not access to this page';
 					die();
 				}
-				$ingredient = ORM::factory('ingredient');
-				$this->template->content = View::factory('admin/ingredients/add&edit')
-										   ->set('type','add')
-										   ->set('admin_level',$admin_level)
-										   ->set('ingredient',$ingredient)
-										   ->set('arr_input',$ingredient->get_col());
+				$dish = ORM::factory('dish');
+				$this->template->content = View::factory('admin/dishes/add&edit')
+                                           ->set('type','add')
+                                           
+                                           ->set('dish',$dish)
+                                           ->set('arr_input',$dish->get_col());
 			}
 		}
 	}
     public function action_delete($id)
 	{
-		$ingredient = ORM::factory('ingredient',$id);
-		$ingredient->remove('categories');
-        $ingredient->remove('dishes');
-		$ingredient->delete();
+		$dish = ORM::factory('dish',$id);
+        $dish->remove('ingredients');
+		$dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 
 	}
+    
 }
+
