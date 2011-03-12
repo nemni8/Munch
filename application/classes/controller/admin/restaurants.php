@@ -4,7 +4,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 {
 	public function action_add($id = NULL)
 	{
-		// echo  $this->_user->id;
+		$this->template->header = "";
 		//POST
 		if ( ! empty($_POST))
 		{

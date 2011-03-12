@@ -43,7 +43,7 @@
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
-		<?php echo Form::submit('submit', $type)?>
+		<?php echo Form::submit('submit', $type,array('id'=>'submit_rest_form'))?>
 	<?php echo Form::close();?>
 </div>
 

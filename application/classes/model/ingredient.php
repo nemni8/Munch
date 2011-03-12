@@ -60,6 +60,8 @@ public function get_all_ingredients_visible_for_user($id)
 
 		$this->name = $post['name'];
         $this->approval_level=$admin_level;
+		if($admin_level)
+			$this->user_id =  0 ;
 		$this->save();
 		if(isset($post['category_id']))
 		{
