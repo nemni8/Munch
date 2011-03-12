@@ -175,10 +175,12 @@ abstract class Controller_Template_Admin extends Controller_Template
 				->set('is_admin', (bool)$this->_admin);
 
 		//navigation
+		/*
 		$nav = View::factory('admin/nav')
 				->set('is_user', (bool)$this->_user);
 
 		$this->template->nav = $nav;
+		 */
 
 		$scripts = array(
 			'media/js/jquery-1.5.1.min.js',

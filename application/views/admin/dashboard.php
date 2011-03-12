@@ -1,12 +1,3 @@
-<?php if ( ! empty($is_supadmin)): ?>
-	<?php echo html::anchor('admin/restaurants/add','add restaurant');?> |
-	<?php echo html::anchor('admin/users/add','add user');?> |
-    <?php echo html::anchor('admin/categories/add','add category');?> |
-<?php endif;?>
-<?php if ( ! empty($is_admin)): ?>
-	<?php echo html::anchor('admin/ingredients/add','add ingredient');?> |
-   <?php endif;?>
-<?php echo html::anchor('admin/users/add/'.$_SESSION['auth_user_munch']->id,'Edit my profile');?>
 <?php if (count($user_rest) > 0): ?>
 <h2>List Of My Restaurant</h2>
 <ul class="dashbord_rest">
@@ -71,4 +62,8 @@
         </ul>
 <?php endif;?>
 <div class="clear"></div>
+<div id="dialog_form_restaurant" title="Create new restaurant">
+	<?php  echo Request::factory('admin/restaurants/add')->execute();?>
+</div>
+<div><?php echo Form::button('add_restaurant','Add Restaurant',array('id'=>'add_restaurant_button'));?></div>
 

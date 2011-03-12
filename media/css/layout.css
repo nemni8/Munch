@@ -1,4 +1,87 @@
 html {
    /* direction: rtl;*/
 }
+#header {
+    clear: both;
+    height: 130px;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#header_inner {
+    background-image: url("../images/bg_background.png");
+    border-color: #2694E8 #2694E8 -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    clear: both;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    width: 990px;
+    z-index: 100;
+}
+#navigation {
+    height: 40px;
+    margin: 0 auto;
+    width: 990px;
+}
+#menu {
+    -moz-padding-start: 40px;
+    display: block;
+    list-style-type: disc;
+    padding:0;
+    margin: 0 auto;
+    width: 990px;
+}
+#menu li {
+    font-size: 16px;
+    margin-right: 10px;
+    margin-top:10px;
+    float: left;
+    position: relative;
+    white-space: nowrap;
+    list-style: none outside none;
+}
+#menu li span {margin-right:5px;}
+#user_box {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: -moz-linear-gradient(270deg, #62BBE8, #62BBE8) repeat scroll 0 0 transparent;
+    border-color: #62BBE8 #62BBE8 #62BBE8;
+    border-style: solid;
+    border-width: 1px;
+    margin-right:3px;
+    margin-top:3px;
+    color:white;
+}
+#user_box ul {
+    -moz-padding-start: 40px;
+    display: block;
+    list-style-type: disc;
+    padding:0;
+    margin: 5px auto;
+    height:21px;
+}
+#user_box ul li {
+    font-size: 14px;
+    font-weight:bold;
+    float: left;
+    position: relative;
+    white-space: nowrap;
+    list-style: none outside none;
+
+}
+#user_box ul li span {margin-right:5px;margin-left:5px}
+#content {
+    background-image: url("../images/bg_background.png");
+    border-color: #2694E8 #2694E8 -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    margin: 0 auto;
+    min-height: 830px;
+    padding-top: 10px;
+    position: static;
+    width: 990px;
+}
 .clear {clear: both; float: none; margin: 0; padding: 0;}
