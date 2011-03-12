@@ -45,7 +45,10 @@ class Model_Restaurant extends ORM
 	public function add_new($post)
 	{
 		$this->values($post);
-		$this->save();
+        if( ! empty($post['active']))
+		    $this->active = $post['active'];
+
+        $this->save();
 		if(isset($post['category_id']))
 		{
 			$this->remove('categories');

@@ -21,6 +21,7 @@
 											->from('categories')
 											->where('model','=','ingredient')
 											->execute()->as_array('id','name'),$default);?>
+
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
