@@ -1,11 +1,13 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
+
 <div class="restaurant">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/restaurants/add/'.$edit_id);?>
 		<!-- change user ID of A restaurant-->
+    <?php $owner_id = ($type == 'edit') ? $rest->user_id : $edit_id;?>
 		<?php if ($is_admin): ?>
 			<?php echo Form::label('user_id','User Name');?>
-			<?php  echo Form::select('user_id',$admins,$edit_id);?>
+			<?php  echo Form::select('user_id',$admins,$owner_id);?>
 		<?php endif;?>
 		<?php foreach( $arr_input as $input): ?>
 			<div>
@@ -34,6 +36,10 @@
 											->from('categories')
 											->where('model','=','restaurant')
 											->execute()->as_array('id','name'),$default);?>
+            <div class="clear"></div>
+            <?php  echo Form::label('active','Active');?>
+            <?php $default = ($type == 'edit') ? $rest->active : NULL; ?>
+            <?php  echo Form::select('active',Kohana::config ('global.active'),$default);?>
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->

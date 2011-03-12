@@ -10,7 +10,11 @@ class Model_Category extends ORM
 		'restaurants' => array(
 			'model' => 'restaurant',
 			'through' => 'categories_restaurants'
-		)
+		),
+         'dishes' => array(
+			'model' => 'dish',
+			'through' => 'ingredients_dishes'
+		),
 	);
 
 	protected $_rules = array(

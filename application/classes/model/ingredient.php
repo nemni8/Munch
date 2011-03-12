@@ -6,6 +6,10 @@ class Model_Ingredient extends ORM
 		'categories' => array(
 			'model' => 'category',
 			'through' => 'categories_ingredients'
+		),
+        'dishes' => array(
+			'model' => 'dish',
+			'through' => 'ingredients_dishes'
 		)
 	);
 
