@@ -73,7 +73,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 	{
 		$dish = ORM::factory('dish',$id);
         $dish->remove('ingredients');
-		$dish->delete();
+        $dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 
 	}

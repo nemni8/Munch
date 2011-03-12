@@ -17,18 +17,17 @@ return
 					'mehadrin_index' =>2,
 					'badatz_index' =>3,
 
-
 					/*restaurant meat dairy array*/
 					'meat_dairy' => array
 					(
 						'',
 						'meat',
 						'dairy',
-//						'parve'
+						'parve'
 					),
 					'meat_index' =>1,
 					'dairy_index' =>2,
-//					'parve_index' =>3,
+					'parve_index' =>3,
 
 					/*dish meat dairy array*/
 					'mdv' => array
@@ -75,12 +74,12 @@ return
 					'not_index' =>0,
 					'active_index' =>1,
 
+
                     /*basic or optional ingredient  array*/
                     'basic_optional' => array
 					(
 						'Basic',
 						'Optional',
-
 					),
 					'basic_index' =>0,
 					'optional_index' =>1,

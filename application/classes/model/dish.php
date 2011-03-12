@@ -7,11 +7,13 @@ class Model_Dish extends ORM
 			'model' => 'ingredient',
 			'through' => 'ingredients_dishes'
 		),
+
       
         'categories' => array(
 			'model' => 'category',
 			'through' => 'categories_dishes'
-		)
+        )
+        
 	);
     protected $_belongs_to = array(
 		'restaurant' => array(),
@@ -30,9 +32,9 @@ class Model_Dish extends ORM
 				array(
 					    'name'          => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
                         'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
-                        'price'          => array('col_name' => 'size','title' => 'Size ', 'type' => 'text'),
                         'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
-                        
+                        'rest_id'   => array('col_name' => 'rest_id','title' => 'rest id', 'type' => 'text'),
+
 				 )
 		;
 	}
@@ -49,6 +51,7 @@ public function get_all_ingredients_visible_for_rest($id)
 		$dish = ORM::factory('dish');
 		$dish->name = $post['name'];
         $dish->price = $post['price'];
+
         $dish->size = $post['size'];
 		$dish->description = $post['description'];
         $dish->mdv = $post('mdv');
@@ -71,7 +74,8 @@ public function get_all_ingredients_visible_for_rest($id)
         $this->size = $post['size'];
         $this->description = $post['description'];
         $this->mdv = $post('mdv');
-        $this->save();
+         $this->price = $post['price'];
+         $this->save();
 
 		//if(isset($post['category_id']))
 		//{

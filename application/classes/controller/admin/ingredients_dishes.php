@@ -71,8 +71,6 @@ class Controller_Admin_Ingredients_Dishes extends Controller_Template_Admin
     public function action_delete($id)
 	{
 		$ingredient_dish = ORM::factory('ingredient_dish',$id);
-		$ingredient_dish->remove('categories');
-        $ingredient_dish->remove('dishes');
 		$ingredient_dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 

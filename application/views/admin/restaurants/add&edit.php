@@ -7,7 +7,9 @@
     <?php $owner_id = ($type == 'edit') ? $rest->user_id : $edit_id;?>
 		<?php if ($is_admin): ?>
 			<?php echo Form::label('user_id','User Name');?>
+
 			<?php  echo Form::select('user_id',$admins,$owner_id);?>
+
 		<?php endif;?>
 		<?php foreach( $arr_input as $input): ?>
 			<div>
