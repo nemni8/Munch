@@ -72,7 +72,7 @@
 <?php endif;?>
 <div class="clear"></div>
 <div id="dialog_form_restaurant" title="Create new restaurant">
-	<?php  echo Request::factory('admin/restaurants/add')->execute();?>
+	<?php  // echo Request::factory('admin/restaurants/add')->execute();?>
 </div>
 <div><?php echo Form::button('add_restaurant','Add Restaurant',array('id'=>'add_restaurant_button'));?></div>
 
