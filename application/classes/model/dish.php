@@ -5,7 +5,7 @@ class Model_Dish extends ORM
 	protected $_has_many = array(
 		'ingredients' => array(
 			'model' => 'ingredient',
-			'through' => 'ingredients_dishes'
+			'through' => 'dishes_ingredients'
 		),
 
       
@@ -32,8 +32,10 @@ class Model_Dish extends ORM
 				array(
 					    'name'          => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
                         'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
+                        'size'   => array('col_name' => 'size','title' => 'Size', 'type' => 'text'),
                         'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
-                        'rest_id'   => array('col_name' => 'rest_id','title' => 'rest id', 'type' => 'text'),
+
+
 
 				 )
 		;
@@ -51,18 +53,18 @@ public function get_all_ingredients_visible_for_rest($id)
 		$dish = ORM::factory('dish');
 		$dish->name = $post['name'];
         $dish->price = $post['price'];
-
+        $dish->mdv = $post['mdv'];
         $dish->size = $post['size'];
 		$dish->description = $post['description'];
-        $dish->mdv = $post('mdv');
+
         $dish->save();
-		//if(isset($post['category_id']))
-		//{
-		//	foreach($post['category_id'] as $cat)
-		//	{
-		//			$ingredient->add('categories',$cat);
-		//	}
-		//}
+            if(isset($post['category_id']))
+		    {
+			foreach($post['category_id'] as $cat)
+			{
+					$dish->add('categories',$cat);
+			}
+		}
 
 
 	}
@@ -73,19 +75,19 @@ public function get_all_ingredients_visible_for_rest($id)
         $this->price = $post['price'];
         $this->size = $post['size'];
         $this->description = $post['description'];
-        $this->mdv = $post('mdv');
-         $this->price = $post['price'];
-         $this->save();
+        $this->mdv = $post['mdv'];
+        $this->price = $post['price'];
+        $this->save();
 
-		//if(isset($post['category_id']))
-		//{
-		//	$this->remove('categories');
-		//	/*add category*/
-		//	foreach($post['category_id'] as $cat)
-		//	{
-		//			$this->add('categories',$cat);
-		//	}
-		//}
+		if(isset($post['category_id']))
+		{
+			$this->remove('categories');
+			/*add category*/
+			foreach($post['category_id'] as $cat)
+			{
+					$this->add('categories',$cat);
+			}
+		}
 
 
 	}

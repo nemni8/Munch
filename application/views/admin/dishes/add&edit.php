@@ -17,6 +17,13 @@
             <?php echo Form::label('mdv','Dish Type');?>
 		    <?php $default = ($type == 'edit') ? $dish->mdv : NULL; ?>
 		    <?php  echo Form::select('mdv',Kohana::config ('global.mdv'),$default);?>
+            <?php  echo Form::label('category_id','Dish Category');?>
+			<?php  $default = ($type == 'edit') ? $dish->categories->find_all()->as_array() : array() ; ?>
+			<?php  echo Form::select('category_id[]',
+										DB::select('id','name')
+											->from('categories')
+											->where('model','=','dish')
+											->execute()->as_array('id','name'),$default);?>
 
 		<div class="clear"></div>
 		<!-- end of the form -->
