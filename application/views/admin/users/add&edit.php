@@ -17,10 +17,10 @@
 		<?php endforeach; ?>
 		<?php if ($is_admin): ?>
 			<?php echo Form::label('user_role_admin','Admin User');?>
-			<?php echo form::checkbox('user_role_admin', 1,$flag_admin,array('id'=>'checkadmin','onclick' => 'admincheckbox()'));?>
+			<?php echo form::checkbox('user_role_admin', 1,$flag_admin,array('id'=>'checkadmin'));?>
 			<div class="clear"></div>
 			<?php echo Form::label('user_role_supadmin','Super Admin User');?>
-			<?php echo Form::checkbox('user_role_supadmin', 1,$flag_supadmin,array('id'=>'checksupadmin','onclick' => 'supadmincheckbox()'));?>
+			<?php echo Form::checkbox('user_role_supadmin', 1,$flag_supadmin,array('id'=>'checksupadmin'));?>
 		<?php endif;?>
 		<div class="clear" ></div>
 		<?php echo Form::submit('submit', $type)?>

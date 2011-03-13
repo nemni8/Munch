@@ -1,6 +1,9 @@
 html {
    /* direction: rtl;*/
 }
+/*global class*/
+.clear {clear: both; float: none; margin: 0; padding: 0;}
+/*header*/
 #header {
     clear: both;
     height: 130px;
@@ -10,10 +13,10 @@ html {
     padding: 0;
 }
 #header_inner {
-    background-image: url("../images/bg_background.png");
+   /* background-image: url("../images/bg_background.png");
     border-color: #2694E8 #2694E8 -moz-use-text-color;
     border-style: solid solid none;
-    border-width: 1px 1px medium;
+    border-width: 1px 1px medium;*/
     clear: both;
     height: 100px;
     margin: 0 auto;
@@ -44,6 +47,7 @@ html {
     list-style: none outside none;
 }
 #menu li span {margin-right:5px;}
+#menu a {cursor: pointer;}
 #user_box {
     -moz-border-radius: 5px 5px 5px 5px;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -73,6 +77,7 @@ html {
 
 }
 #user_box ul li span {margin-right:5px;margin-left:5px}
+/*content*/
 #content {
     background-image: url("../images/bg_background.png");
     border-color: #2694E8 #2694E8 -moz-use-text-color;
@@ -84,4 +89,29 @@ html {
     position: static;
     width: 990px;
 }
-.clear {clear: both; float: none; margin: 0; padding: 0;}
+/*footer*/
+#footer {
+    clear: both;
+    height: 130px;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#inner_footer {
+    border-color: #2694E8 #2694E8  -moz-use-text-color;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+    clear: both;
+    height: 58px;
+    margin: 0 auto;
+    position: relative;
+    width: 990px;
+    border-bottom: 1px solid #2694E8;
+}				
+/*form*/
+div.form_restaurant input {margin-bottom:12px; width:95%; padding: .4em; }
+div.form_restaurant label { display:block; }
+div.form_restaurant input.text { margin-bottom:12px; width:95%; padding: .4em; }
+div.form_restaurant fieldset { padding:0; border:0; margin-top:25px; }
+a.form_rest_links {cursor:pointer}

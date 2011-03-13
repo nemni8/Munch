@@ -2,7 +2,9 @@
 <h2>List Of My Restaurant</h2>
 <ul class="dashbord_rest">
 	<?php foreach($user_rest as $rest) { ?>
-			<li><?php echo html::anchor('admin/restaurants/add/'.$rest->id,'edit '.$rest->name); ?></li>
+			<li>
+				<a class="form_rest_links" onclick="id_assigner(<?php echo $rest->id?>),true"><?php echo 'edit'.$rest->name?></a>
+			</li>
 			<li><?php echo $rest->user_id; ?></li>
 			<li><?php echo $rest->name; ?></li>
 			<li><?php echo $rest->email; ?></li>
@@ -56,10 +58,7 @@
 
     <?php } ?>
     </table>
-
-
 <?php endif;?>
-
 <?php if (( empty($is_supadmin))and (! empty($is_admin))): ?>
     <h2>List Of All Ingredients Visible For <?php echo ' '.$username ?></h2>
             <table class="dashbord_ingredients" border="0">
@@ -71,9 +70,6 @@
         </table>
 <?php endif;?>
 <div class="clear"></div>
-<div id="dialog_form_restaurant" title="Create new restaurant">
-	<?php  echo Request::factory('admin/restaurants/add')->execute();?>
-</div>
-<div><?php echo Form::button('add_restaurant','Add Restaurant',array('id'=>'add_restaurant_button'));?></div>
+
 
 

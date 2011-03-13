@@ -1,8 +1,8 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-
-<div class="restaurant">
+<?php if(isset($errors))  echo 1 ; ?>
+<div class="form_restaurant">
 	<!-- start of the form -->
-	<?php echo Form::open('admin/restaurants/add/'.$edit_id);?>
+	<?php echo Form::open('admin/restaurants/create/'.$edit_id,array('id'=>'form_rest'));?>
 		<!-- change user ID of A restaurant-->
     <?php $owner_id = ($type == 'edit') ? $rest->user_id : $edit_id;?>
 		<?php if ($is_admin): ?>
@@ -11,6 +11,7 @@
 			<?php  echo Form::select('user_id',$admins,$owner_id);?>
 
 		<?php endif;?>
+		<fieldset>
 		<?php foreach( $arr_input as $input): ?>
 			<div>
 				<?php echo Form::label($input['col_name'],$input['title']);?>
@@ -20,6 +21,7 @@
 				?>
 			</div>
 		<?php endforeach; ?>
+		</fieldset>
 		<!-- choose kosher type from the global.kosher_level variable-->
 		<?php echo Form::label('kosher_type','Kosher Type');?>
 		<?php $default = ($type == 'edit') ? $rest->kosher_type : NULL; ?>
@@ -45,7 +47,6 @@
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
-		<?php echo Form::submit('submit', $type,array('id'=>'submit_rest_form'))?>
 	<?php echo Form::close();?>
 </div>
 

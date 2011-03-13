@@ -113,14 +113,14 @@ abstract class Controller_Template_Admin extends Controller_Template
 		if ($this->request->action() !== 'error' && $this->_ajax === TRUE)
 		{
 			// Use the template content as the response
-			$this->request->response = $this->template->content;
+			$this->response->body($this->template->content);
 		}
 		else
 		{
 			// render if auto_render is still set to true
 			if ($this->auto_render === TRUE)
 			{
-				$this->request->response = $this->template->render();
+				$this->response->body($this->template->render());
 			}
 			parent::after();
 		}

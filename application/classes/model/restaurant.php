@@ -13,14 +13,27 @@ class Model_Restaurant extends ORM
 		'user' => array(),
 	);
 
-	protected $_rules = array(
+	/*protected $_rules = array(
 		'name' => array('not_empty' => NULL),
 		'user_id' => array('not_empty' => NULL)
 	);
+	*/
 
 	protected $_filters = array(
 		TRUE => array('trim' => NULL)
 	);
+
+	public function rules()
+	{
+		return array(
+			'name' => array(
+				array('not_empty'),
+				array('min_length', array(':value', 4)),
+                array('max_length', array(':value', 32))
+			),
+		);
+	}
+	
 	// col definitions for the CRUD functions
 	public function get_col()
 	{
@@ -47,8 +60,7 @@ class Model_Restaurant extends ORM
 		$this->values($post);
         if( ! empty($post['active']))
 		    $this->active = $post['active'];
-
-        $this->save();
+		$this->save();
 		if(isset($post['category_id']))
 		{
 			$this->remove('categories');

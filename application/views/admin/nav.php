@@ -16,7 +16,7 @@
 			</li>
 			<li>
 				<span>|</span>
-				<?php echo html::anchor('admin/restaurants/add','Add restaurant');?>
+				<a id="add_restaurant_button">Add restaurant</a>
 			</li>
 			<li>
 				<span>|</span>
