@@ -16,7 +16,11 @@ class Model_Dishesingredient extends ORM
 
 	);
 
-
+public function get_dishingredient_id($dish_id,$ingredient_id )
+    {
+    return DB::select('id')->from('dishes_ingredients')->where('dish_id','=',$dish_id)->
+            and_where('ingredient_id','=',$ingredient_id )->as_object()->execute();
+    }
 
 public function get_all_ingredients_in_dish($id)
     {

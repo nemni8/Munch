@@ -1,7 +1,7 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
 <div class="dish_ingredient">
 	<!-- start of the form -->
-	<?php echo Form::open('admin/dishesingredients/add/'.$edit_id);?>
+	<?php echo Form::open('admin/dishesingredients/add/'.$edit_id,array('id'=>'form_dish_ingredient'));?>
 		<!-- change user ID of A restaurant-->
             <?php echo Form::label('basic_optional','Basic Or Optional');?>
 		    <?php $default = ($type == 'edit') ? $dishesingredient->basic_optional : NULL; ?>

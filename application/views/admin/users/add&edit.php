@@ -1,6 +1,6 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-<div class="form_user">
-	<?php echo Form::open('admin/users/create/'.$edit_id);?>
+<div class="form_users">
+	<?php echo Form::open('admin/users/create/'.$edit_id,array('id'=>'form_user'));?>
 		<?php foreach( $arr_input as $input): ?>
 			<div>
 				<?php echo Form::label($input['col_name'],$input['title']);?>

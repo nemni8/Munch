@@ -1,7 +1,7 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
 <div class="dish">
 	<!-- start of the form -->
-	<?php echo Form::open('admin/dishes/add/'.$edit_id);?>
+	<?php echo Form::open('admin/dishes/create/'.$edit_id,array('id'=>'form_dish'));?>
 		<!-- change user ID of A restaurant-->
 
 		<?php foreach( $arr_input as $input): ?>

@@ -28,7 +28,7 @@ class Model_User extends Model_Auth_User
 	{
 		return DB::select()->from('users')->as_object()->execute();
 	}
-	public function add_new($post)
+/*	public function add_new($post)
 	{
 		$user = ORM::factory('user');
 		$user->email = $post['email'];
@@ -81,5 +81,5 @@ class Model_User extends Model_Auth_User
 				->execute();
         }
 
-	}
+	}*/
 } // End User Model

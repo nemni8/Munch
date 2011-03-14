@@ -93,23 +93,23 @@ class Controller_Admin_Users extends Controller_Template_Admin
                 {
                     $user->save();
                                 // add role if not exist
-                if (isset($_POST['user_role_admin']) AND ! $flag_admin)
-                    $user->add('roles', ORM::factory('role', array('name' => 'admin')));
-                if (isset($_POST['user_role_supadmin']) AND ! $flag_supadmin)
-                    $user->add('roles', ORM::factory('role', array('name' => 'supadmin')));
-                // delete role if needed
-                if  ($this->_checkSupadmin()) {
-                if ( ! isset($_POST['user_role_admin']) AND $flag_admin)
-                    DB::delete('roles_users')
-                        ->where('user_id', '=', $user->id)
-                        ->where('role_id', '=', 2)
-                        ->execute();
-                if ( ! isset($_POST['user_role_supadmin']) AND $flag_supadmin)
-                    DB::delete('roles_users')
-                        ->where('user_id', '=', $user->id)
-                        ->where('role_id', '=', 3)
-                        ->execute();
-                }
+                    if (isset($_POST['user_role_admin']) AND ! $flag_admin)
+                        $user->add('roles', ORM::factory('role', array('name' => 'admin')));
+                    if (isset($_POST['user_role_supadmin']) AND ! $flag_supadmin)
+                        $user->add('roles', ORM::factory('role', array('name' => 'supadmin')));
+                    // delete role if needed
+                    if  ($this->_checkSupadmin()) {
+                    if ( ! isset($_POST['user_role_admin']) AND $flag_admin)
+                        DB::delete('roles_users')
+                            ->where('user_id', '=', $user->id)
+                            ->where('role_id', '=', 2)
+                            ->execute();
+                    if ( ! isset($_POST['user_role_supadmin']) AND $flag_supadmin)
+                        DB::delete('roles_users')
+                            ->where('user_id', '=', $user->id)
+                            ->where('role_id', '=', 3)
+                            ->execute();
+                    }
                     die();
                 }
                 catch (ORM_Validation_Exception $e)

@@ -55,7 +55,7 @@ class Model_Restaurant extends ORM
 	}
 	protected $_created_column = array('column' => 'created',  'format' => 'Y-m-d H:i:s');
 	protected $_updated_column = array('column' => 'modified', 'format' => 'Y-m-d H:i:s');
-	public function add_new($post)
+/*	public function add_new($post)
 	{
 		$this->values($post);
         if( ! empty($post['active']))
@@ -70,7 +70,7 @@ class Model_Restaurant extends ORM
 			}
 		}
 
-	}
+	}*/
 	public function get_user_restaurants($id)
 	{
 		return DB::select()->from('restaurants')->where('user_id','=',$id)->as_object()->execute();

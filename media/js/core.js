@@ -26,6 +26,7 @@ $(document).ready(function() {
 			autoOpen: false,
 			height: 600,
 			width: 350,
+            position: 'top',
 			modal: true,
 			buttons: {
 				"Save Restaurant": function() {
@@ -74,12 +75,12 @@ $(document).ready(function() {
 					action = 'add';
 				}
 				$.get('admin/users/'+action+'/'+temp, function(data) {
-					$("#form_dialog_user").html(data);
+                    $("#form_dialog_user").html(data);
 				});
 			},
 			autoOpen: false,
-			height: 600,
-			width: 350,
+			autoSize: true,
+            position: 'top',
 			modal: true,
 			buttons: {
 				"Save User": function() {

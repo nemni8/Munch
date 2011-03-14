@@ -14,6 +14,7 @@ class Controller_Admin_Main extends Controller_Template_Admin
 
             $all_ingredient_categories = $category->get_all_categories('ingredient');
 			$all_restaurant_categories = $category->get_all_categories('restaurant');
+            $all_dish_categories = $category->get_all_categories('dish');
 
 			if (empty($this->_supadmin))
 			{
@@ -27,7 +28,7 @@ class Controller_Admin_Main extends Controller_Template_Admin
 			{
 				$user_rest = $rest->get_all_restaurants();
 				$all_users = $user->get_all_users();
-                 $all_ingredients = $ingredient->get_all_ingredients();
+                $all_ingredients = $ingredient->get_all_ingredients();
 			}
 			$this->template->content = View::factory('admin/dashboard')
 									   ->set('username',$this->_user->username)
@@ -35,7 +36,8 @@ class Controller_Admin_Main extends Controller_Template_Admin
 									   ->set('all_users',$all_users)
                                        ->set('all_ingredients',$all_ingredients)
                                        ->set('all_ingredient_categories',$all_ingredient_categories)
-										->set('all_restaurant_categories',$all_restaurant_categories)
+									   ->set('all_restaurant_categories',$all_restaurant_categories)
+                                       ->set('all_dish_categories',$all_dish_categories)
 									   ->set('is_supadmin', (bool)$this->_supadmin)
                                        ->set('is_admin', (bool)$this->_admin);
 		}
