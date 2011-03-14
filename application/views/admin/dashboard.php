@@ -3,7 +3,7 @@
 <ul class="dashbord_rest">
 	<?php foreach($user_rest as $rest) { ?>
 			<li>
-				<a class="form_rest_links" onclick="id_assigner(<?php echo $rest->id?>),true"><?php echo 'edit'.$rest->name?></a>
+				<a class="form_rest_links" onclick="id_assigner(<?php echo $rest->id. ",'rest'" ?>),true"><?php echo 'edit '.$rest->name?></a>
 			</li>
 			<li><?php echo $rest->user_id; ?></li>
 			<li><?php echo $rest->name; ?></li>
@@ -20,7 +20,10 @@
 
 	<ul class="dashbord_user">
 		<?php foreach($all_users as $user) { ?>
-				<li><?php echo html::anchor('admin/users/add/'.$user->id,'edit '.$user->username); ?></li>
+				<li>
+                <a class="form_user_links" onclick="id_assigner(<?php echo $user->id. ",'user'" ?>),true"><?php echo 'edit '.$user->username?></a>
+
+                </li>
 				<li><?php echo $user->email; ?></li>
 		<?php } ?>
 	</ul>

@@ -6,13 +6,14 @@
 		<?php if (isset($_SESSION['auth_user_munch'])) : ?>
 			<li>
 				<span>|</span>
-				<?php echo html::anchor('admin/users/add/'.$_SESSION['auth_user_munch']->id,'Edit my profile');?>
+                <a onclick="id_assigner(<?php echo $_SESSION['auth_user_munch']->id ?>,'user'),true" > Edit my profile</a>
+				
 			</li>
 		<?php endif; ?>
 		<?php if ( ! empty($is_supadmin)): ?>
 			<li>
 				<span>|</span>
-				<?php echo html::anchor('admin/users/add','Add user');?>
+                <a id="add_user_button">Add User</a>
 			</li>
 			<li>
 				<span>|</span>

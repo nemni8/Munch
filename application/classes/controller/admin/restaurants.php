@@ -71,11 +71,22 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 
 		if ($_POST)
 		{
-			$rest->values($_POST);
+
+            $rest->values($_POST);
 
 			try
 			{
+
 				$rest->save();
+                if(isset($_POST['category_id']))
+                {
+                    $rest->remove('categories');
+                    foreach($_POST['category_id'] as $cat)
+                    {
+                            $rest->add('categories',$cat);
+                    }
+                }
+
 				die();
 			}
 			catch (ORM_Validation_Exception $e)
