@@ -29,4 +29,12 @@
 		<!-- end of the form -->
 		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
+    <div class="demo">
+
+<div class="ui-widget">
+	<label for="birds">Birds: </label>
+	<input id="birds" size="50" />
+</div>
+
+</div>
 </div>

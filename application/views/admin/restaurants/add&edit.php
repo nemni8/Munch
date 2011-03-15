@@ -44,7 +44,7 @@
             <?php  echo Form::label('active','Active');?>
             <?php $default = ($type == 'edit') ? $rest->active : NULL; ?>
             <?php  echo Form::select('active',Kohana::config ('global.active'),$default);?>
-		<?php endif;?>
+            <?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
 	<?php echo Form::close();?>
