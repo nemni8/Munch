@@ -30,7 +30,7 @@ class Controller_Admin_Dishesingredients extends Controller_Template_Admin
             //$dishesingredient = ORM::factory('dishesingredient')->where('dish_id','=',$dish_id)->and_where('ingredient_id','=',$ingredient_id);
             $this->template->content = View::factory('admin/dishesingredients/add&edit')
 										   ->set('dishesingredient',$dishesingredient)
-                                           ->set('type','edit')
+                                           ->set('type',$type)
                                            ->set('id',$dishesingredient->id);
 
 
@@ -42,7 +42,7 @@ class Controller_Admin_Dishesingredients extends Controller_Template_Admin
             $this->template->content = View::factory('admin/dishesingredients/add&edit')
                 ->set('post', $_POST)
                 ->set('dishesingredient',$dishesingredient)
-                ->set('type','edit')
+                ->set('type',$type)
                 ->set('id',$id)
                 ->bind('errors', $errors);
 

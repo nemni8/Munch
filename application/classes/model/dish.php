@@ -40,11 +40,11 @@ class Model_Dish extends ORM
 				 )
 		;
 	}
-	public function get_all_ingredients()
+	public function get_all_dishes()
 	{
 		return DB::select()->from('dishes')->as_object()->execute();
 	}
-public function get_all_ingredients_visible_for_rest($id)
+public function get_all_dishes_visible_for_rest($id)
     {
     return DB::select()->from('dishes')->where('rest_id','=',$id)->as_object()->execute();
     }

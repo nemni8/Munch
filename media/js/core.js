@@ -1,14 +1,6 @@
 $(document).ready(function() {
 	//rest dialog functions
-    $('#checksupadmin').click(function(){
 
-		if ($('#checksupadmin:checked').val())
-    		$('#checkadmin').attr('checked',true);
-	});
-	$('#checkadmin').click(function(){
-		if ( ! $('#checkadmin:checked').val())
-    		$('#checksupadmin').attr('checked',false);
-	});
 	$("#form_dialog_rest").dialog({
 			open: function(){
 				if($("#id_of_rest").val()>0){
@@ -19,7 +11,7 @@ $(document).ready(function() {
 					temp="";
 					action = 'add';
 				}
-				$.get('admin/restaurants/'+action+'/'+temp, function(data) {
+				$.get('/munch/admin/restaurants/'+action+'/'+temp, function(data) {
 					$("#form_dialog_rest").html(data);
 				});
 			},
@@ -34,7 +26,7 @@ $(document).ready(function() {
                     $.ajax({
 						type: 'post',
 						dataType: 'html',
-						url: 'admin/restaurants/create/'+$temp,
+						url: '/munch/admin/restaurants/create/'+$temp,
 						data: $("#form_rest").serialize(),
 						success: function (response, status, xml) {
 							$("#form_dialog_rest").html('').html(response);
@@ -64,7 +56,17 @@ $(document).ready(function() {
 
 
     //user dialog functions
-	$("#form_dialog_user").dialog({
+    $('#checksupadmin').click(function(){
+
+		if ($('#checksupadmin:checked').val())
+    		$('#checkadmin').attr('checked',true);
+	});
+	$('#checkadmin').click(function(){
+		if ( ! $('#checkadmin:checked').val())
+    		$('#checksupadmin').attr('checked',false);
+	});
+
+    $("#form_dialog_user").dialog({
 			open: function(){
 				if($("#id_of_user").val()>0){
 					temp = $("#id_of_user").val();
@@ -74,7 +76,7 @@ $(document).ready(function() {
 					temp="";
 					action = 'add';
 				}
-				$.get('admin/users/'+action+'/'+temp, function(data) {
+				$.get('/munch/admin/users/'+action+'/'+temp, function(data) {
                     $("#form_dialog_user").html(data);
 				});
 			},
@@ -88,7 +90,7 @@ $(document).ready(function() {
                     $.ajax({
 						type: 'post',
 						dataType: 'html',
-						url: 'admin/users/create/'+$temp,
+						url: '/munch/admin/users/create/'+$temp,
 						data: $("#form_user").serialize(),
 						success: function (response, status, xml) {
                             $("#form_dialog_user").html('').html(response);
@@ -118,11 +120,56 @@ $(document).ready(function() {
 	$("#id_of_user").change(function(){
 		$( "#form_dialog_user" ).dialog( "open" );});
 
+//try to autocomplete
 
+       /* function split( val ) {
+			return val.split( /,\s*//* );
+		}
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
 
+		$( "#birds" )
+			// don't navigate away from the field on tab when selecting an item
+			.bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB &&
+						$( this ).data( "autocomplete" ).menu.active ) {
+					event.preventDefault();
+				}
+			})
+			.autocomplete({
+				source: function( request, response ) {
+					$.getJSON( "/munch/admin/search", {
+						term: extractLast( request.term )
+					}, response );
+				},
+				search: function() {
+					// custom minLength
+					var term = extractLast( this.value );
+					if ( term.length < 1 ) {
+						return false;
+					}
+				},
+				focus: function() {
+					// prevent value inserted on focus
+					return false;
+				},
+				select: function( event, ui ) {
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+					terms.push( ui.item.value );
+					// add placeholder to get the comma-and-space at the end
+					terms.push( "" );
+					this.value = terms.join( ", " );
+					return false;
+				}
+			});
+*/
 });
 function id_assigner(id,section){
-    
+
     if (section=='rest'){
         $("#id_of_rest").val(id);
         $( "#form_dialog_rest" ).dialog( "open" );
@@ -132,5 +179,13 @@ function id_assigner(id,section){
         $( "#form_dialog_user" ).dialog( "open" );
     }
 
+}
+function checksupadminfunction() {
+		if ($('#checksupadmin:checked').val())
+    		$('#checkadmin').attr('checked',true);
+}
+function checkadminfunction() {
+		if ( ! $('#checkadmin:checked').val())
+    		$('#checksupadmin').attr('checked',false);
 }
 

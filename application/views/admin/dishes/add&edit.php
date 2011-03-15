@@ -29,4 +29,5 @@
 		<!-- end of the form -->
 		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
+    
 </div>

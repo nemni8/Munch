@@ -50,5 +50,58 @@ class Controller_Admin_Main extends Controller_Template_Admin
 		}
 		
 	}
+    public function action_table($table)
+	{
+		// check if user is logged in the system
+		if ( ! empty($this->_user->id))
+		{
+
+            $function_name='';
+            $item = ORM::factory($table);
+			switch ($table) {
+                case ("restaurant"):
+                    $function_name='get_all_restaurants';
+                    break;
+                case ("ingredient"):
+                    $function_name='get_all_ingredients';
+                    break;
+                case ("dish"):
+                    $function_name='get_all_dishes';
+                    break;
+                case ("category"):
+                    $function_name='get_all_categories';
+                    break;
+            }
+
+            $all_items = $item->$function_name($table);
+
+
+			/*if (empty($this->_supadmin))
+			{
+				$user_rest = $rest->get_user_restaurants($this->_user->id);
+				$all_ingredients = $ingredient->get_all_ingredients_visible_for_user($this->_user->id);
+                $all_users = array();
+
+
+			}
+			else
+			{
+				$user_rest = $rest->get_all_restaurants();
+				$all_users = $user->get_all_users();
+                $all_ingredients = $ingredient->get_all_ingredients();
+			}*/
+			$this->template->content = View::factory('admin/table')
+									   ->set('id',$table)
+                                       ->set('all_items',$all_items)
+                                       ->set('function_name',$function_name)
+                                       ->set('arr_input',$item->get_col());
+									   //->set('is_supadmin', (bool)$this->_supadmin)
+                                       //->set('is_admin', (bool)$this->_admin);
+		}
+		// if not logged in THEN show login page
+
+
+	}
+
 
 } // End Welcome
