@@ -122,9 +122,6 @@ $(document).ready(function() {
 
 //try to autocomplete
 
-
- 
-
 });
 function id_assigner(id,section){
 
