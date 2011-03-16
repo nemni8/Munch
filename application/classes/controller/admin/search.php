@@ -25,6 +25,6 @@ while ($row = mysql_fetch_assoc($fetch)) {
 //mysql_close($conn);
 
 /* Toss back results as json encoded array. */
-echo json_encode(array_values($return_arr) );
+echo json_encode($return_arr) ;
  //echo $_GET['term'] . '(' . json_encode($return_arr) . ');';
 ;?>

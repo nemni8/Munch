@@ -17,8 +17,9 @@ $(document).ready(function() {
 			},
 			autoOpen: false,
 			height: 600,
-			width: 350,
-            position: 'top',
+			width: "AUTO",
+            resizable:false,
+			position: 'top',
 			modal: true,
 			buttons: {
 				"Save Restaurant": function() {

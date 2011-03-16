@@ -1,5 +1,4 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-<?php if(isset($errors))  echo 1 ; ?>
 <div class="form_restaurant">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/restaurants/create/'.$edit_id,array('id'=>'form_rest'));?>
@@ -12,13 +11,36 @@
 
 		<?php endif;?>
 		<fieldset>
-		<?php foreach( $arr_input as $input): ?>
+		<?php foreach( $arr_input as $input): //creating the form fields ?>
 			<div>
-				<?php echo Form::label($input['col_name'],$input['title']);?>
-				<?php
-					$default = ($type == 'edit') ? $rest->$input['col_name'] : NULL;
-					echo Form::input($input['col_name'],$default);
-				?>
+				<?php echo Form::label($input['col_name'],$input['title']);
+				if(isset($errors)): // checking if the form has been returned with errors
+                    $default =  $_POST[$input['col_name']] ;
+                    //$default = ( ! isset($errors[$input['col_name']])) ? $_POST[$input['col_name']] : NULL;
+
+                else : // set the values to the fields accourding to the form type (add,edit)
+                    $default = ($type == 'edit') ? $rest->$input['col_name'] : NULL;
+
+                endif;
+                switch ($input['type']) {
+                    case 'text':
+                        echo Form::input($input['col_name'],$default);
+                        break;
+                    case 'textarea':
+                        echo Form::textarea($input['col_name'],$default);
+                        break;
+                    case 'numeric':
+                        echo Form::select($input['col_name'],array(range(0,120)),$default);
+                        break;
+
+                }
+
+                if (isset($errors[$input['col_name']])) :?>
+                    <div>
+                        <?php echo $errors[$input['col_name']];?>
+                    </div><? endif;
+
+                ?>
 			</div>
 		<?php endforeach; ?>
 		</fieldset>

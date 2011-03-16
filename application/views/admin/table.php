@@ -1,4 +1,3 @@
-<?php if(isset($errors))  echo 1 ; ?>
 <?php $edit_id = $id ;?>
 <div class="form_tables">
 	<!-- start of the form -->
