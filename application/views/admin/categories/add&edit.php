@@ -3,7 +3,6 @@
 	<!-- start of the form -->
 	<?php echo Form::open('admin/categories/create/'.$edit_id,array('id'=>'form_category'));?>
 		<!-- change user ID of A restaurant-->
-		
 		<?php foreach( $arr_input as $input): ?>
 			<div>
 				<?php echo Form::label($input['col_name'],$input['title']);?>
@@ -19,7 +18,6 @@
 		<?php  echo Form::select('model',Kohana::config ('global.categories_models'),$default);?>
 		<div class="clear"></div>
 		<!-- end of the form -->
-		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
 </div>
 

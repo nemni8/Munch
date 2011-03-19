@@ -3,7 +3,6 @@
 	<!-- start of the form -->
 	<?php echo Form::open('admin/ingredients/create/'.$edit_id,array('id'=>'form_ingredient'));?>
 		<!-- change user ID of A restaurant-->
-		
 		<?php foreach( $arr_input as $input): ?>
 			<div>
 				<?php echo Form::label($input['col_name'],$input['title']);?>
@@ -20,12 +19,11 @@
 										DB::select('id','name')
 											->from('categories')
 											->where('model','=','ingredient')
-											->execute()->as_array('id','name'),$default);?>
-
+											->execute()->as_array('id','name'),$default);
+			?>
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
-		<?php echo Form::submit('submit', $type)?>
 	<?php echo Form::close();?>
 </div>
 

@@ -3,6 +3,7 @@ html {
 }
 /*global class*/
 .clear {clear: both; float: none; margin: 0; padding: 0;}
+.dashed{clear: both; float: none; margin: 0; padding: 0; border-bottom:1px dashed #708090; height:10px}
 /*header*/
 #header {
     clear: both;

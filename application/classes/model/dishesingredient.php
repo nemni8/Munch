@@ -7,8 +7,6 @@ class Model_Dishesingredient extends ORM
 		'dish' =>array(),
         'ingredient' =>array()
 		);
-
-
 	protected $_rules = array(
 		'id' => array('not_empty' => NULL),
 		'dish_id' => array('not_empty' => NULL),

@@ -15,6 +15,10 @@ class Model_Category extends ORM
 			'model' => 'dish',
 			'through' => 'ingredients_dishes'
 		),
+		'sub_dishes' => array(
+			'model' => 'subdish',
+			'through' => 'dishes_categories_subdishes'
+		),
 	);
 
 	protected $_rules = array(

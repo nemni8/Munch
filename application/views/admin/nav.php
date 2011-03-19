@@ -13,7 +13,7 @@
 		<?php if ( ! empty($is_supadmin)): ?>
 			<li>
 				<span>|</span>
-                <a id="add_user_button">Add User</a>
+                <a id="add_user_button">Add user</a>
 			</li>
 			<li>
 				<span>|</span>
@@ -21,13 +21,17 @@
 			</li>
 			<li>
 				<span>|</span>
-				<?php echo html::anchor('admin/categories/add','Add category');?>
+				<a id="add_category_button">Add category</a>
 			</li>
 		<?php endif;?>
 		<?php if ( ! empty($is_admin)): ?>
 			<li>
 				<span>|</span>
-				<?php echo html::anchor('admin/ingredients/add','Add ingredient');?>
+				<a id="add_ingredient_button">Add ingredient</a>
+			</li>
+			<li>
+				<span>|</span>
+				<a id="add_dish_button">Add dish</a>
 			</li>
 		<?php endif;?>
 	</ul>
