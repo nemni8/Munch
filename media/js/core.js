@@ -57,6 +57,7 @@ $(document).ready(function() {
 
 
     //user dialog functions
+/*
     $('#checksupadmin').click(function(){
 
 		if ($('#checksupadmin:checked').val())
@@ -66,6 +67,7 @@ $(document).ready(function() {
 		if ( ! $('#checkadmin:checked').val())
     		$('#checksupadmin').attr('checked',false);
 	});
+*/
 
     $("#form_dialog_user").dialog({
 			open: function(){
@@ -95,8 +97,7 @@ $(document).ready(function() {
 						data: $("#form_user").serialize(),
 						success: function (response, status, xml) {
                             $("#form_dialog_user").html('').html(response);
-                            //the next row is a patch!!!
-                            $("#form_dialog_user").dialog( "close" );
+                        
 							if($("#form_dialog_user").html().length == 0){
                                 $("#form_dialog_user").dialog( "close" );
                                 $("#id_of_user").val(0);
@@ -121,9 +122,119 @@ $(document).ready(function() {
 	$("#id_of_user").change(function(){
 		$( "#form_dialog_user" ).dialog( "open" );});
 
-//try to autocomplete
+//form dialog functions
+
+$("#form_dialog_ingredient").dialog({
+        open: function(){
+            if($("#id_of_ingredient").val()>0){
+                temp = $("#id_of_ingredient").val();
+                action = 'edit';
+            }
+            else{
+                temp="";
+                action = 'add';
+            }
+            $.get('/munch/admin/ingredients/'+action+'/'+temp, function(data) {
+                $("#form_dialog_ingredient").html(data);
+            });
+        },
+        autoOpen: false,
+        autoSize: true,
+        position: 'top',
+        modal: true,
+        buttons: {
+            "Save Ingredient": function() {
+                $temp = ($("#id_of_ingredient").val()!=0) ? $("#id_of_ingredient").val() : '';
+                $.ajax({
+                    type: 'post',
+                    dataType: 'html',
+                    url: '/munch/admin/ingredients/create/'+$temp,
+                    data: $("#form_ingredient").serialize(),
+                    success: function (response, status, xml) {
+                        $("#form_dialog_ingredient").html('').html(response);
+
+                        if($("#form_dialog_ingredient").html().length == 0){
+                            $("#form_dialog_ingredient").dialog( "close" );
+                            $("#id_of_ingredient").val(0);
+                            window.location = "";
+                        }
+                    }
+                });
+            },
+            Cancel: function() {
+                $("#id_of_ingredient").val(0);
+                $( this ).dialog( "close" );
+            }
+        },
+        close: function() {
+            $("#id_of_ingredient").val(0);
+
+        }
+});
+$("#add_ingredient_button").click(function() {
+    $( "#form_dialog_ingredient" ).dialog( "open" );
+});
+$("#id_of_ingredient").change(function(){
+    $( "#form_dialog_ingredient" ).dialog( "open" );});
+
+
+    //  category form dialog functions
+
+    $("#form_dialog_category").dialog({
+            open: function(){
+                if($("#id_of_category").val()>0){
+                    temp = $("#id_of_category").val();
+                    action = 'edit';
+                }
+                else{
+                    temp="";
+                    action = 'add';
+                }
+                $.get('/munch/admin/categories/'+action+'/'+temp, function(data) {
+                    $("#form_dialog_category").html(data);
+                });
+            },
+            autoOpen: false,
+            autoSize: true,
+            position: 'top',
+            modal: true,
+            buttons: {
+                "Save Category": function() {
+                    $temp = ($("#id_of_category").val()!=0) ? $("#id_of_category").val() : '';
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'html',
+                        url: '/munch/admin/categories/create/'+$temp,
+                        data: $("#form_category").serialize(),
+                        success: function (response, status, xml) {
+                            $("#form_dialog_category").html('').html(response);
+
+                            if($("#form_dialog_category").html().length == 0){
+                                $("#form_dialog_category").dialog( "close" );
+                                $("#id_of_category").val(0);
+                                window.location = "";
+                            }
+                        }
+                    });
+                },
+                Cancel: function() {
+                    $("#id_of_category").val(0);
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: function() {
+                $("#id_of_category").val(0);
+
+            }
+    });
+    $("#add_category_button").click(function() {
+        $( "#form_dialog_category" ).dialog( "open" );
+    });
+    $("#id_of_category").change(function(){
+        $( "#form_dialog_category" ).dialog( "open" );});
 
 });
+
 function id_assigner(id,section){
 
     if (section=='rest'){
@@ -144,4 +255,5 @@ function checkadminfunction() {
 		if ( ! $('#checkadmin:checked').val())
     		$('#checksupadmin').attr('checked',false);
 }
+
 

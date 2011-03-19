@@ -42,6 +42,7 @@ class Controller_Admin_Categories extends Controller_Template_Admin
             ->set('id',$id)
             ->set('category',$category)
             ->set('type',$type)
+            ->set('arr_input',$category->get_col())
 			->bind('errors', $errors);
 
 		if ($_POST)

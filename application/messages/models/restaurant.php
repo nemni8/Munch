@@ -1,10 +1,10 @@
 <?php
 
 return array(
-    'username' => array(
-        'not_empty' => 'You must provide a username.',
-        'min_length' => 'The username must be at least :param2 characters long.',
-        'max_length' => 'The username must be less than :param2 characters long.',
+    'name' => array(
+        'not_empty' => 'You must provide the restaurant name.',
+        'min_length' => 'The  name  must be at least :param2 characters long.',
+        'max_length' => 'The  name  must be less than :param2 characters long.',
     ),
     'street_num' => array(
         'numeric' =>'Must enter a valid street number',

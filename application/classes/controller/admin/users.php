@@ -84,14 +84,21 @@ class Controller_Admin_Users extends Controller_Template_Admin
                 //$temp= ($_POST['password']=='') ? $user->password : $_POST['password'] ;
                 //$user->values($_POST);
                 //$user->password=$temp;
-                $user->email = $_POST['email'];
+               /* $user->email = $_POST['email'];
                 $user->username = $_POST['username'];
                 if( ! empty($_POST['password']))
-                    $user->password = $_POST['password'];
+                    $user->password = $_POST['password'];*/
+
 
                 try
                 {
-                    $user->save();
+                    if ($type=='add')
+                        $user->create_user($_POST,array('username','password',	'email', )   );
+                    else
+                        $user->update_user($_POST);
+
+
+                    //$user->save();
                                 // add role if not exist
                     if (isset($_POST['user_role_admin']) AND ! $flag_admin)
                         $user->add('roles', ORM::factory('role', array('name' => 'admin')));

@@ -48,6 +48,7 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
                 ->set('type',$type)
                 ->set('admin_level',$admin_level)
                 ->set('id',$id)
+                ->set('arr_input',$ingredient->get_col())
                 ->bind('errors', $errors);
 
             if ($_POST)

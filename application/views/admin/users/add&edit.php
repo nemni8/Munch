@@ -1,18 +1,41 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
 <div class="form_users">
 	<?php echo Form::open('admin/users/create/'.$edit_id,array('id'=>'form_user'));?>
-		<?php foreach( $arr_input as $input): ?>
+    <?php foreach( $arr_input as $input): //creating the form fields ?>
 			<div>
-				<?php echo Form::label($input['col_name'],$input['title']);?>
-				<?php
-					$default = ($type == 'edit') ? $user->$input['col_name'] : NULL;
-					if ($input['title'] == 'User Password')
-						{
-							$default = '';
-						}
+				<?php echo Form::label($input['col_name'],$input['title']);
+				if(isset($errors)): // checking if the form has been returned with errors
+                    if ($input['type']!='password'):
+                        $default =  $_POST[$input['col_name']] ;
+                    endif;
+                    //$default = ( ! isset($errors[$input['col_name']])) ? $_POST[$input['col_name']] : NULL;
 
-					echo Form::input($input['col_name'],$default);
-				?>
+                else : // set the values to the fields accourding to the form type (add,edit)
+                    if ($input['type']!='password'):
+                        $default = ($type == 'edit') ? $user->$input['col_name'] : NULL;
+                    endif;
+                endif;
+                switch ($input['type']) {
+                    case 'text':
+                        echo Form::input($input['col_name'],$default);
+                        break;
+                    case 'password':
+                        echo Form::password($input['col_name']);
+                        break;
+
+
+                }
+
+                if (isset($errors[$input['col_name']])) :?>
+                    <div>
+                        <?php echo $errors[$input['col_name']];?>
+                    </div><? endif;
+                if (isset($errors['_external'][$input['col_name']])) :?>
+                                    <div>
+                                        <?php echo $errors['_external'][$input['col_name']];?>
+                                    </div><? endif;
+
+                ?>
 			</div>
 		<?php endforeach; ?>
 		<?php if ($is_admin): ?>

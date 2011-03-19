@@ -13,17 +13,56 @@ class Model_Category extends ORM
 		),
          'dishes' => array(
 			'model' => 'dish',
-			'through' => 'ingredients_dishes'
+			'through' => 'categories_dishes',
+             
 		),
 	);
 
-	protected $_rules = array(
-		'id' => array('not_empty' => NULL),
-		'name' => array('not_empty' => NULL),
-		'model' => array('not_empty' => NULL),
-	);
+    public function rules()
+        {
+            return array(
+                'name' => array(
+                    array('not_empty'),
+                    array('max_length', array(':value', 32)),
+                    array(array($this, 'name_available'), array(':validation', ':field')),
+                ),
+            );
+        }
+
+    public function name_available(Validation $validation, $field)
+        {
+            if ($this->unique_key_exists($validation[$field], 'name'))
+            {
+                $validation->error($field, 'name_available', array($validation[$field]));
+            }
+        }
+
+        public function unique_key_exists($value, $field = NULL)
+        {
+            if ($field === NULL)
+            {
+                // Automatically determine field by looking at the value
+                $field = 'name';
+            }
+
+            return (bool) DB::select(array('COUNT("*")', 'total_count'))
+                ->from($this->_table_name)
+                ->where($field, '=', $value)
+                ->where($this->_primary_key, '!=', $this->pk())
+                ->execute($this->_db)
+                ->get('total_count');
+        }
 
 	public function get_col()
+	{
+		return
+				array(
+						'name'          => array('col_name' => 'name','title' => 'Category Name', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => 'Category Description', 'type' => 'text'),
+				 )
+		;
+	}
+    public function get_headers()
 	{
 		return
 				array(
