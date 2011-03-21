@@ -30,10 +30,11 @@ class Model_Ingredient extends ORM
 		return DB::select()->from('ingredients')->as_object()->execute();
 	}
 
-	public function add_new($post)
+	public function add_new($post,$admin_level)
 	{
 		$ingredient = ORM::factory('ingredient');
 		$ingredient->name = $post['name'];
+          $ingredient->approval_level=$admin_level;
 		$ingredient->description = $post['description'];
 		$ingredient->save();
 		if(isset($post['category_id']))
@@ -46,10 +47,11 @@ class Model_Ingredient extends ORM
 
         
 	}
-	public function edit($post)
+	public function edit($post,$admin_level)
 	{
 
 		$this->name = $post['name'];
+        $this->approval_level=$admin_level;
 		$this->save();
 		if(isset($post['category_id']))
 		{
