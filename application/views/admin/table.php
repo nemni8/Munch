@@ -5,7 +5,7 @@
 		<!-- change user ID of A restaurant-->
     
     <div id="items-contain" class="ui-widget">
-	<h1>Temp:</h1>
+	<h4>Temp:</h4>
 	
     <table id="users" class="ui-widget ui-widget-content">
 		<thead>
@@ -13,6 +13,8 @@
             <?php foreach( $arr_input as $input): ?>
 			    <th> <?php echo $input['title'];?> </th>
             <?php endforeach; ?>
+                <th> <?php echo '';?> </th>
+                <th> <?php echo '';?> </th>
 		</thead>
 		<tbody>
 			<?php foreach( $all_items as $item): ?>
@@ -20,12 +22,14 @@
                 <?php foreach( $arr_input as $input): ?>
 	    		    <td> <?php echo $item->$input['col_name'];?> </td>
                 <?php endforeach; ?>
+                    <td><a class="edit_link"   onclick="id_assigner(<?php echo $item->id. ",'".$id,"'" ?>),true"><div align="middle"><?php echo html::image('media/images/edit.png',array('alt'=>'Edit','border'=>0)) ;?></div></a></td>
+                    <td><a class="delete_link"   onclick="delete_assigner(<?php echo $item->id. ",'".$id,"'" ?>),true"><div align="middle"><?php echo html::image('media/images/delete.png',array('alt'=>'Edit','border'=>0)) ;?></div></a></td>
                 </tr>
             <?php endforeach; ?>
 		</tbody>
 	</table>
     <div class="clear"><br/></div>
-    <button id="create_button">Create new <?php echo $id;?> </button>
+
     <?php echo Form::close();?>
 </div>
 

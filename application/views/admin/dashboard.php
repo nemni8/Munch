@@ -3,7 +3,7 @@
 <ul class="dashboard_rest">
 	<?php foreach($user_rest as $rest) { ?>
 			<li>
-				<a class="form_rest_links" onclick="id_assigner(<?php echo $rest->id. ",'rest'" ?>),true"><?php echo 'edit '.$rest->name?></a>
+				<a class="form_rest_links" onclick="id_assigner(<?php echo $rest->id. ",'restaurant'" ?>),true"><?php echo 'edit '.$rest->name?></a>
 			</li>
 			<li><?php echo $rest->user_id; ?></li>
 			<li><?php echo $rest->name; ?></li>

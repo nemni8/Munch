@@ -3,8 +3,6 @@
 <div class="form_ingredient">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/ingredients/create/'.$edit_id,array('id'=>'form_ingredient'));?>
-<<<<<<< HEAD
-		
 		<?php foreach( $arr_input as $input): //creating the form fields ?>
 			<div>
 				<?php echo Form::label($input['col_name'],$input['title']);

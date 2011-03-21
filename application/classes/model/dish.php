@@ -32,9 +32,18 @@ class Model_Dish extends ORM
                         'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
                         'size'   => array('col_name' => 'size','title' => 'Size', 'type' => 'text'),
                         'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
+				 )
+		;
+	}
+    public function get_headers()
+	{
+		return
+				array(
 
-
-
+                        'name'          => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
+                        'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
+                        'size'   => array('col_name' => 'size','title' => 'Size', 'type' => 'text'),
+                        'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
 				 )
 		;
 	}

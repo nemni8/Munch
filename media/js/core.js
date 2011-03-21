@@ -1,4 +1,41 @@
 $(document).ready(function() {
+
+
+
+		$( "#form_dialog_delete" ).dialog({
+            open: function (){
+
+            },
+			autoOpen:false,
+            resizable: false,
+			height:140,
+			modal: true,
+			buttons: {
+				"Delete": function() {
+					$idfordelete =  $("#id_for_delete").val() ;
+                    $sourcetable=  $("#id_of_source").val() ;
+                    if (($idfordelete==0) || ($sourcetable==0))
+                        $( this ).dialog( "close" );
+                    $.ajax({
+						type: 'post',
+						dataType: 'html',
+						url: '/munch/admin/'+$sourcetable+'/delete/'+$idfordelete,
+						data: $("#form_rest").serialize(),
+                        success: function () {
+                                $( this ).dialog( "close" );
+                                $("#id_for_delete").val(0);
+                                $("#id_of_source").val(0);
+								window.location = "";
+							}
+						})
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+        });
+
+
 	//rest dialog functions
 	$("#form_dialog_rest").dialog({
 			open: function(){
@@ -82,7 +119,8 @@ $(document).ready(function() {
 			autoOpen: false,
 			autoSize: true,
             position: 'top',
-			modal: true,
+			resizable:false,
+            modal: true,
 			buttons: {
 				"Save User": function() {
 					$temp = ($("#id_of_user").val()!=0) ? $("#id_of_user").val() : '';
@@ -136,6 +174,7 @@ $(document).ready(function() {
 			},
 			autoOpen: false,
 			autoSize: true,
+            resizable: false,
             position: 'top',
 			modal: true,
 			buttons: {
@@ -175,7 +214,7 @@ $(document).ready(function() {
 		$( "#form_dialog_category" ).dialog( "open" );
 	});
 
-	/*ingredient form dialog*/
+	/*dish form dialog*/
 	$("#form_dialog_dish").dialog({
 			open: function(){
 				if($("#id_of_dish").val()>0){
@@ -192,8 +231,7 @@ $(document).ready(function() {
 			},
 			autoOpen: false,
 			autoSize: true,
-			height: 600,
-			width: 650,
+			resizable: false,
             position: 'top',
 			modal: true,
 			buttons: {
@@ -222,9 +260,15 @@ $(document).ready(function() {
 			close: function() {
                 $("#id_of_dish").val(0);
             }
-    }
+    });
+    $("#add_dish_button").click(function() {
+        $( "#form_dialog_dish" ).dialog( "open" );
+    });
+    $("#id_of_dish").change(function(){
+        $( "#form_dialog_dish" ).dialog( "open" );
+    });
 
-
+/*ingredient form dialog*/
     $("#form_dialog_ingredient").dialog({
         open: function(){
             if($("#id_of_ingredient").val()>0){
@@ -242,6 +286,7 @@ $(document).ready(function() {
         autoOpen: false,
         autoSize: true,
         position: 'top',
+        resizable: false,
         modal: true,
         buttons: {
             "Save Ingredient": function() {
@@ -272,10 +317,10 @@ $(document).ready(function() {
 
         }
 });
-$("#add_ingredient_button").click(function() {
+    $("#add_ingredient_button").click(function() {
     $( "#form_dialog_ingredient" ).dialog( "open" );
 });
-$("#id_of_ingredient").change(function(){
+    $("#id_of_ingredient").change(function(){
     $( "#form_dialog_ingredient" ).dialog( "open" );});
 
 
@@ -296,8 +341,9 @@ $("#id_of_ingredient").change(function(){
                 });
             },
             autoOpen: false,
-            autoSize: true,
+            autoSize: true ,
             position: 'top',
+            resizable:false,
             modal: true,
             buttons: {
                 "Save Category": function() {
@@ -334,18 +380,12 @@ $("#id_of_ingredient").change(function(){
     $("#id_of_category").change(function(){
         $( "#form_dialog_category" ).dialog( "open" );});
 
-	$("#add_dish_button").click(function() {
-		$( "#form_dialog_dish" ).dialog( "open" );
-	});
-	$("#id_of_dish").change(function(){
-		$( "#form_dialog_dish" ).dialog( "open" );
-	});
 
 });
 
 function id_assigner(id,section){
 
-    if (section=='rest'){
+    if (section=='restaurant'){
         $("#id_of_rest").val(id);
         $( "#form_dialog_rest" ).dialog( "open" );
     }
@@ -357,8 +397,39 @@ function id_assigner(id,section){
         $("#id_of_dish").val(id);
         $( "#form_dialog_dish" ).dialog( "open" );
     }
+    if (section=="ingredient"){
+        $("#id_of_ingredient").val(id);
+        $( "#form_dialog_ingredient" ).dialog( "open" );
+    }
+    if (section=="category"){
+        $("#id_of_category").val(id);
+        $( "#form_dialog_category" ).dialog( "open" );
+    }
 
 }
+function delete_assigner(id,section) {
+    $("#id_for_delete").val(id);
+    if (section=='restaurant'){
+            $("#id_of_source").val('restaurants');
+        }
+        if (section=="user"){
+            $("#id_of_source").val('users');
+        }
+        if (section=="dish"){
+            $("#id_of_source").val('dishes');
+        }
+        if (section=="ingredient"){
+            $("#id_of_source").val('ingredients');
+        }
+        if (section=="category"){
+            $("#id_of_source").val('categories');
+        }
+        $( "#form_dialog_delete" ).dialog('open');
+
+}
+
+
+
 function checksupadminfunction() {
 		if ($('#checksupadmin:checked').val())
     		$('#checkadmin').attr('checked',true);
