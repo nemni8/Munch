@@ -7,8 +7,6 @@ class Model_Dish extends ORM
 			'model' => 'ingredient',
 			'through' => 'dishes_ingredients'
 		),
-
-      
         'categories' => array(
 			'model' => 'category',
 			'through' => 'categories_dishes'
@@ -16,7 +14,7 @@ class Model_Dish extends ORM
         
 	);
     protected $_belongs_to = array(
-		'restaurant' => array(),
+		'restaurant' => array('id'),
 	);
 
 	protected $_rules = array(

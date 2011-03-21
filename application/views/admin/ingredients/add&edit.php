@@ -3,6 +3,7 @@
 <div class="form_ingredient">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/ingredients/create/'.$edit_id,array('id'=>'form_ingredient'));?>
+<<<<<<< HEAD
 		
 		<?php foreach( $arr_input as $input): //creating the form fields ?>
 			<div>
@@ -31,12 +32,14 @@
 											->from('categories')
 											->where('model','=','ingredient')
 											->execute()->as_array('id','name'),$default);
+
             ?>
 
 		<?php endif;?>
 		<div class="clear"></div>
 		<!-- end of the form -->
 		
+
 	<?php echo Form::close();?>
 </div>
 
