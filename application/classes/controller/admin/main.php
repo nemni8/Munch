@@ -64,10 +64,16 @@ class Controller_Admin_Main extends Controller_Template_Admin
             $item = ORM::factory($table);
 			switch ($table) {
                 case ("restaurant"):
-                    $function_name='get_all_restaurants';
+                    if ($this->_checkSupadmin())
+                        $function_name='get_all_restaurants';
+                    else
+                        $function_name='get_user_restaurants';
                     break;
                 case ("ingredient"):
-                    $function_name='get_all_ingredients';
+                    if ($this->_checkSupadmin())
+                        $function_name='get_all_ingredients';
+                    else
+                        $function_name='get_all_ingredients_user_can_edit';
                     break;
                 case ("dish"):
                     $function_name='get_all_dishes';
@@ -75,9 +81,12 @@ class Controller_Admin_Main extends Controller_Template_Admin
                 case ("category"):
                     $function_name='get_all_categories';
                     break;
+                case("user"):
+                    $function_name='get_all_users';
+                    break;
             }
-
-            $all_items = $item->$function_name($table);
+            
+            $all_items = (($table=='ingredient')||($table=='restaurant')) ? $item->$function_name($_SESSION['auth_user_munch']->id) : $item->$function_name();
 
 
 			/*if (empty($this->_supadmin))
@@ -94,12 +103,14 @@ class Controller_Admin_Main extends Controller_Template_Admin
 				$all_users = $user->get_all_users();
                 $all_ingredients = $ingredient->get_all_ingredients();
 			}*/
+            $this->_ajax = true;
 			$this->template->content = View::factory('admin/table')
 									   ->set('id',$table)
                                        ->set('all_items',$all_items)
                                        ->set('function_name',$function_name)
-                                       ->set('arr_input',$item->get_col());
-									   //->set('is_supadmin', (bool)$this->_supadmin)
+                                       ->set('is_supadmin', (bool)$this->_supadmin)
+                                        ->set('arr_input',$item->get_headers());
+									   
                                        //->set('is_admin', (bool)$this->_admin);
 		}
 		// if not logged in THEN show login page

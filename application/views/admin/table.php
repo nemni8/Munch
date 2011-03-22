@@ -5,8 +5,6 @@
 		<!-- change user ID of A restaurant-->
     
     <div id="items-contain" class="ui-widget">
-	<h4>Temp:</h4>
-	
     <table id="users" class="ui-widget ui-widget-content">
 		<thead>
             <tr class="ui-widget-header ">
@@ -23,7 +21,9 @@
 	    		    <td> <?php echo $item->$input['col_name'];?> </td>
                 <?php endforeach; ?>
                     <td><a class="edit_link"   onclick="id_assigner(<?php echo $item->id. ",'".$id,"'" ?>),true"><div align="middle"><?php echo html::image('media/images/edit.png',array('alt'=>'Edit','border'=>0)) ;?></div></a></td>
+                    <?php if(( $is_supadmin)||($edit_id!='restaurant')) :?>
                     <td><a class="delete_link"   onclick="delete_assigner(<?php echo $item->id. ",'".$id,"'" ?>),true"><div align="middle"><?php echo html::image('media/images/delete.png',array('alt'=>'Edit','border'=>0)) ;?></div></a></td>
+                    <?php endif ;?>
                 </tr>
             <?php endforeach; ?>
 		</tbody>

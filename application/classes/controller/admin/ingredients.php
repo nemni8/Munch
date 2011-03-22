@@ -86,10 +86,17 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
     public function action_delete($id)
 	{
 		$ingredient = ORM::factory('ingredient',$id);
-		$ingredient->remove('categories');
-        $ingredient->remove('dishes');
-		$ingredient->delete();
-		$this->request->redirect(Route::get('admin')->uri());
+        if (($ingredient->user_id==$_SESSION['auth_user_munch']->id) || ($this->_checkSupadmin())) {
+		    $ingredient->remove('categories');
+            $ingredient->remove('dishes');
+		    $ingredient->delete();
+            $this->request->redirect(Route::get('admin')->uri());
+        }
+        else{
+            echo "you don't have permission to delete this ingredient" ;
+            die();
+        }
+
 
 	}
 }

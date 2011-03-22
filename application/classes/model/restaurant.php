@@ -62,6 +62,16 @@ class Model_Restaurant extends ORM
 				 )
 		;
 	}
+    	public function get_headers()
+	{
+		return
+				array(
+						'name'            => array('col_name' => 'name','title' => ' Name', 'type' => 'text'),
+						'phone'           => array('col_name' => 'phone','title' => ' Phone', 'type' => 'text'),
+						'email' 		  => array('col_name' => 'email','title' => 'e-Mail', 'type' => 'text'),
+				 )
+		;
+	}
 	protected $_created_column = array('column' => 'created',  'format' => 'Y-m-d H:i:s');
 	protected $_updated_column = array('column' => 'modified', 'format' => 'Y-m-d H:i:s');
 /*	public function add_new($post)

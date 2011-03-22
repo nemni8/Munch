@@ -62,7 +62,7 @@ class Model_Category extends ORM
 		return
 				array(
 						'name'          => array('col_name' => 'name','title' => 'Category Name', 'type' => 'text'),
-						'description'   => array('col_name' => 'description','title' => 'Category Description', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
 				 )
 		;
 	}
@@ -70,14 +70,15 @@ class Model_Category extends ORM
 	{
 		return
 				array(
-                        'name'          => array('col_name' => 'name','title' => 'Category Name', 'type' => 'text'),
-						'description'   => array('col_name' => 'description','title' => 'Category Description', 'type' => 'text'),
+                        'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => ' Description', 'type' => 'text'),
 				 )
 		;
 	}
 	public function get_all_categories($model = NULL)
 	{
-		return ( ! empty($model)) ?
+
+        return ( ! empty($model)) ?
 									DB::select()->from('categories')->where('model','=',$model)->as_object()->execute() :
 									DB::select()->from('categories')->as_object()->execute();
 	}

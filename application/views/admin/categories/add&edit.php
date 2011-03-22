@@ -5,7 +5,7 @@
 		<!-- change user ID of A restaurant-->
     <?php foreach( $arr_input as $input): //creating the form fields ?>
 			<div>
-				<?php echo Form::label($input['col_name'],$input['title']);
+				<?php echo Form::label($input['col_name'],$input['title']) ?><br /> <?php
 				if(isset($errors)): // checking if the form has been returned with errors
                     $default =  $_POST[$input['col_name']] ;
                     //$default = ( ! isset($errors[$input['col_name']])) ? $_POST[$input['col_name']] : NULL;
@@ -15,6 +15,7 @@
 
                 endif;
                 echo Form::input($input['col_name'],$default);
+
                 if (isset($errors[$input['col_name']])) :?>
                     <div>
                         <?php echo $errors[$input['col_name']];?>

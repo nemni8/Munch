@@ -7,7 +7,7 @@
 		<?php if ($is_admin): ?>
 			<?php echo Form::label('user_id','User Name');?>
 
-			<?php  echo Form::select('user_id',$admins,$owner_id);?>
+			<?php  echo Form::select('user_id',$admins,$owner_id);?> <br/>
 
 		<?php endif;?>
 		<fieldset>

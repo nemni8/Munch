@@ -36,6 +36,7 @@
                                     </div><? endif;
 
                 ?>
+                
 			</div>
 		<?php endforeach; ?>
 		<?php if ($is_admin): ?>

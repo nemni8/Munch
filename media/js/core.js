@@ -7,6 +7,7 @@ $(document).ready(function() {
 
             },
 			autoOpen:false,
+            autoSize:true,
             resizable: false,
 			height:140,
 			modal: true,
@@ -92,15 +93,6 @@ $(document).ready(function() {
 		$( "#form_dialog_rest" ).dialog( "open" );});
 
     /*user dialog functions*/
-    $('#checksupadmin').click(function(){
-
-		if ($('#checksupadmin:checked').val())
-    		$('#checkadmin').attr('checked',true);
-	});
-	$('#checkadmin').click(function(){
-		if ( ! $('#checkadmin:checked').val())
-    		$('#checksupadmin').attr('checked',false);
-	});
 
     $("#form_dialog_user").dialog({
 			open: function(){
@@ -173,7 +165,7 @@ $(document).ready(function() {
 				});
 			},
 			autoOpen: false,
-			autoSize: true,
+			autoSize:true,
             resizable: false,
             position: 'top',
 			modal: true,

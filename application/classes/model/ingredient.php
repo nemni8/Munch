@@ -58,6 +58,15 @@ class Model_Ingredient extends ORM
 				 )
 		;
 	}
+    public function get_headers()
+	{
+		return
+				array(
+						'name'          => array('col_name' => 'name','title' => 'Name ', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
+				 )
+		;
+	}
 	public function get_all_ingredients()
 	{
 		return DB::select()->from('ingredients')->as_object()->execute();
@@ -65,6 +74,11 @@ class Model_Ingredient extends ORM
 public function get_all_ingredients_visible_for_user($id)
     {
     return DB::select()->from('ingredients')->where('user_id','=',$id)->or_where( 'user_id','=',0)->as_object()->execute();
+    }
+    public function get_all_ingredients_user_can_edit($id)
+    {
+
+        return DB::select()->from('ingredients')->where('user_id','=',$id)->as_object()->execute();
     }
 
 
