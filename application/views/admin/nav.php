@@ -19,12 +19,13 @@
 				<span>|</span>
 				<a id="add_restaurant_button">Add restaurant</a>
 			</li>
-			<li>
+
+		<?php endif;?>
+		<?php if ( ! empty($is_admin)): ?>
+            <li>
 				<span>|</span>
 				<a id="add_category_button">Add category</a>
 			</li>
-		<?php endif;?>
-		<?php if ( ! empty($is_admin)): ?>
 			<li>
 				<span>|</span>
 				<a id="add_ingredient_button">Add ingredient</a>

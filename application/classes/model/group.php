@@ -2,13 +2,27 @@
 
 class Model_Group extends ORM
 {
-   protected $_belongs_to = array(
-		'dish' => array(),
-	);
+   //protected $_belongs_to = array(
+	//	'dish' => array(),
+	//);
 	protected $_has_many = array(
 		'subs' => array(),
+        'dishes' => array(
+			'model' => 'dish',
+			'through' => 'dishes_groups'
+		),
 	);
-	
+	public function rules()
+	{
+		return array(
+			'name' => array(
+				array('not_empty'),
+				array('min_length', array(':value', 3)),
+                array('max_length', array(':value', 32)),
+
+			),
+        );
+    }
 	public function get_headers()
 	{
 		return
@@ -50,6 +64,8 @@ class Model_Group extends ORM
 	}
 	public function get_all_groups_in_dish($id)
    {
-		return DB::select()->from('groups')->where('dish_id','=',$id)->as_object()->execute();
+		//return DB::select()->from('groups')->where('dish_id','=',$id)->as_object()->execute();
+       $dish=ORM::factory('dish',$id);
+       return $dish->groups->find_all();
    }
 } 

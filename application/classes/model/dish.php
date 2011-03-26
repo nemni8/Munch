@@ -6,6 +6,10 @@ class Model_Dish extends ORM
 			'model' => 'ingredient',
 			'through' => 'dishes_ingredients'
 		),
+        'groups' => array(
+			'model' => 'group',
+			'through' => 'dishes_groups'
+		),
         'categories' => array(
 			'model' => 'category',
 			'through' => 'categories_dishes'
@@ -15,12 +19,22 @@ class Model_Dish extends ORM
 		'restaurant' => array(),
 	);
 
-	protected $_rules = array(
-		'id' => array('not_empty' => NULL),
-		'name' => array('not_empty' => NULL),
-		'rest_id' => array('not_empty' => NULL),
+public function rules()
+	{
+		return array(
+			'name' => array(
+				array('not_empty'),
+				array('min_length', array(':value', 3)),
+                array('max_length', array(':value', 32)),
+                //array(array($this, 'name_available'), array(':validation', ':field')),
+			),
+            //'rest_id' => array('not_empty' => NULL),
 
-	);
+            'mdv' => array(
+                array('range',array(':value',1,6))
+            ),
+		);
+	}
 
 	public function get_col()
 	{

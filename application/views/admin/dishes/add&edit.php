@@ -1,9 +1,13 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-<div class="dialog"> 
+<div class="dialog">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/dishes/create/'.$edit_id,array('id'=>'form_dish'));?>
 		<!-- change user ID of A restaurant-->
 		<?php foreach( $arr_input as $input): ?>
+        <?php
+
+                 ?>
+
 			<div>
 				<?php if($input['title'] == 'Description') : ?>
 					<?php echo Form::label('size_unit','Size Unit',array('class'=>'regular'));?>
@@ -30,6 +34,11 @@
 					<?php $default = ($type == 'edit') ? $dish->mdv : NULL; ?>
 					<?php  echo Form::select('mdv',Kohana::config ('global.mdv'),$default,array('class'=>'single_select'));?>
 					<div class="clear" style="height: 12px;"></div>
+                    <?php if (isset($errors['mdv'])) :?>
+                        <div class="validate">
+                        <?php echo $errors['mdv'];?>
+                        </div>
+                    <?php endif;?>
 					<?php $default = ($type == 'edit') ? (bool)$dish->active : TRUE; ?>
 					<?php echo Form::label('active','Active Dish',array('class'=>'regular','style'=>'margin-top:12px; width:95%;'));?>
 					<div id="active_radio">
@@ -42,7 +51,12 @@
 				<?php endif;?>
 					<?php echo Form::label($input['col_name'],$input['title'],array('class'=>'regular'));?>
 					<?php
-						$default = ($type == 'edit') ? $dish->$input['col_name'] : NULL;
+                        if(isset($errors)): // checking if the form has been returned with errors
+                                $default =  $_POST[$input['col_name']] ;
+                        else : // set the values to the fields accourding to the form type (add,edit)
+                                $default = ($type == 'edit') ?$dish-> $input['col_name'] : NULL;
+                        endif;
+						//$default = ($type == 'edit') ? $dish->$input['col_name'] : NULL;
 						switch ($input['type']) {
 						case 'text':
 							echo Form::input($input['col_name'],$default,array('class'=>'regular'));
@@ -54,7 +68,17 @@
 							echo Form::select($input['col_name'],array(range(0,1000)),$default,array('class'=>'regular'));
 							break;
 					}
-					?>			
+                    if (isset($errors[$input['col_name']])) :?>
+                        <div class="validate">
+                        <?php echo $errors[$input['col_name']];?>
+                        </div>
+                    <?php endif;?>
+                    <?php if (isset($errors['_external'][$input['col_name']])) :?>
+                        <div class="validate">
+                            <?php echo $errors['_external'][$input['col_name']];?>
+                        </div>
+                    <?php endif;?>
+                    <div class="clear" style="height: 12px;"></div>
 			</div>
 		<?php endforeach; ?>
 		<!-- end of the form -->

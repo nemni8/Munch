@@ -24,6 +24,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 		$dish = ORM::factory('dish', $id);
 		$user = ORM::factory('user',$_SESSION['auth_user_munch']->id);
 		$rest = ORM::factory('restaurant', $dish->restaurant->id);
+        $_SESSION['dish_id']=$id;
 		// check if the current user have access
 		if( ! ( ($this->_checkSupadmin()) || ($rest->user_id == $_SESSION['auth_user_munch']->id)))
 		{
@@ -61,7 +62,8 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 
 			try
 			{
-				$dish->save();
+
+                $dish->save();
 				if(isset($_POST['category_id']))
 				{
 					$dish->remove('categories');
@@ -71,7 +73,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 							$dish->add('categories',$cat);
 					}
 				}
-
+                $_SESSION['dish_id']=NULL;;
 				die();
 			}
 			catch (ORM_Validation_Exception $e)
@@ -87,6 +89,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 	{
 		$dish = ORM::factory('dish',$id);
         $dish->remove('ingredients');
+        $dish->remove('groups');
         $dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 

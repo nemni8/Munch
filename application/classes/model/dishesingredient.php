@@ -7,12 +7,12 @@ class Model_Dishesingredient extends ORM
 		'dish' =>array(),
         'ingredient' =>array()
 		);
-	protected $_rules = array(
+	/*protected $_rules = array(
 		'id' => array('not_empty' => NULL),
 		'dish_id' => array('not_empty' => NULL),
 		'ingredient_id' => array('not_empty' => NULL),
 
-	);
+	);*/
 
 public function get_dishingredient_id($dish_id,$ingredient_id )
     {
@@ -24,7 +24,7 @@ public function get_all_ingredients_in_dish($id)
     {
     return DB::select()->from('dishes_ingredients')->where('dish_id','=',$id)->as_object()->execute();
     }
-	public function add_new($a,$b,$c)
+/*	public function add_new($a,$b,$c)
 	{
 		$dishesingredient = ORM::factory('dishesingredient');
 		$dishesingredient->dish_id = $a;
@@ -42,5 +42,5 @@ public function get_all_ingredients_in_dish($id)
         $this->save();
 
 
-	}
+	}*/
 } // End Ingredient Model

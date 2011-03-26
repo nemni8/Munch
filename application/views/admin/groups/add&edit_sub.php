@@ -1,5 +1,5 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
-<?php //echo 'fsdfsdf';?>
+
 <div class="dish_subdish">
 	<?php echo Form::open('admin/groups/createsub/'.$edit_id,array('id'=>'form_group_sub_'.$group_id.'_'.$edit_id));?>
 		<div class="clear"></div>
@@ -11,7 +11,7 @@
 											->where('id' , '<>', $dish_id)
 											->execute()->as_array('id','name'), $default);
 		?>
-		<?php echo Form::input('dish_id',$dish_id, array('type'=>'hidden')); ?>
+		<?php //echo Form::input('dish_id',$dish_id, array('type'=>'hidden')); ?>
 		<?php echo Form::input('group_id',$group_id, array('type'=>'hidden')); ?>
 	<?php echo Form::close();?>
 </div>

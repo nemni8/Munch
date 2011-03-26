@@ -9,7 +9,7 @@
 					if(isset($errors)): // checking if the form has been returned with errors
 						$default =  $_POST[$input['col_name']] ;
 					else : // set the values to the fields accourding to the form type (add,edit)
-                    $default = ($type == 'edit') ? $input['col_name'] : NULL;
+                        $default = ($type == 'edit') ? $category->$input['col_name'] : NULL;
 					endif;
 					echo Form::input($input['col_name'],$default,array('class'=>'regular'));
 					if (isset($errors[$input['col_name']])) :?>

@@ -19,7 +19,7 @@
 		<?php $default = ($type == 'edit') ? $dishesingredient->basic_optional : NULL; ?>
 		<?php  echo Form::select('basic_optional',Kohana::config ('global.basic_optional'),$default);?>
 		<div class="clear" style="height: 12px"></div>
-		<?php $default = ($type == 'edit') ? $dishesingredient->dish_id : $dish_id; ?>
+		<?php $default = ($type == 'edit') ? $dishesingredient->dish_id : $_SESSION['dish_id']; ?>
 		<?php echo Form::input('dish_id',$default, array('type'=>'hidden')); ?>
 		<!-- end of the form -->
 	<?php echo Form::close();?>

@@ -8,20 +8,21 @@ class Controller_Admin_Groups extends Controller_Template_Admin
     public function action_add($dish_id)
 	{
 		$this->_ajax = TRUE;
-		$dish = ORM::factory('dish');
+		$dish = ORM::factory('dish',$dish_id);
 		$this->template->content = View::factory('admin/groups/add&edit')
 			->set('type','add')
 			->set('dish_id',$dish_id)
 			->set('dish',$dish);
 }
-	public function action_edit($id)
+	public function action_edit($id =NULL)
 	{
 		$group = ORM::factory('group', $id);
 		$type = 'edit';
+        $_SESSION['group_id']=$id;
 		$this->_ajax = true;
 		$this->template->content = View::factory('admin/groups/add&edit')
 							   ->set('group',$group)
-							   ->set('dish_id',$group->dish_id)
+							   ->set('dish_id',$_SESSION['dish_id'])
 							   ->set('id',$id)
 							   ->set('type',$type);
 
@@ -39,9 +40,27 @@ class Controller_Admin_Groups extends Controller_Template_Admin
             if ($_POST)
             {
                 $group->values($_POST);
+
                 try
                 {
                     $group->save();
+                    if (($type=='add') ) {//OR $_SESSION['dish_id']) {
+                        if(isset($_POST['dish_id']))
+                            $group->add('dishes',$_POST['dish_id']);
+                    }
+                    else
+                    {
+                        if(isset($_POST['dish_id']))
+                        {
+                            $group->remove('dishes');
+                            foreach($_POST['dish_id'] as $dish)
+                            {
+                                    $group->add('dishes',$dish);
+                            }
+                        }
+                    }
+                    $_SESSION['dish_id']=NULL;
+                    $_SESSION['group_id']=NULL;
 					die();
                 }
                 catch (ORM_Validation_Exception $e)
@@ -54,6 +73,7 @@ class Controller_Admin_Groups extends Controller_Template_Admin
     public function action_delete($id)
 	{
 		$group = ORM::factory('group',$id);
+        $group->remove('dishes');
 		$group->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 
@@ -64,21 +84,24 @@ class Controller_Admin_Groups extends Controller_Template_Admin
     public function action_addsub($group_id)
 	{
 		$this->_ajax = TRUE;
-		$group = ORM::factory('group',$group_id);
+        //$dish_id=$_POST["dish_id"];
+		//$group = ORM::factory('group',$group_id);
 		$this->template->content = View::factory('admin/groups/add&edit_sub')
 			->set('type','add')
 			->set('group_id',$group_id)
-			->set('dish_id',$group->dish_id);
+			->set('dish_id',$_SESSION['dish_id']);
 }
-	public function action_editsub($id)
+	public function action_editsub($id)//,$group_id,$dish_id)
 	{
 		$sub = ORM::factory('sub', $id);
+        $dish_id=$_SESSION['dish_id'];
+        $group_id=$_SESSION['group_id'];
 		$type = 'edit';
 		$this->_ajax = true;
 		$this->template->content = View::factory('admin/groups/add&edit_sub')
 									   ->set('sub',$sub)
-									   ->set('dish_id',$sub->group->dish_id)
-									   ->set('group_id',$sub->group->id)
+									   ->set('dish_id',$dish_id)
+									   ->set('group_id',$group_id)
 									   ->set('id',$id)
 										->set('type',$type);
 
@@ -87,8 +110,8 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 	{
             $sub = ORM::factory('sub', $id);
             $type = (isset($id)) ? 'edit' : 'add';
-			$dish_id = ($type == 'edit') ? $sub->group->dish_id : $_POST["dish_id"];
-			$group_id = ($type == 'edit') ? $sub->group->id : $_POST["group_id"];
+			$dish_id = ($type == 'edit') ? $_SESSION["dish_id"]:$_SESSION["dish_id"] ;
+			$group_id =($type == 'edit') ? $sub->group->id : $_POST["group_id"];
             $this->template->content = View::factory('admin/groups/add&edit_sub')
                 ->set('post', $_POST)
 				->set('sub',$sub)

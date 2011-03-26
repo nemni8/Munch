@@ -56,9 +56,9 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
 
                 $ingredient->values($_POST);
                 $ingredient->user_id = (!$admin_level) ? $_SESSION['auth_user_munch']->id  : 0 ;
-                $this->approval_level=$admin_level;
-		        if($admin_level)
-			        $this->user_id =  0 ;
+                $ingredient->approval_level=$admin_level;
+		        //if($admin_level)
+//			        $this->user_id =  0 ;
 
 
                 try

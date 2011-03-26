@@ -392,12 +392,7 @@ $(document).ready(function() {
 	$("#id_of_ingredient").change(function(){
 		$( "#form_dialog_ingredient" ).dialog( "open" );
 	});
-
-
 	//  category form dialog functions
-
-	
-	
 });
 
 function id_assigner(id,section){
@@ -441,12 +436,15 @@ function delete_assigner(id,section) {
 	if (section=="category"){
 		$("#id_of_source").val('categories');
 	}
+    if (section=="user"){
+		$("#id_of_source").val('users');
+	}
+    if (section=="group"){
+		$("#id_of_source").val('groups');
+	}
 	$( "#form_dialog_delete" ).dialog('open');
 
 }
-
-
-
 function checksupadminfunction() {
 	if ($('#checksupadmin:checked').val())
 		$('#checkadmin').attr('checked',true);
@@ -517,6 +515,7 @@ function edit_group_in_dish(id){
 		url: '/munch/admin/groups/create/'+id,
 		data: $("#form_group_"+id).serialize(),
 		success: function (response, status, xml) {
+
 			$.get('/munch/admin/groups/edit/'+id, function(data) {
 				$("#edit_group_in_dish_"+id).html(data);
 				$(".single_select").multiselect({
@@ -545,6 +544,7 @@ function add_group_in_dish(dish_id){
 		url: '/munch/admin/groups/create/',
 		data: $("#form_group_").serialize(),
 		success: function (response, status, xml) {
+            $("#form_dialog_ingredient").html('').html(response);
 			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
 				$("#form_dialog_dish").html(data);
 				$(".single_select").multiselect({
