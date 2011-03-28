@@ -37,6 +37,7 @@ class Controller_Admin_Groups extends Controller_Template_Admin
             if ($_POST)
             {
                 $group->values($_POST);
+
                 if ($type!='edit')
                     $group->user_id = (!$this->_checkSupadmin()) ? $_SESSION['auth_user_munch']->id  : 0 ;
 
