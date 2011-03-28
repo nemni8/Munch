@@ -13,7 +13,11 @@ class Model_Dish extends ORM
         'categories' => array(
 			'model' => 'category',
 			'through' => 'categories_dishes'
-        )
+        ),
+        'fathers' => array(
+			'model' => 'group',
+			'through' => 'subs'
+		),
 	);
     protected $_belongs_to = array(
 		'restaurant' => array(),
