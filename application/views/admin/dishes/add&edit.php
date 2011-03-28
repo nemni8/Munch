@@ -110,30 +110,32 @@
 			<button class="submit" onclick="add_ingred_in_dish(<?php echo $id; ?>)">add</button>
 		</div>
 
-	<?php endif; ?> 
+	<?php endif; ?>
+
 	<?php if($type == 'edit') : ?>
-		<div class="dashed"></div>
-			<h3>Add new Group</h3>
-		<div id="add_group_in_dish">
-			<?php echo Request::factory('admin/dishes/addgroup/'.$id)->execute() ?>
-			<div class="clear"></div>
-		<button class="submit" onclick="add_group_in_dish(<?php echo $id; ?>)">add group</button>
-		</div>
-		<?php echo Form::close();?>
-		<div class="dashed"></div>
+
 		<?php
 			$dish_group = ORM::factory('group')->get_all_groups_in_dish($dish->id);
 			if(count($dish_group) > 0) :
 		?>
 		<h3>Groups in Dish</h3>
 			<?php foreach($dish_group as $group) : ?>
-					<li style=" margin-bottom: 12px;">
-                    <?php echo $group->name ;?>
-                    <button class="submit" onclick="remove_group_from_dish(<?php echo $group->id ;?>,<?php echo $dish->id ;?> )">Remove Group</button>
-					</li>
-					<div class="dashed"></div>
+                <div id="edit_group_in_dish_<?php echo $group->id;?>">
+                            <?php echo Request::factory('admin/groups/edit/'.$group->id.'/'.$id)->execute() ?>
+                </div>
+                <button class="submit" onclick="edit_group_in_dish(<?php echo $group->id?>,<?php echo $id?>)">Save Group Changes</button>
+                <button class="submit" onclick="remove_group_from_dish(<?php echo $group->id?>,<?php echo $id?>)">Remove Group</button>
+                <div class="dashed"></div>
 			<?php endforeach;?>
 		<?php endif;?>
+        <div class="dashed"></div>
+			<h3>Add new Group</h3>
+		<div id="add_group_in_dish">
+			<?php echo Request::factory('admin/dishes/addgroup/'.$id)->execute() ?>
+			<div class="clear"></div>
+		<button class="submit" onclick="add_group_in_dish(<?php echo $id; ?>)">add group</button>
+		</div>
+		<div class="dashed"></div>
 	<?php endif; ?>
 </div>
 

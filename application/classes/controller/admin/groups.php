@@ -13,7 +13,7 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 			->set('type','add')
 			->set('group',$group);
 }
-	public function action_edit($id)
+	public function action_edit($id,$hide=NULL)
 	{
 		$group = ORM::factory('group', $id);
 		$type = 'edit';
@@ -21,6 +21,7 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 		$this->template->content = View::factory('admin/groups/add&edit')
 							   ->set('group',$group)
 							   ->set('id',$id)
+                                ->set('hide',$hide)
 							   ->set('type',$type);
 
 	}
@@ -38,9 +39,9 @@ class Controller_Admin_Groups extends Controller_Template_Admin
             {
                 $group->values($_POST);
 
-                if ($type!='edit')
+                if ($type!='edit'){
                     $group->user_id = (!$this->_checkSupadmin()) ? $_SESSION['auth_user_munch']->id  : 0 ;
-
+                }
                 try
                 {
                     $group->save();
@@ -96,7 +97,9 @@ class Controller_Admin_Groups extends Controller_Template_Admin
                    try
                    {
                        $sub_dish = ORM::factory('dish', $_POST['sub_id']);
-                        $group->add('subs',$sub_dish);
+                       if (!$group->has('subs',$sub_dish)) {
+                            $group->add('subs',$sub_dish);
+                       }
                        die();
                    }
                    catch (ORM_Validation_Exception $e)
@@ -119,5 +122,6 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 		$this->request->redirect(Route::get('admin')->uri());
 
 	}
+    
 }
 

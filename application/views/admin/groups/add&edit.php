@@ -31,11 +31,17 @@
 		<?php $default = ($type == 'edit') ? $group->price : NULL; ?>
 		<?php echo Form::input('price',$default);?>
 		<div class="clear" style="height: 12px;"></div>
+        <?php if (!isset($hide)):?>
+
         <?php  echo Form::label('dish_id','Dishes who has this group');?><br />
         <?php  $default = ($type == 'edit')  ? $group->dishes->find_all()->as_array() : array() ; ?>
         <?php  echo Form::select('dish_id[]',
 												DB::select('id','name')->from('dishes')->execute()->as_array('id','name'),
 												$default,array('id'=>'dish_group'));?>
+        <?php else: ?>
+
+        <?php endif ; ?>
+
         <?php echo Form::close();?>
         <?php if($type=='edit'): ?>
         <h3>Add new Sub Dish</h3>

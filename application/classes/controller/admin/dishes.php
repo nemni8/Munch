@@ -158,7 +158,6 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
     }
             public function action_creategroup($dish_id)
             {
-            $this->_ajax = TRUE;
 
             $dish = ORM::factory('dish',$dish_id);
             $this->template->content = View::factory('admin/dishes/add&edit_group')
@@ -171,7 +170,9 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
                        try
                        {
                            $group = ORM::factory('group', $_POST['group_id']);
-                            $dish->add('groups',$group);
+                           if (!$dish->has('groups',$group)) {
+                                $dish->add('groups',$group);
+                           }
                            die();
                        }
                        catch (ORM_Validation_Exception $e)
@@ -179,15 +180,16 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
                            $errors = $e->errors('models');
                        }
                    }
-                
+
                    $this->_ajax = TRUE;
 
     }
     public function action_removegroup($group_id,$dish_id)
 	{
-		 $dish = ORM::factory('dish', $dish_id);
-        $group= ORM::factory('group', $group_id);
-        $group->remove('dishes',$dish);
+        $this->_ajax = TRUE;
+        //$group= ORM::factory('group', $group_id);
+        $dish = ORM::factory('dish', $dish_id);
+        $dish->remove('groups',$group_id);
 		$this->request->redirect(Route::get('admin')->uri());
 
 	}

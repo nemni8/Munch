@@ -218,8 +218,6 @@ $(document).ready(function() {
 							noneSelctedText:"Select an Option",
 							selectedList:1
 						});
-						//the next row is a patch!!!
-						$("#form_dialog_category").dialog( "close" );
 						if($("#form_dialog_category").html().length == 0){
 							$("#form_dialog_category").dialog( "close" );
 							$("#id_of_category").val(0);
@@ -346,10 +344,12 @@ $(document).ready(function() {
 					noneSelctedText:"Select an Option",
 					selectedList:1
 				});
-				$("#dish_group").multiselect({
+				if ($("#dish_group").type!='hidden') {
+                $("#dish_group").multiselect({
 					height:110,
 					selectedList:3
 				});
+                }
 				$(".submit").button();
 			});
 		},
@@ -614,16 +614,16 @@ function remove_ingred_from_dish(dishingred_id,dish_id){
 	});
 }
 
-function edit_group_in_dish(id){
-	$.ajax({
+function edit_group_in_dish(id,dish_id){
+
+$.ajax({
 		type: 'post',
 		dataType: 'html',
 		url: '/munch/admin/groups/create/'+id,
-		data: $("#form_group_"+id).serialize(),
+		data: $("#form_group").serialize(),
 		success: function (response, status, xml) {
-
-			$.get('/munch/admin/groups/edit/'+id, function(data) {
-				$("#edit_group_in_dish_"+id).html(data);
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
 				$(".single_select").multiselect({
 					height:110,
 					multiple:false,
@@ -641,13 +641,12 @@ function edit_group_in_dish(id){
 			alert('edit completed');
 		}
 	});
-
 }
 function add_group_in_dish(dish_id){
 	$.ajax({
 		type: 'post',
 		dataType: 'html',
-		data: $("form_dish_group").serialize(),
+		data: $("#form_dish_group_").serialize(),
         url: '/munch/admin/dishes/creategroup/'+dish_id,
 		success: function (response, status, xml) {
 			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
@@ -672,7 +671,7 @@ function add_group_in_dish(dish_id){
 }
 function remove_group_from_dish(group_id,dish_id){
 	$.ajax({
-		dataType: 'html',
+        dataType: 'html',
         url: '/munch/admin/dishes/removegroup/'+group_id+'/'+dish_id,
 		success: function (response, status, xml) {
 			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
@@ -684,12 +683,16 @@ function remove_group_from_dish(group_id,dish_id){
 					noneSelctedText:"Select an Option",
 					selectedList:1
 				});
-
+                $("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
 				$(".submit").button();
 			});
 			alert('removed!');
 		}
 	});
+
 }
 function edit_sub_in_group(sub_id,group_id){
 	$.ajax({
@@ -707,10 +710,10 @@ function edit_sub_in_group(sub_id,group_id){
 					noneSelctedText:"Select an Option",
 					selectedList:1
 				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
+				$("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+                });
 				$("#active_radio").buttonset();
 				$(".submit").button();
 			});
@@ -727,7 +730,7 @@ function add_sub_in_group(group_id){
         url: '/munch/admin/groups/createsub/'+group_id,
 		success: function (response, status, xml) {
 			$.get('/munch/admin/groups/edit/'+group_id, function(data) {
-				$("#form_dialog_dish").html(data);
+				$("#form_dialog_group").html(data);
 				$(".single_select").multiselect({
 					height:110,
 					multiple:false,
@@ -735,6 +738,10 @@ function add_sub_in_group(group_id){
 					noneSelctedText:"Select an Option",
 					selectedList:1
 				});
+                $("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+                });
 				$(".submit").button();
 			});
 			alert('add completed');
@@ -747,7 +754,7 @@ function remove_sub_from_group(sub_id,group_id){
         url: '/munch/admin/groups/removesub/'+sub_id+'/'+group_id,
 		success: function (response, status, xml) {
 			$.get('/munch/admin/groups/edit/'+group_id, function(data) {
-				$("#form_dialog_dish").html(data);
+				$("#form_dialog_group").html(data);
 				$(".single_select").multiselect({
 					height:110,
 					multiple:false,
@@ -755,6 +762,10 @@ function remove_sub_from_group(sub_id,group_id){
 					noneSelctedText:"Select an Option",
 					selectedList:1
 				});
+                $("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+                });
 				$(".submit").button();
 			});
 			alert('removed!');

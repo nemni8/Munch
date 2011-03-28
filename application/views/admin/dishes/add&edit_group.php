@@ -1,7 +1,7 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
 
-<div class="dish_subdish">
-	<?php echo Form::open('admin/dishes/creategroup/'.$edit_id,array('id'=>'form_dish_group'));?>
+<div class="dialog">
+	<?php echo Form::open('admin/dishes/creategroup/'.$dish->id,array('id'=>'form_dish_group_'));?>
 		<div class="clear"></div>
 		<?php echo Form::label('group_id','Group');?>
 		<?php $default  = NULL; ?>
@@ -12,7 +12,6 @@
                                             ->or_where('user_id' , '=', 0)
 											->execute()->as_array('id','name'), $default);
 		?>
-		<?php echo Form::input('dish_id',$dish->id, array('type'=>'hidden')); ?>
 	<?php echo Form::close();?>
 </div>
 
