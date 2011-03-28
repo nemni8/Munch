@@ -8,7 +8,8 @@
 		<?php  echo Form::select('group_id',
 											DB::select('id','name')
 											->from('groups')
-											//->where('id' , '<>', $dish_id)
+                                            ->where('user_id' , '=', $_SESSION['auth_user_munch']->id)
+                                            ->or_where('user_id' , '=', 0)
 											->execute()->as_array('id','name'), $default);
 		?>
 		<?php echo Form::input('dish_id',$dish->id, array('type'=>'hidden')); ?>

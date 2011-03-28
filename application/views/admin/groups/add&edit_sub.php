@@ -8,7 +8,7 @@
 		<?php  echo Form::select('sub_id',
 											DB::select('id','name')
 											->from('dishes')
-											//->where('id' , '<>', $dish_id)
+											//-\>where('id' , '<>', $dish_id)
 											->execute()->as_array('id','name'), $default);
 		?>
 		<?php //echo Form::input('dish_id',$dish_id, array('type'=>'hidden')); ?>
