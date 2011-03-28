@@ -6,7 +6,10 @@ class Model_Group extends ORM
 	//	'dish' => array(),
 	//);
 	protected $_has_many = array(
-		'subs' => array(),
+		'subs' => array(
+            'model' => 'dish',
+			'through' => 'subs'  
+        ),
         'dishes' => array(
 			'model' => 'dish',
 			'through' => 'dishes_groups'
@@ -36,18 +39,15 @@ class Model_Group extends ORM
 	public function get_all_groups($user_id = NULL)
 	{
 		
-		if(isset($user_id))
+		$result=NULL;
+        if(isset($user_id))
 		{			
 			$user = ORM::factory('user',$user_id);
 			if( ! $user->has('roles',3))
 			{
-				$result = $result = DB::select('groups.*')->
+				$result  = DB::select('groups.*')->
 						from('groups')->
-						join('dishes')->
-						on('dishes.id', '=', 'groups.dish_id')->
-						join('restaurants')->
-						on('dishes.restaurant_id', '=', 'restaurants.id')->
-						where('restaurants.user_id','=',$_SESSION['auth_user_munch']->id)->
+						where('user_id','=',$user_id)->
 						as_object()->execute();
 			}
 			else 
@@ -56,10 +56,7 @@ class Model_Group extends ORM
 			}	
 			
 		}
-		else
-		{
-			$result = DB::select()->from('groups')->as_object()->execute();
-		}	
+
 		return $result;
 	}
 	public function get_all_groups_in_dish($id)

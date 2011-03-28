@@ -34,6 +34,10 @@
 				<span>|</span>
 				<a id="add_dish_button">Add dish</a>
 			</li>
+        <li>
+				<span>|</span>
+				<a id="add_group_button">Add Group</a>
+			</li>
 		<?php endif;?>
 	</ul>
 </div>
