@@ -97,5 +97,21 @@ class Controller_Admin_Ingredients extends Controller_Template_Admin
             die();
         }
 	}
+	public function action_autocomplete()
+	{
+		$term = '%'.$_GET['term'].'%';
+		$return_arr = array();
+		$query = DB::query(Database::SELECT,'SELECT ingredients.name FROM ingredients WHERE ingredients.name LIKE :term');
+		$query->parameters(array(
+			':term' => $term,
+		));
+		$return_arr = $query->execute()->as_array();
+		$list = array();
+		foreach($return_arr as $key=> $name)
+		{
+			$list[$key] = $name['name'] ;
+		}
+		echo json_encode($list) ;
+	}
 }
 	

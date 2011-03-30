@@ -1,3 +1,247 @@
+/*functions*/
+function id_assigner(id,section){
+
+	if (section=='restaurant'){
+		$("#id_of_rest").val(id);
+		$( "#form_dialog_rest" ).dialog( "open" );
+	}
+	if (section=="user"){
+		$("#id_of_user").val(id);
+		$( "#form_dialog_user" ).dialog( "open" );
+	}
+	if (section=="dish"){
+		$("#id_of_dish").val(id);
+		$( "#form_dialog_dish" ).dialog( "open" );
+	}
+	if (section=="ingredient"){
+		$("#id_of_ingredient").val(id);
+		$( "#form_dialog_ingredient" ).dialog( "open" );
+	}
+	if (section=="category"){
+		$("#id_of_category").val(id);
+		$( "#form_dialog_category" ).dialog( "open" );
+	}
+
+}
+function delete_assigner(id,section) {
+	$("#id_for_delete").val(id);
+	if (section=='restaurant'){
+		$("#id_of_source").val('restaurants');
+	}
+	if (section=="user"){
+		$("#id_of_source").val('users');
+	}
+	if (section=="dish"){
+		$("#id_of_source").val('dishes');
+	}
+	if (section=="ingredient"){
+		$("#id_of_source").val('ingredients');
+	}
+	if (section=="category"){
+		$("#id_of_source").val('categories');
+	}
+	$( "#form_dialog_delete" ).dialog('open');
+
+}
+
+
+
+function checksupadminfunction() {
+	if ($('#checksupadmin:checked').val())
+		$('#checkadmin').attr('checked',true);
+}
+function checkadminfunction() {
+	if ( ! $('#checkadmin:checked').val())
+		$('#checksupadmin').attr('checked',false);
+}
+function edit_ingred_in_dish(id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/dishes/createingredient/'+id,
+		data: $("#form_dish_ingredient_"+id).serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/editingredient/'+id, function(data) {
+				$("#edit_ingred_in_dish_"+id).html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+
+}
+function add_ingred_in_dish(dish_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/dishes/createingredient/',
+		data: $("#form_dish_ingredient_").serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+function edit_group_in_dish(id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/groups/create/'+id,
+		data: $("#form_group_"+id).serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/groups/edit/'+id, function(data) {
+				$("#edit_group_in_dish_"+id).html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+
+			});
+		}
+	});
+
+}
+function add_group_in_dish(dish_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/groups/create/',
+		data: $("#form_group_").serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+function edit_sub_in_group(sub_id,group_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/groups/createsub/'+sub_id,
+		data: $("#form_group_sub_"+group_id+"_"+sub_id).serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/groups/editsub/'+sub_id, function(data) {
+				$("#edit_sub_in_group_"+sub_id).html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+
+			});
+		}
+	});
+
+}
+function add_sub_in_group(dish_id,group_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/groups/createsub/',
+		data: $("#form_group_sub_"+group_id+"_").serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);     
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+
+/*document ready*/
+
 $(document).ready(function() {
 	$( "#form_dialog_delete" ).dialog({
 		open: function (){
@@ -269,6 +513,10 @@ $(document).ready(function() {
 				});
 				$("#active_radio").buttonset();
 				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1
+				});
 			});
 		},
 		autoOpen: false,
@@ -299,6 +547,10 @@ $(document).ready(function() {
 						});
 						$("#active_radio").buttonset();
 						$(".submit").button();
+						$( ".auto_ingredient" ).autocomplete({
+								source: "/munch/admin/ingredients/autocomplete/",
+								minLength: 1			
+						});
 						
 						if($("#form_dialog_dish").html().length == 0)
 						{
@@ -392,233 +644,11 @@ $(document).ready(function() {
 	$("#id_of_ingredient").change(function(){
 		$( "#form_dialog_ingredient" ).dialog( "open" );
 	});
+	/*$( "#auto_ingredient" ).autocomplete({
+			source: "/munch/admin/ingredients/autocomplete/",
+			minLength: 1			
+	});*/
+});/*end of document ready*/
 
-
-	//  category form dialog functions
-
-	
-	
-});
-
-function id_assigner(id,section){
-
-	if (section=='restaurant'){
-		$("#id_of_rest").val(id);
-		$( "#form_dialog_rest" ).dialog( "open" );
-	}
-	if (section=="user"){
-		$("#id_of_user").val(id);
-		$( "#form_dialog_user" ).dialog( "open" );
-	}
-	if (section=="dish"){
-		$("#id_of_dish").val(id);
-		$( "#form_dialog_dish" ).dialog( "open" );
-	}
-	if (section=="ingredient"){
-		$("#id_of_ingredient").val(id);
-		$( "#form_dialog_ingredient" ).dialog( "open" );
-	}
-	if (section=="category"){
-		$("#id_of_category").val(id);
-		$( "#form_dialog_category" ).dialog( "open" );
-	}
-
-}
-function delete_assigner(id,section) {
-	$("#id_for_delete").val(id);
-	if (section=='restaurant'){
-		$("#id_of_source").val('restaurants');
-	}
-	if (section=="user"){
-		$("#id_of_source").val('users');
-	}
-	if (section=="dish"){
-		$("#id_of_source").val('dishes');
-	}
-	if (section=="ingredient"){
-		$("#id_of_source").val('ingredients');
-	}
-	if (section=="category"){
-		$("#id_of_source").val('categories');
-	}
-	$( "#form_dialog_delete" ).dialog('open');
-
-}
-
-
-
-function checksupadminfunction() {
-	if ($('#checksupadmin:checked').val())
-		$('#checkadmin').attr('checked',true);
-}
-function checkadminfunction() {
-	if ( ! $('#checkadmin:checked').val())
-		$('#checksupadmin').attr('checked',false);
-}
-function edit_ingred_in_dish(id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/dishes/createingredient/'+id,
-		data: $("#form_dish_ingredient_"+id).serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/dishes/editingredient/'+id, function(data) {
-				$("#edit_ingred_in_dish_"+id).html(data);
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('edit completed');
-		}
-	});
-
-}
-function add_ingred_in_dish(dish_id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/dishes/createingredient/',
-		data: $("#form_dish_ingredient_").serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
-				$("#form_dialog_dish").html(data);
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('add completed');
-		}
-	});
-}
-function edit_group_in_dish(id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/groups/create/'+id,
-		data: $("#form_group_"+id).serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/groups/edit/'+id, function(data) {
-				$("#edit_group_in_dish_"+id).html(data);
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('edit completed');
-		}
-	});
-
-}
-function add_group_in_dish(dish_id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/groups/create/',
-		data: $("#form_group_").serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
-				$("#form_dialog_dish").html(data);
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('add completed');
-		}
-	});
-}
-function edit_sub_in_group(sub_id,group_id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/groups/createsub/'+sub_id,
-		data: $("#form_group_sub_"+group_id+"_"+sub_id).serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/groups/editsub/'+sub_id, function(data) {
-				$("#edit_sub_in_group_"+sub_id).html(data);
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('edit completed');
-		}
-	});
-
-}
-function add_sub_in_group(dish_id,group_id){
-	$.ajax({
-		type: 'post',
-		dataType: 'html',
-		url: '/munch/admin/groups/createsub/',
-		data: $("#form_group_sub_"+group_id+"_").serialize(),
-		success: function (response, status, xml) {
-			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
-				$("#form_dialog_dish").html(data);     
-				$(".single_select").multiselect({
-					height:110,
-					multiple:false,
-					header:"Select an Option",
-					noneSelctedText:"Select an Option",
-					selectedList:1
-				});
-				$("#dish_category").multiselect({
-					height:110,
-					selectedList:3
-				});
-				$("#active_radio").buttonset();
-				$(".submit").button();
-			});
-			alert('add completed');
-		}
-	});
-}
 
 

@@ -9,11 +9,16 @@
 			$default = ($type == 'edit') ? $dishesingredient->ingredient_id : NULL;
 			$attr = ($type == 'edit') ? array('disabled' => 'disabled') : array();
 		?>
-		<?php $list_of_ingred = ORM::factory('ingredient')->get_all_ingredients()->as_array('id','name');?>
-		<?php  echo Form::select('ingredient_id',$list_of_ingred, $default,$attr);?>
+		<?php if($type == 'add') : ?>
+			<?php echo Form::input('auto_ingredient',NULL,array('class'=>'auto_ingredient')); ?>
+		<?php else : ?>
+			<?php $list_of_ingred = ORM::factory('ingredient')->get_all_ingredients()->as_array('id','name');?>
+			<?php  echo Form::select('ingredient_id',$list_of_ingred, $default,$attr);?>
+		<?php endif;?>
 		<?php if($type == 'add') : ?>
 			<div class="clear" style="height: 12px;"></div>
 		<?php endif;?>
+			
 		<!-- choose is basic ingred -->
 		<?php echo Form::label('basic_optional','Basic/Optional');?>
 		<?php $default = ($type == 'edit') ? $dishesingredient->basic_optional : NULL; ?>
@@ -21,6 +26,7 @@
 		<div class="clear" style="height: 12px"></div>
 		<?php $default = ($type == 'edit') ? $dishesingredient->dish_id : $dish_id; ?>
 		<?php echo Form::input('dish_id',$default, array('type'=>'hidden')); ?>
+		<?php //echo Form::input('ingredient_id',$default, array('type'=>'hidden')); ?>
 		<!-- end of the form -->
 	<?php echo Form::close();?>
 </div>

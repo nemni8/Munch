@@ -65,7 +65,7 @@
 		<?php
 			$dish_ingred = ORM::factory('dishesingredient')->get_all_ingredients_in_dish($dish->id);
 			if(count($dish_ingred) > 0) :?>
-				<h3>Ingredients in Dish</h3>
+				<h3>Ingredients in <?php echo $dish->name;?> Dish</h3>
 				<ul>
 					<?php foreach($dish_ingred as $ingred) : ?>
 						<li style="margin-bottom: 12px;">
@@ -78,7 +78,7 @@
 				</ul>
 				<div class="dashed"></div>
 			<?php endif;?>
-			<h3>Add new Ingredient</h3>
+			<h3>Add new Ingredient To <?php echo $dish->name;?> Dish</h3>
 		<div id="add_ingred_in_dish">
 			<?php echo Request::factory('admin/dishes/addingredient/'.$id)->execute() ?>
 			<div class="clear"></div>
@@ -89,7 +89,7 @@
 	
 	<?php if($type == 'edit') : ?>
 		<div class="dashed"></div>
-			<h3>Add new Group</h3>
+			<h3>Add new Group To <?php echo $dish->name;?> Dish</h3>
 		<div id="add_group_in_dish">
 			<?php echo Request::factory('admin/groups/add/'.$id)->execute() ?>
 			<div class="clear"></div>
@@ -101,7 +101,7 @@
 			$dish_group = ORM::factory('group')->get_all_groups_in_dish($dish->id);
 			if(count($dish_group) > 0) :
 		?>
-		<h3>Groups in Dish</h3>
+		<h3>Groups in  <?php echo $dish->name;?> Dish</h3>
 			<?php foreach($dish_group as $group) : ?>
 					<div id="edit_group_in_dish_<?php echo $group->id;?>">
 						<?php echo Request::factory('admin/groups/edit/'.$group->id)->execute() ?>

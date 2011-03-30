@@ -31,7 +31,7 @@
 			if(count($subs) > 0) :
 		?>
 			<div class="dashed"></div>
-			<h3>Subs Dishes in Group</h3>
+			<h3>Subs Dishes in <?php echo $group->name;?> Group</h3>
 			<ul>
 				<?php foreach($subs as $sub) : ?>
 					<li style=" margin-bottom: 12px;">
@@ -45,7 +45,7 @@
 			<div class="dashed"></div>
 		<?php endif;?>
 		<div class="clear"></div>
-		<h3>Add new Sub Dish</h3>
+		<h3>Add new Sub Dish To <?php echo $group->name;?> Group</h3>
 		<div id="add_group_in_dish" style="display:inline-block;">
 			<?php echo Request::factory('admin/groups/addsub/'.$id)->execute() ?>
 		</div>

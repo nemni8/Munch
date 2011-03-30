@@ -28,7 +28,7 @@ public function get_all_ingredients_in_dish($id)
 	{
 		$dishesingredient = ORM::factory('dishesingredient');
 		$dishesingredient->dish_id = $a;
-        $dishesingredient->ingredient_id = $b;
+       $dishesingredient->ingredient_id = $b;
 		$dishesingredient->basic_optional = $c;
 		$dishesingredient->save();
 

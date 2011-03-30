@@ -99,10 +99,12 @@ class Controller_Admin_Groups extends Controller_Template_Admin
                 ->bind('errors', $errors);
             if ($_POST)
             {
-                $sub->values($_POST);
+					$sub->values($_POST);
                 try
                 {
-                    $sub->save();
+							$has_sub = orm::factory('sub')->where('group_id','=',$group_id)->where('sub_id','=',$sub->sub_id)->find()->as_array();
+							if(empty($has_sub->id))
+								$sub->save();
 					die();
                 }
                 catch (ORM_Validation_Exception $e)

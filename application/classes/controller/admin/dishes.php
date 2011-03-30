@@ -123,11 +123,14 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
                 ->bind('errors', $errors);
             if ($_POST)
             {
-                $dishesingredient->values($_POST);
+					$dishesingredient->values($_POST);
+					if($type == 'add')
+						//echo 'in the if';
+						$dishesingredient->ingredient_id = orm::factory('ingredient')->get_id_by_name($_POST["auto_ingredient"]);
                 try
                 {
 					$dish = ORM::factory('dish',$dishesingredient->dish_id);
-					if(( ! $dish->has('ingredients', $dishesingredient->ingredient_id) AND $type == 'add') OR $type == 'edit')
+					if(( ! $dish->has('ingredients', $dishesingredient->ingredient_id) AND $type == 'add' AND $dishesingredient->ingredient_id > 0) OR $type == 'edit')
                     	$dishesingredient->save();
 					die();
                 }

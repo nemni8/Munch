@@ -76,9 +76,12 @@ public function get_all_ingredients_visible_for_user($id)
     }
     public function get_all_ingredients_user_can_edit($id)
     {
-
         return DB::select()->from('ingredients')->where('user_id','=',$id)->as_object()->execute();
     }
+	public function get_id_by_name($string)
+	{
+		return DB::select('id')->from('ingredients')->where('name','LIKE',$string)->execute()->get('id', 0);
+	}
 
 
 	public function add_new($post,$admin_level)
