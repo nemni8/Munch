@@ -61,7 +61,8 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 
 			try
 			{
-				$dish->save();
+
+                $dish->save();
 				if(isset($_POST['category_id']))
 				{
 					$dish->remove('categories');
@@ -71,7 +72,6 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 							$dish->add('categories',$cat);
 					}
 				}
-
 				die();
 			}
 			catch (ORM_Validation_Exception $e)
@@ -86,21 +86,21 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
     public function action_delete($id)
 	{
 		$dish = ORM::factory('dish',$id);
-        $dish->remove('ingredients');
-        $dish->delete();
+		$dish->remove('ingredients');
+		$dish->remove('groups');
+		$dish->remove('subs');
+		$dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
-
 	}
 
     /*dish ingredient CRUD*/
     public function action_addingredient($dish_id)
 	{
-
 		$this->_ajax = TRUE;
 		$this->template->content = View::factory('admin/dishes/add&edit_dish_ingredient')
 			->set('type','add')
 			->set('dish_id',$dish_id);
-}
+	}
 	public function action_editingredient($id)
 	{
 		$dishesingredient = ORM::factory('dishesingredient', $id);
@@ -148,5 +148,50 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 		$this->request->redirect(Route::get('admin')->uri());
 
 	}
-}
+    
+	public function action_addgroup($dish_id)
+	{
+		$this->_ajax = TRUE;
+		$dish = ORM::factory('dish',$dish_id);
+		$this->template->content = View::factory('admin/dishes/add&edit_group')
+			->set('type','add')
+			->set('dish',$dish);
+    }
+            public function action_creategroup($dish_id)
+            {
 
+            $dish = ORM::factory('dish',$dish_id);
+            $this->template->content = View::factory('admin/dishes/add&edit_group')
+                       ->set('post', $_POST)
+                       ->set('dish',$dish)
+                       ->set('type','add')
+                       ->bind('errors', $errors);
+                   if ($_POST)
+                   {
+                       try
+                       {
+                           $group = ORM::factory('group', $_POST['group_id']);
+                           if (!$dish->has('groups',$group)) {
+                                $dish->add('groups',$group);
+                           }
+                           die();
+                       }
+                       catch (ORM_Validation_Exception $e)
+                       {
+                           $errors = $e->errors('models');
+                       }
+                   }
+
+                   $this->_ajax = TRUE;
+
+    }
+    public function action_removegroup($group_id,$dish_id)
+	{
+        $this->_ajax = TRUE;
+        //$group= ORM::factory('group', $group_id);
+        $dish = ORM::factory('dish', $dish_id);
+        $dish->remove('groups',$group_id);
+		$this->request->redirect(Route::get('admin')->uri());
+
+	}
+}

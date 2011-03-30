@@ -81,6 +81,11 @@ class Model_Category extends ORM
 									DB::select()->from('categories')->where('model','=',$model)->as_object()->execute() :
 									DB::select()->from('categories')->as_object()->execute();
 	}
+        public function get_all_categories_user_can_edit($id)
+    {
+
+        return DB::select()->from('categories')->where('user_id','=',$id)->as_object()->execute();
+    }
 
 
 } // End Category Model

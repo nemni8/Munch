@@ -6,6 +6,10 @@
 		<?php echo Request::factory('admin/main/table/group')->execute() ?>
 	</div>
 <?php endif ; ?>
+    <div class="dashboard">
+       <h2>Categories</h2>
+        <?php echo Request::factory('admin/main/table/category')->execute() ?>
+	</div>
 <div class="dashboard">
 	<h2>Dish</h2>
 	<?php echo Request::factory('admin/main/table/dish')->execute() ?>

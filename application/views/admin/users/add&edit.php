@@ -19,7 +19,7 @@
 					echo Form::input($input['col_name'],$default,array('class'=>'regular'));
 					break;
 				case 'password':
-					echo Form::password($input['col_name'],array('class'=>'regular'));
+					echo Form::password($input['col_name'],NULL,array('class'=>'regular'));
 					break;
 
 

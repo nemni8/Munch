@@ -98,7 +98,10 @@ class Controller_Admin_Main extends Controller_Template_Admin
 					$function_name='get_all_dishes';
 					break;
 				case ("category"):
-					$function_name='get_all_categories';
+                    if ($this->_checkSupadmin())
+						$function_name='get_all_categories';
+					else
+						$function_name='get_all_categories_user_can_edit';
 					break;
 				case("user"):
 					$function_name='get_all_users';
@@ -108,9 +111,10 @@ class Controller_Admin_Main extends Controller_Template_Admin
 					break;
 			}
 
-		 $all_items = (($table == 'dish') OR ($table == 'restaurant') OR ($table == 'group')) 
+            $all_items = (($table == 'dish') OR ($table == 'restaurant') OR ($table == 'group') OR (($table=='category') AND(! $this->_checkSupadmin()) ))
 							? $item->$function_name($_SESSION['auth_user_munch']->id) 
 							: $item->$function_name();
+
 		 $this->_ajax = true;
 			$this->template->content = View::factory('admin/table')
 									   ->set('id',$table)

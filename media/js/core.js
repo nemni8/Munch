@@ -21,6 +21,10 @@ function id_assigner(id,section){
 		$("#id_of_category").val(id);
 		$( "#form_dialog_category" ).dialog( "open" );
 	}
+	if (section=="group"){
+		$("#id_of_group").val(id);
+		$( "#form_dialog_group" ).dialog( "open" );
+	}
 
 }
 function delete_assigner(id,section) {
@@ -40,12 +44,11 @@ function delete_assigner(id,section) {
 	if (section=="category"){
 		$("#id_of_source").val('categories');
 	}
+	if (section=="group"){
+		$("#id_of_source").val('groups');
+	}
 	$( "#form_dialog_delete" ).dialog('open');
-
 }
-
-
-
 function checksupadminfunction() {
 	if ($('#checksupadmin:checked').val())
 		$('#checkadmin').attr('checked',true);
@@ -115,6 +118,38 @@ function add_ingred_in_dish(dish_id){
 		}
 	});
 }
+function edit_group_in_dish(id,dish_id){
+
+$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/groups/create/'+id,
+		data: $("#form_group").serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+/*
 function edit_group_in_dish(id){
 	$.ajax({
 		type: 'post',
@@ -147,12 +182,44 @@ function edit_group_in_dish(id){
 	});
 
 }
+
 function add_group_in_dish(dish_id){
 	$.ajax({
 		type: 'post',
 		dataType: 'html',
 		url: '/munch/admin/groups/create/',
 		data: $("#form_group_").serialize(),
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				$("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$("#active_radio").buttonset();
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+*/
+function add_group_in_dish(dish_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		data: $("#form_dish_group_").serialize(),
+        url: '/munch/admin/dishes/creategroup/'+dish_id,
 		success: function (response, status, xml) {
 			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
 				$("#form_dialog_dish").html(data);
@@ -209,6 +276,7 @@ function edit_sub_in_group(sub_id,group_id){
 	});
 
 }
+/*
 function add_sub_in_group(dish_id,group_id){
 	$.ajax({
 		type: 'post',
@@ -239,11 +307,119 @@ function add_sub_in_group(dish_id,group_id){
 		}
 	});
 }
+*/
+function add_sub_in_group(group_id){
+	$.ajax({
+		type: 'post',
+		dataType: 'html',
+		data: $("#form_group_sub_"+group_id).serialize(),
+        url: '/munch/admin/groups/createsub/'+group_id,
+		success: function (response, status, xml) {
+			$.get('/munch/admin/groups/edit/'+group_id, function(data) {
+				$("#form_dialog_group").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+                $("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+                });
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+function remove_sub_from_group(sub_id,group_id){
+	$.ajax({
+		dataType: 'html',
+        url: '/munch/admin/groups/removesub/'+sub_id+'/'+group_id,
+		success: function (response, status, xml) {
+			$.get('/munch/admin/groups/edit/'+group_id, function(data) {
+				$("#form_dialog_group").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+                $("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+                });
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
+function remove_group_from_dish(group_id,dish_id){
+	$.ajax({
+        dataType: 'html',
+        url: '/munch/admin/dishes/removegroup/'+group_id+'/'+dish_id,
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+                $("#dish_category").multiselect({
+					height:110,
+					selectedList:3
+				});
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
 
+}
+function remove_ingred_from_dish(dishingred_id,dish_id){
+	$.ajax({
+		dataType: 'html',
+        url: '/munch/admin/dishes/deleteingredient/'+dishingred_id,
+		success: function (response, status, xml) {
+			$.get('/munch/admin/dishes/edit/'+dish_id, function(data) {
+				$("#form_dialog_dish").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1			
+				});
+			});
+		}
+	});
+}
 /*document ready*/
 
 $(document).ready(function() {
-	$( "#form_dialog_delete" ).dialog({
+    $( "#form_dialog_delete" ).dialog({
 		open: function (){
 		},
 		autoOpen:false,
@@ -276,8 +452,6 @@ $(document).ready(function() {
 		}
 	});
 
-
-	//rest dialog functions
 	$("#form_dialog_rest").dialog({
 		open: function(){
 			if($("#id_of_rest").val()>0){
@@ -388,8 +562,7 @@ $(document).ready(function() {
 					url: '/munch/admin/users/create/'+$temp,
 					data: $("#form_user").serialize(),
 					success: function (response, status, xml) {
-						$("#form_dialog_user").html('').html(response);
-                        
+						$("#form_dialog_user").html('').html(response);                      
 						if($("#form_dialog_user").html().length == 0){
 							$("#form_dialog_user").dialog( "close" );
 							$("#id_of_user").val(0);
@@ -460,8 +633,6 @@ $(document).ready(function() {
 							noneSelctedText:"Select an Option",
 							selectedList:1
 						});
-						//the next row is a patch!!!
-						$("#form_dialog_category").dialog( "close" );
 						if($("#form_dialog_category").html().length == 0){
 							$("#form_dialog_category").dialog( "close" );
 							$("#id_of_category").val(0);
@@ -576,7 +747,96 @@ $(document).ready(function() {
 	$("#id_of_dish").change(function(){
 		$( "#form_dialog_dish" ).dialog( "open" );
 	});
-	
+	/*group form dialog*/
+	$("#form_dialog_group").dialog({
+		open: function(){
+			if($("#id_of_group").val()>0){
+				temp = $("#id_of_group").val();
+				action = 'edit';
+			}
+			else{
+				temp="";
+				action = 'add';
+			}
+			$.get('/munch/admin/groups/'+action+'/'+temp, function(data) {
+				$("#form_dialog_group").html(data);
+				$(".single_select").multiselect({
+					height:110,
+					multiple:false,
+					header:"Select an Option",
+					noneSelctedText:"Select an Option",
+					selectedList:1
+				});
+				if ($("#dish_group").type!='hidden') {
+                $("#dish_group").multiselect({
+					height:110,
+					selectedList:3
+				});
+                }
+				$(".submit").button();
+				$( ".auto_ingredient" ).autocomplete({
+						source: "/munch/admin/ingredients/autocomplete/",
+						minLength: 1
+				});
+			});
+		},
+		autoOpen: false,
+		height:550,
+		width:400,
+		position: 'top',
+		modal: true,
+		buttons: {
+			"Save Group": function() {
+				$temp = ($("#id_of_group").val()!=0) ? $("#id_of_group").val() : '';
+				$.ajax({
+					type: 'post',
+					dataType: 'html',
+					url: '/munch/admin/groups/create/'+$temp,
+					data: $("#form_group").serialize(),
+					success: function (response, status, xml) {
+						$("#form_dialog_group").html('').html(response);
+						$(".single_select").multiselect({
+							height:110,
+							multiple:false,
+							header:"Select an Option",
+							noneSelctedText:"Select an Option",
+							selectedList:1
+						});
+						$("#dish_group").multiselect({
+							height:110,
+							selectedList:3
+						});
+						$(".submit").button();
+						$( ".auto_ingredient" ).autocomplete({
+								source: "/munch/admin/ingredients/autocomplete/",
+								minLength: 1
+						});
+
+						if($("#form_dialog_group").html().length == 0)
+						{
+							$("#form_dialog_group").dialog( "close" );
+							$("#id_of_dish").val(0);
+							window.location = "";
+						}
+					}
+				});
+			},
+			Cancel: function() {
+				$("#id_of_group").val(0);
+				$( this ).dialog( "close" );
+			}
+		},
+		close: function() {
+			$("#id_of_group").val(0);
+		}
+	});
+	$("#add_group_button").click(function() {
+		$( "#form_dialog_group" ).dialog( "open" );
+	});
+	$("#id_of_group").change(function(){
+		$( "#form_dialog_group" ).dialog( "open" );
+	});
+
 
 	/*ingredient form dialog*/
 	$("#form_dialog_ingredient").dialog({
@@ -644,11 +904,10 @@ $(document).ready(function() {
 	$("#id_of_ingredient").change(function(){
 		$( "#form_dialog_ingredient" ).dialog( "open" );
 	});
-	/*$( "#auto_ingredient" ).autocomplete({
+$( "#auto_ingredient" ).autocomplete({
 			source: "/munch/admin/ingredients/autocomplete/",
 			minLength: 1			
-	});*/
-});/*end of document ready*/
-
-
+	});
+});
+/*end of document ready*/
 
