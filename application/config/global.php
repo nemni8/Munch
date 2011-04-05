@@ -40,7 +40,7 @@ return
 					),
 					'meat_index' =>4,
 					'dairy_index' =>5,
-               'veggy_index' =>6,
+                    'veggy_index' =>6,
 					'parve_index' =>7,
 
 					/*payment method array*/
