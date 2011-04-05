@@ -119,9 +119,6 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $result = DB::select()
                             ->from('restaurants')
                             ->where('active','=',1);
-
-
-
         //if (isset($_POST['rest_name'])) {     MAYBE KOBI WILL CREATE AUTOCOMPLETE!!!!
           //      $result->and_where('name','like','%'.$_POST['rest_name'].'%');
         //}

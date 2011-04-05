@@ -1,4 +1,3 @@
-<div id="restquery">
 	<div class="restaurants">
 	<table class="ui-widget ui-widget-content">
 		<thead>
