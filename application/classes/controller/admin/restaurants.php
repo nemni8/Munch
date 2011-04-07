@@ -75,7 +75,11 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 		{
 
             $rest->values($_POST);
-
+            if (isset($_POST['city_name'])) {
+            $city=orm::factory('city')->where('name','=',$_POST['city_name'])->find();
+            $rest->city_id=$city->id;
+            $street=orm::factory('street')->where('name','=',$_POST['street_name'])->and_where('city_id','=',$city->id)->find();
+            $rest->street_id=$street->id;}
 			try
 			{
 
@@ -127,7 +131,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         }
         if (isset($_POST['kitchen_type'])) {
                 $temp= clone $result;
-                $result= DB::select('rest.*','categories_restaurants.category_id')
+                $result= DB::select('restaurants.*','categories_restaurants.category_id')
                     ->from('categories_restaurants')->join(array($temp,'restaurants'),'INNER')
                     ->on('categories_restaurants.restaurant_id','=','restaurants.id')
                     ->where('categories_restaurants.category_id','=',($_POST['kitchen_type']));
@@ -154,42 +158,61 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $this->_ajax = TRUE;
 
     }
-    function dish_search($rest) {
-    $dishes = DB::select()
+        function dish_search($rest) {
+        $result = DB::select()
 			            ->from('dishes')
-			            ->where('restaurant_id','=',$rest);
-        // WE NEED TO WORK ON THE DISH QUERY!!!
-    $this->template->content = View::factory('admin/restaurants/menu/search')
+			            ->where('restaurant_id','=',$rest)->and_where('active','=',1);
+        //if (isset($_POST['dish_name'])) {     MAYBE KOBI WILL CREATE AUTOCOMPLETE!!!!
+          //      $result->and_where('name','like','%'.$_POST['dish_name'].'%');
+        //}
+
+        if (isset($_POST['max_price'])) {
+                    $result->and_where('price','<=',$_POST['max_price']);
+            }
+        if (isset($_POST['mdv'])) {
+                $result->and_where('mdv','<=',$_POST['mdv']);
+        }
+        if (isset($_POST['dish_category'])) {
+                $temp= clone $result;
+                $result= DB::select('dishes.*','categories_dishes.category_id')
+                    ->from('categories_dishes')->join(array($temp,'dishes'),'INNER')
+                    ->on('categories_dishes.dish_id','=','dishes.id')
+                    ->where('categories_dishes.category_id','=',($_POST['dish_category']));
+        }
+
+        $dishes=$result->as_object()->execute();
+        $this->template->content = View::factory('site/restaurants/dishes/search')
 			->set('post', $_POST)
+            ->set('arr_input',ORM::factory('dishes')->get_headers())
 			->set('dishes', $dishes)
             ->bind('errors', $errors);
 
-        if ($_POST)
-        {
-            //if (isset($_POST['rest_name'])) {     MAYBE KOBI WILL CREATE AUTOCOMPLETE!!!!
-              //      $dishes->and_where('name','like','%'.$_POST['dish_name'].'%');
-            //}
-            if (isset($_POST['city_id'])) {
-                    $dishes->and_where('city_id','=',$_POST['city_id']);
-            }
-            // NEED TO CHANGE THIS TO FIT THE MENU CATEGORIES
-            /*if (isset($_POST['kitchen_type'])) {
-                    $temp= clone $restaurants;
-                    $dishes= DB::select('rest.*','categories_restaurants.category_id')
-			            ->from('categories_restaurants')->join(array($temp,'restaurants'),'INNER')
-                        ->on('categories_restaurants.restaurant.id','=','restaurants.id')
-			            ->where('categories_restaurants.category_id','=',($_POST['kitchen_type']));
-            } */
-            if (isset($_POST['max_price'])) {
-                    $dishes->and_where('price','<=',$_POST['max_price']);
-            }
-            if (isset($_POST['mdv'])) {
-                    $dishes->and_where('mdv','<=',$_POST['mdv']);
-            }
-            $dishes->execute();
-
-        }
         $this->_ajax = TRUE;
 
     }
+    	public function action_autocomplete($type,$city_name=NULL)
+	{
+        $term = '%'.$_GET['term'].'%';
+		$return_arr = array();
+        if ($type=='city') {
+    		$query = DB::query(Database::SELECT,'SELECT cities.id,cities.name FROM cities WHERE cities.name LIKE :term');
+        }
+        else
+        {
+            $city=orm::factory('city')->where('name','=',$city_name)->find();
+            $query = DB::query(Database::SELECT,'SELECT streets.name FROM streets WHERE streets.city_id ='.$city->id. ' AND streets.name LIKE :term');
+        }
+		$query->parameters(array(
+			':term' => $term,
+		));
+		$return_arr = $query->execute()->as_array();
+		$list = array();
+		foreach($return_arr as $key=> $name)
+		{
+			$list[$key] = $name['name'] ;
+		}
+		echo json_encode($list) ;
+	}
+    
+
 } // End Welcome

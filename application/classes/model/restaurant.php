@@ -28,7 +28,14 @@ class Model_Restaurant extends ORM
 				array('min_length', array(':value', 4)),
                 array('max_length', array(':value', 32))
 			),
+            'city_id' => array(
+                array('not_empty'),
+            ),
+            'street_id' => array(
+                array('not_empty'),
+            ),
             'street_num' => array(
+                array('not_empty'),
                 array('numeric')
             ),
             'phone' => array(
@@ -46,6 +53,8 @@ class Model_Restaurant extends ORM
 		return
 				array(
 						'name'            => array('col_name' => 'name','title' => 'Rest Name', 'type' => 'text'),
+                        'street_num'      => array('col_name' => 'street_num','title' => 'Street Num', 'type' => 'text'),
+						'address_comment' => array('col_name' => 'address_comment','title' => 'Rest Address Comment', 'type' => 'textarea'),
 						'email' 		  => array('col_name' => 'email','title' => 'Rest E-Mail', 'type' => 'text'),
 						'phone'           => array('col_name' => 'phone','title' => 'Rest Main Phone', 'type' => 'text'),
 						'phone2'          => array('col_name' => 'phone2','title' => 'Rest Sub Phone', 'type' => 'text'),
@@ -53,10 +62,6 @@ class Model_Restaurant extends ORM
 						'delivery_time'   => array('col_name' => 'delivery_time','title' => 'Max Time To Delivery', 'type' => 'numeric'),
 						'delivery_cost'   => array('col_name' => 'delivery_cost','title' => 'Delivery Cost', 'type' => 'numeric'),
 						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Fee', 'type' => 'numeric'),
-						/*
-						'street_num'      => array('col_name' => 'street_num','title' => 'Rest Street Num', 'type' => 'text'),
-						'address_comment' => array('col_name' => 'address_comment','title' => 'Rest Address Comment', 'type' => 'textarea'),
-						 */
 						'about'           => array('col_name' => 'about','title' => 'About', 'type' => 'textarea')
 				 )
 		;

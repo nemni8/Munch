@@ -1,4 +1,5 @@
 /*functions*/
+
 function id_assigner(id,section){
 
 	if (section=='restaurant'){
@@ -464,6 +465,7 @@ $(document).ready(function() {
 			}
 			$.get('/munch/admin/restaurants/'+action+'/'+temp, function(data) {
 				$("#form_dialog_rest").html(data);
+
 				$(".single_select").multiselect({
 					height:80,
 					multiple:false,
@@ -477,6 +479,38 @@ $(document).ready(function() {
 					header:"Select an Option",
 					noneSelctedText:"Select an Option"
 				});
+                $( ".auto_city" ).autocomplete({
+						source: "/munch/admin/restaurants/autocomplete/city",
+						minLength: 1,
+                        focus: function( event, ui ) {
+                            $( "#city_name" ).val( ui.item.value );
+                            return false;
+                        },
+                        select: function( event, ui ) {
+                            $( "#city_name" ).val( ui.item.value );
+                            $( ".auto_street" ).autocomplete({ source:"/munch/admin/restaurants/autocomplete/street/"+ui.item.value  });
+			            	return false;
+			            }
+
+                                
+                });
+                $( ".auto_street" ).autocomplete({
+                        
+                        source: "/munch/admin/restaurants/autocomplete/street/"+$("#city_name").value,
+                        minLength: 1,
+                        focus: function( event, ui ) {
+                            $( "#street_name" ).val( ui.item.value );
+                            return false;
+                        },
+                        select: function( event, ui ) {
+                            $( "#street_name" ).val( ui.item.value );
+
+
+                            return false;
+                        }
+                });
+
+
 			});
 		},
 		autoOpen: false,
@@ -494,18 +528,19 @@ $(document).ready(function() {
 					data: $("#form_rest").serialize(),
 					success: function (response, status, xml) {
 						$("#form_dialog_rest").html('').html(response);
-						$(".single_select").multiselect({
+
+                        $(".single_select").multiselect({
 							height:80,
 							multiple:false,
 							header:"Select an Option",
-							noneSelctedText:"Select an Option",
+							noneSelectedText:"Select an Option",
 							selectedList:1
 						});
 						$("#rest_category").multiselect({
 							height:80,
 							selectedList:3,
 							header:"Select an Option",
-							noneSelctedText:"Select an Option"
+							noneSelectedText:"Select an Option"
 						});
 						if($("#form_dialog_rest").html().length == 0){
 							$("#form_dialog_rest").dialog( "close" );
@@ -524,6 +559,7 @@ $(document).ready(function() {
 			$("#id_of_rest").val(0);
 		}
 	});
+
 	$("#add_restaurant_button").click(function() {
 		$( "#form_dialog_rest" ).dialog( "open" );
 	});
@@ -531,6 +567,7 @@ $(document).ready(function() {
 
 		$( "#form_dialog_rest" ).dialog( "open" );
 	});
+
 
 	/*user dialog functions*/
 
