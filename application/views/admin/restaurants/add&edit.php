@@ -10,7 +10,7 @@
 			<div class="clear" style="height: 12px"></div>
 		<?php endif;?>
 		<?php foreach( $arr_input as $input): //creating the form fields ?>
-			<?php if($input['title'] == 'Rest E-Mail') : ?>
+			<?php if($input['title'] == 'Street Num') : ?>
 				<div class="clear" style="height: 12px"></div>
 				<?php echo Form::label('kosher_type','Kosher Type',array('class'=>'regular'));?>
 				<?php $default = ($type == 'edit') ? $rest->kosher_type : NULL; ?>
@@ -35,8 +35,31 @@
 					<?php  echo Form::select('active',Kohana::config ('global.active'),$default,array('class'=>'single_select'));?>
 					<div class="clear" style="height: 12px"></div>
 				<?php endif;?>
+                <div class="clear" style="height: 12px"></div>
+				<?php echo Form::label('city_name','City',array('class'=>'regular'));?>
+				<?php $default = ($type == 'edit') ? orm::factory('city',$rest->city_id)->name : NULL; ?>
+				<?php  echo Form::input('city_name',$default
+                                         ,array('id'=>'city_name','class'=>'auto_city'));?>
+                <div class="clear" style="height: 12px"></div>
+                <?php if (isset($errors['city_id'])) :?>
+						<div class="validate">
+							<?php echo $errors['city_id'];?>
+						</div>
+                <?php endif;?>
+
+				<?php echo Form::label('street_name','Street',array('class'=>'regular'));?>
+				<?php $default = ($type == 'edit') ? orm::factory('street',$rest->street_id)->name : NULL; ?>
+				<?php  echo Form::input('street_name',
+												$default,array('id'=>'street_name','class'=>'auto_street'));?>
+                <div class="clear" style="height: 12px"></div>
+                <?php if (isset($errors['street_id'])) :?>
+						<div class="validate">
+							<?php echo $errors['street_id'];?>
+						</div>
+                <?php endif;?>
+
 			<?php endif;?>
-				<?php echo Form::label($input['col_name'],$input['title'],array('class'=>'regular'));
+				<?php echo Form::label($input['col_name'],$input['title'],array('class'=>'regular',));
 				if(isset($errors)): // checking if the form has been returned with errors
                     $default =  $_POST[$input['col_name']] ;
                     //$default = ( ! isset($errors[$input['col_name']])) ? $_POST[$input['col_name']] : NULL;

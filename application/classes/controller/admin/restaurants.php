@@ -75,7 +75,11 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
 		{
 
             $rest->values($_POST);
-
+            if (isset($_POST['city_name'])) {
+            $city=orm::factory('city')->where('name','=',$_POST['city_name'])->find();
+            $rest->city_id=$city->id;
+            $street=orm::factory('street')->where('name','=',$_POST['street_name'])->and_where('city_id','=',$city->id)->find();
+            $rest->street_id=$street->id;}
 			try
 			{
 
@@ -154,6 +158,30 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $this->_ajax = TRUE;
 
     }
+    	public function action_autocomplete($type,$city_name=NULL)
+	{
+        $term = '%'.$_GET['term'].'%';
+		$return_arr = array();
+        if ($type=='city') {
+    		$query = DB::query(Database::SELECT,'SELECT cities.id,cities.name FROM cities WHERE cities.name LIKE :term');
+        }
+        else
+        {
+            $city=orm::factory('city')->where('name','=',$city_name)->find();
+            $query = DB::query(Database::SELECT,'SELECT streets.name FROM streets WHERE streets.city_id ='.$city->id. ' AND streets.name LIKE :term');
+        }
+		$query->parameters(array(
+			':term' => $term,
+		));
+		$return_arr = $query->execute()->as_array();
+		$list = array();
+		foreach($return_arr as $key=> $name)
+		{
+			$list[$key] = $name['name'] ;
+		}
+		echo json_encode($list) ;
+	}
+    
     function dish_search($rest) {
     $dishes = DB::select()
 			            ->from('dishes')
