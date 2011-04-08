@@ -4,7 +4,21 @@ class Controller_Site_Main extends Controller_Template_Site {
 
 	public function action_index()
 	{
-		echo $this->response->body('hello, world!');
+        $kosher_options= Kohana::config ('global.kosher_level');
+        $categories= Kohana_ORM::factory('category')->where('model','=','restaurant')->find_all();
+        $this->template->content = View::factory('site/main')
+                ->set('kosher_options',$kosher_options)
+                ->set('categories', $categories)
+                //->set('is_admin', (bool)$this->_admin);
+;
+	}
+    public function action_dishes()
+	{
+        $categories= Kohana_ORM::factory('category')->where('model','=','dishes')->find_all();
+        $this->template->content = View::factory('site/main')
+                ->set('categories', $categories)
+                //->set('is_admin', (bool)$this->_admin);
+;
 	}
 	public function action_dishorder($dish_id)
 	{
