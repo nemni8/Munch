@@ -5,6 +5,10 @@ a{cursor:pointer}
 /*global class*/
 .clear {clear: both; float: none; margin: 0; padding: 0;}
 .dashed{clear: both; float: none; margin: 0; padding: 0; border-bottom:1px dashed #708090; height:10px}
+.description{font-size:12px;display:inline-block;color:#FF7579;padding:0px 10px 0px 10px}
+.border{border:1px solid #2694E8;display:inline-block;}
+.image{padding:10px}
+.padding_sides{padding:0px 10px 0px 10px}
 /*header*/
 #header {
     clear: both;
@@ -87,7 +91,7 @@ a{cursor:pointer}
     border-width: 1px 1px medium;
     margin: 0 auto;
     min-height: 1048px;
-    padding-top: 10px;
+    padding: 10px;
     position: static;
     width: 990px;
 }
@@ -127,4 +131,8 @@ a.form_rest_links {cursor:pointer}
 .dashboard{display: inline-block;float: left}
 .dashboard h2{font-size: 18px; margin: 20px;}
 
-/*table*/
+/*dish order*/
+.order_left_div{float:left;width:25%;display:inline}
+.order_right_div{float:left;width:72%;display:inline;border-left:1px dashed #708090;padding: 0px 10px 10px 10px; }
+div.dish_image{border:10px solid white;display:inline-block;}
+

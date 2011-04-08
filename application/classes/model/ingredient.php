@@ -119,5 +119,9 @@ public function get_all_ingredients_visible_for_user($id)
 
 
 	}
+	public function get_basic_optional_in_dish($dish_id)
+	{
+		return DB::select('basic_optional')->from('dishes_ingredients')->where('dish_id','=',$dish_id)->where('ingredient_id','=',$this->id)->execute()->get('basic_optional', 0);
+	}
 
 } // End Ingredient Model
