@@ -15,7 +15,7 @@ class Controller_Site_Main extends Controller_Template_Site {
     public function action_dishes()
 	{
         $categories= Kohana_ORM::factory('category')->where('model','=','dishes')->find_all();
-        $this->template->content = View::factory('site/main')
+        $this->template->content = View::factory('site/dishesfilter')
                 ->set('categories', $categories)
                 //->set('is_admin', (bool)$this->_admin);
 ;
