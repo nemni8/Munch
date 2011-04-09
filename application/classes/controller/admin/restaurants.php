@@ -146,7 +146,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
                 $result->and_where('delivery_time','<=',$_POST['delivery_time']);
         }
         if (isset($_POST['kosher_level'])) {
-                $result->and_where('kosher_type','=',$_POST['city_id']);
+                $result->and_where('kosher_type','=',$_POST['kosher_type']);
         }
         $restaurants=$result->as_object()->execute();
         $this->template->content = View::factory('site/restaurants/search')
@@ -158,13 +158,22 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $this->_ajax = TRUE;
 
     }
-        function action_dishsearch($rest) {
+
+    function action_dishsearch($rest) {
         $result = DB::select()
 			            ->from('dishes')
 			            ->where('restaurant_id','=',$rest)->and_where('active','=',1);
         //if (isset($_POST['dish_name'])) {     MAYBE KOBI WILL CREATE AUTOCOMPLETE!!!!
           //      $result->and_where('name','like','%'.$_POST['dish_name'].'%');
         //}
+        if (isset($_POST['auto_ingredient'])) {
+                    $ingredient=orm::factory('ingredient')->where('name','=',$_POST['auto_ingredient'])->find();
+                    $temp= clone $result;
+                    $result= DB::select('dishes.*')
+                            ->from('dishes_ingredients')->join(array($temp,'dishes'),'INNER')
+                            ->on('dishes.id','=','dishes_ingredients.dish_id')
+                            ->where('dishes_ingredients.ingredient_id','=',$ingredient->id);
+            }
 
         if (isset($_POST['max_price'])) {
                     $result->and_where('price','<=',$_POST['max_price']);
@@ -195,12 +204,12 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $term = '%'.$_GET['term'].'%';
 		$return_arr = array();
         if ($type=='city') {
-    		$query = DB::query(Database::SELECT,'SELECT cities.id,cities.name FROM cities WHERE cities.name LIKE :term');
+    		$query = DB::query(Database::SELECT,'SELECT cities.name FROM cities WHERE cities.name LIKE :term');
         }
         else
         {
             $city=orm::factory('city')->where('name','=',$city_name)->find();
-            $query = DB::query(Database::SELECT,'SELECT streets.name FROM streets WHERE streets.city_id ='.$city->id. ' AND streets.name LIKE :term');
+            $query = DB::query(Database::SELECT,'SELECT  streets.name FROM streets WHERE streets.city_id ='.$city->id. ' AND streets.name LIKE :term');
         }
 		$query->parameters(array(
 			':term' => $term,
