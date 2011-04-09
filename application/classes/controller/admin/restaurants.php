@@ -119,7 +119,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
             die();
         }
 	}
-    function action_restaurant_search() {
+    function action_restaurantsearch() {
         $result = DB::select()
                             ->from('restaurants')
                             ->where('active','=',1);
@@ -158,7 +158,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $this->_ajax = TRUE;
 
     }
-        function dish_search($rest) {
+        function action_dishsearch($rest) {
         $result = DB::select()
 			            ->from('dishes')
 			            ->where('restaurant_id','=',$rest)->and_where('active','=',1);

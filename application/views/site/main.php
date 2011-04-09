@@ -9,13 +9,13 @@
         <?php echo Form::select('delivery_cost',array(range(0,20)),NULL); ?>
         <?php echo Form::Label('Delivery Time');?>
         <?php echo Form::select('delivery_time',array(range(0,60)),NULL); ?>
-	    <? $index=0; ?>
+	    <?php $index=0; ?>
         <div>
             <?php foreach($kosher_options as $option): ?>
                 <?php echo Form::label($option) ;?>
                 <?php $default= ($index=='0') ? TRUE : FALSE  ;?>
                 <?php echo Form::radio('kosher_level',$index,$default)    ;?>
-                <? $index++ ;?>
+                <?php $index++ ;?>
             <?php endforeach ; ?>
         </div>
         <div>
