@@ -46,12 +46,13 @@ return
 					/*payment method array*/
 					'payment_method' => array
 					(
-						'',
-						'Creditcard',
-						'Cash',
+						'Both',
+						'Credit Card',
+						'Cash'
 					),
-					'creditcard_index' =>1,
+					'credit_card_index' =>1,
 					'cash_index' =>2,
+					'both_index'=>3,
                     /*information delivery  method array*/
 					'info_method' => array
 					(

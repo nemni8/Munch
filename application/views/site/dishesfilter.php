@@ -1,5 +1,4 @@
 	<div class="rest_search">
-    <h2>Restaurants</h2>
         <?php echo Form::Label('Dish Name');?>
         <?php echo Form::input('Dish_name',NULL,array('id'=>'dish_name'));?>
         <?php echo Form::Label('Max Price');?>

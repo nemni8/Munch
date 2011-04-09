@@ -33,7 +33,7 @@ a{cursor:pointer}
 #navigation {
     height: 40px;
     margin: 0 auto;
-    width: 990px;
+    width: 1010px;
 }
 #menu {
     -moz-padding-start: 40px;
@@ -112,7 +112,7 @@ a{cursor:pointer}
     height: 58px;
     margin: 0 auto;
     position: relative;
-    width: 990px;
+    width: 1010px;
     border-bottom: 1px solid #2694E8;
 }				
 /*form*/

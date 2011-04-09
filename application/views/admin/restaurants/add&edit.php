@@ -16,6 +16,10 @@
 				<?php $default = ($type == 'edit') ? $rest->kosher_type : NULL; ?>
 				<?php  echo Form::select('kosher_type',Kohana::config ('global.kosher_level'),$default,array('class'=>'single_select'));?>
 				<div class="clear" style="height: 12px"></div>
+				<?php echo Form::label('payment_method','Payment Method',array('class'=>'regular'));?>
+				<?php $default = ($type == 'edit') ? $rest->payment_method : NULL; ?>
+				<?php  echo Form::select('payment_method',Kohana::config ('global.payment_method'),$default,array('class'=>'single_select'));?>
+				<div class="clear" style="height: 12px"></div>
 				<!-- choose meat, dairy or parve kitchen from the global.kosher_level variable-->
 				<?php echo Form::label('meat_dairy','Meat / Dairy',array('class'=>'regular'));?>
 				<?php $default = ($type == 'edit') ? $rest->meat_dairy : NULL; ?>
@@ -35,28 +39,29 @@
 					<?php  echo Form::select('active',Kohana::config ('global.active'),$default,array('class'=>'single_select'));?>
 					<div class="clear" style="height: 12px"></div>
 				<?php endif;?>
-                <div class="clear" style="height: 12px"></div>
-				<?php echo Form::label('city_name','City',array('class'=>'regular'));?>
-				<?php $default = ($type == 'edit') ? orm::factory('city',$rest->city_id)->name : NULL; ?>
-				<?php  echo Form::input('city_name',$default
-                                         ,array('id'=>'city_name','class'=>'auto_city'));?>
-                <div class="clear" style="height: 12px"></div>
-                <?php if (isset($errors['city_id'])) :?>
-						<div class="validate">
-							<?php echo $errors['city_id'];?>
-						</div>
-                <?php endif;?>
 
-				<?php echo Form::label('street_name','Street',array('class'=>'regular'));?>
-				<?php $default = ($type == 'edit') ? orm::factory('street',$rest->street_id)->name : NULL; ?>
-				<?php  echo Form::input('street_name',
-												$default,array('id'=>'street_name','class'=>'auto_street'));?>
                 <div class="clear" style="height: 12px"></div>
-                <?php if (isset($errors['street_id'])) :?>
+				<?php //echo Form::label('city_name','City',array('class'=>'regular'));?>
+				<?php //$default = ($type == 'edit') ? orm::factory('city',$rest->city_id)->name : NULL; ?>
+				<?php  //echo Form::input('city_name',$default
+                         //                ,array('id'=>'city_name','class'=>'auto_city'));?>
+                <!--div class="clear" style="height: 12px"></div>
+                <?php //if (isset($errors['city_id'])) :?>
 						<div class="validate">
-							<?php echo $errors['street_id'];?>
+							<?php // echo $errors['city_id'];?>
 						</div>
-                <?php endif;?>
+                <?php //endif;?>
+
+				<?php //echo Form::label('street_name','Street',array('class'=>'regular'));?>
+				<?php //$default = ($type == 'edit') ? orm::factory('street',$rest->street_id)->name : NULL; ?>
+				<?php  //echo Form::input('street_name',
+						//						$default,array('id'=>'street_name','class'=>'auto_street'));?>
+                <div class="clear" style="height: 12px"></div>
+                <?php //if (isset($errors['street_id'])) :?>
+						<div class="validate">
+							<?php //echo $errors['street_id'];?>
+						</div-->
+                <?php //endif;?>
 
 			<?php endif;?>
 				<?php echo Form::label($input['col_name'],$input['title'],array('class'=>'regular',));

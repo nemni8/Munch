@@ -941,10 +941,46 @@ $(document).ready(function() {
 	$("#id_of_ingredient").change(function(){
 		$( "#form_dialog_ingredient" ).dialog( "open" );
 	});
-$( "#auto_ingredient" ).autocomplete({
+	$( "#auto_ingredient" ).autocomplete({
 			source: "/munch/admin/ingredients/autocomplete/",
 			minLength: 1			
 	});
+	$.get('/munch/admin/restaurants/restaurantsearch', function(data) {
+		$("#rest_container").html(data);
+	});
+	$('.rest_search_select,.rest_search_radio').change(function(){
+		$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/restaurants/restaurantsearch',
+		data: $("#rest_search_form").serialize(),
+		success: function (response, status, xml) {
+			$("#rest_container").html('').html(response);
+		}
+		});
+	});
+	$('.rest_search_input').keyup(function(){
+		$.ajax({
+		type: 'post',
+		dataType: 'html',
+		url: '/munch/admin/restaurants/restaurantsearch',
+		data: $("#rest_search_form").serialize(),
+		success: function (response, status, xml) {
+			$("#rest_container").html('').html(response);
+		}
+		});
+	});
+	$( ".auto_restaurant" ).autocomplete({
+			source: "/munch/admin/restaurants/autocomplete/",
+			minLength: 1
+	});
+	$(".single_select").multiselect({
+		height:110,
+		multiple:false,
+		selectedList:1
+	});
+	$("#kosher_rest_search_radio").buttonset();
+	$("#payment_rest_search_radio").buttonset();
 });
 /*end of document ready*/
 

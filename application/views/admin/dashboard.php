@@ -28,6 +28,6 @@
 	<h2>Dish</h2>
 	<?php echo Request::factory('admin/main/table/dish')->execute() ?>
 </div>
-
+<div class="clear"></div>
 
 

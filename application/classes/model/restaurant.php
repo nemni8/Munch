@@ -28,7 +28,7 @@ class Model_Restaurant extends ORM
 				array('min_length', array(':value', 4)),
                 array('max_length', array(':value', 32))
 			),
-            'city_id' => array(
+            /*'city_id' => array(
                 array('not_empty'),
             ),
             'street_id' => array(
@@ -38,6 +38,7 @@ class Model_Restaurant extends ORM
                 array('not_empty'),
                 array('numeric')
             ),
+             */
             'phone' => array(
                 array('not_empty')
             ),

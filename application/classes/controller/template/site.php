@@ -17,10 +17,40 @@ abstract class Controller_Template_Site extends Controller_Template {
 	{
 		if($this->_user)
 		{
-			$role = ORM::factory('role')->where('name', '=', 'admin')->find();
-			$admin = $role->users->find($this->_user->id)->as_array();
-			if($admin['id']) return true;
-			else return false;
+			$user_roles = DB::select()
+						  ->from('roles_users')
+						  ->where('user_id','=',$this->_user->id)
+						  ->as_object()
+						  ->execute();
+			$flag = FALSE;
+			foreach ($user_roles as $role)
+			{
+				if ($role->role_id == 2)
+					$flag = TRUE;
+			}
+			return $flag;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	protected function _checkSupadmin()
+	{
+		if($this->_user)
+		{
+			$user_roles = DB::select()
+						  ->from('roles_users')
+						  ->where('user_id','=',$this->_user->id)
+						  ->as_object()
+						  ->execute();
+			$flag = FALSE;
+			foreach ($user_roles as $role)
+			{
+				if ($role->role_id == 3)
+					$flag = TRUE;
+			}
+			return $flag;
 		}
 		else
 		{
@@ -34,20 +64,16 @@ abstract class Controller_Template_Site extends Controller_Template {
 		html::$windowed_urls = TRUE;
 
 		/**
-		 * Adding admin users
-		 *
-
-		$user = ORM::factory('user');
-		$user->email = 'hananisraelbohadana@gmail.com';
-		$user->username = 'hanan';
-		$user->password = 'h1a2n3a1';
-		$user->save();
-		// dont forget to add roles. 'login' role needs for successful login
-		$user->add('roles', ORM::factory('role', array('name' => 'admin')));
-		$user->add('roles', ORM::factory('role', array('name' => 'login')));
-
+		 	* Adding admin users
+			$user = ORM::factory('user');
+			$user->email = 'omryoz@gmail.com';
+			$user->username = 'omryo';
+			$user->password = 'test123';
+			$user->save();
+			// dont forget to add roles. 'login' role needs for successful login
+			//$user->add('roles', ORM::factory('role', array('name' => 'admin')));
+			$user->add('roles', ORM::factory('role', array('name' => 'login')));
 		*/
-
 		parent::before();
 
 		$this->template->scripts = array();
@@ -60,6 +86,8 @@ abstract class Controller_Template_Site extends Controller_Template {
 		// set user
 		$this->_user = $auth->get_user();
 		$this->_admin = $this->_checkAdmin();
+		$this->_supadmin = $this->_checkSupadmin();
+		//echo $this->_user;
 
 		// handle ajax
 		if ($this->request->is_ajax())
@@ -83,14 +111,14 @@ abstract class Controller_Template_Site extends Controller_Template {
 		if ($this->request->action() !== 'error' && $this->_ajax === TRUE)
 		{
 			// Use the template content as the response
-			$this->request->response = $this->template->content;
+			$this->response->body($this->template->content);
 		}
 		else
 		{
 			// render if auto_render is still set to true
 			if ($this->auto_render === TRUE)
 			{
-				$this->request->response = $this->template->render();
+				$this->response->body($this->template->render());
 			}
 			parent::after();
 		}
@@ -112,7 +140,19 @@ abstract class Controller_Template_Site extends Controller_Template {
 		$menu = array();
 
 		//header
-		$this->template->header = View::factory('site/header');
+		if($this->_user)
+		{
+			$this->template->header = View::factory('admin/header')
+								  ->set('is_admin', (bool)$this->_admin)
+								  ->set('is_supadmin', (bool)$this->_supadmin)
+								  ->set('username',$this->_user->username);
+
+		}
+		else
+		{
+			$this->template->header = View::factory('admin/header');
+		}
+
 		// show logout only if admin
 		if($this->_user)
 		{
@@ -124,22 +164,27 @@ abstract class Controller_Template_Site extends Controller_Template {
 		}
 
 		//footer
-		$this->template->footer = View::factory('site/footer');
+		$this->template->footer = View::factory('admin/footer');
 
 		// panel with pages
-		$this->template->panel = View::factory('site/panel')
+		$this->template->panel = View::factory('admin/panel')
 				->set('menu', $menu)
 				->set('is_user', (bool)$this->_user)
 				->set('is_admin', (bool)$this->_admin);
 
 		//navigation
-		$nav = View::factory('site/nav')
+		/*
+		$nav = View::factory('admin/nav')
 				->set('is_user', (bool)$this->_user);
 
 		$this->template->nav = $nav;
+		 */
 
 		$scripts = array(
-			'media/js/jquery-1.5.1.min.js'
+			'media/js/jquery-1.5.1.min.js',
+			'media/jquery-ui/js/jquery-ui-1.8.10.custom.min.js',
+			'media/js/jquery.multiselect.min.js',
+         'media/js/core.js',
 			);
 
 		if($this->_admin)
@@ -150,12 +195,13 @@ abstract class Controller_Template_Site extends Controller_Template {
 
 		$this->template->scripts  = $scripts;
 		$this->template->styles = array(
-			'media/css/layout.css'
+			'media/css/layout.css',
+			'media/jquery-ui/css/cupertino/jquery-ui-1.8.10.custom.css',
+			'media/css/jquery.multiselect.css'
 			);
 
 		$this->template->controller = Request::initial()->controller();
 	}
-
 	/**
 	 * Triggered when bootstrap try and catch fails (404 Page not found)
 	 *
@@ -184,19 +230,23 @@ abstract class Controller_Template_Site extends Controller_Template {
 			$_POST['password'] = $_POST['password'];
 			$_POST['remember'] = (bool) (isset($_POST['remember']) ? $_POST['remember'] : FALSE);
 
-
 			$auth = Auth::instance();
-			// Try to login using username
-			if ($auth->login($_POST['username'], $_POST['password'], $_POST['remember']))
+			// Try to login using username and check if the current user is admin
+			if ( ($auth->login($_POST['username'], $_POST['password'], $_POST['remember'])))
 			{
 				// get user role
 				$user_roles = $auth->get_user()->roles->where('name', '!=', 'login')->find_all()->as_array('id', 'name');
-				$_SESSION['user_roles'] = $user_roles;
-				$this->request->redirect(Route::get('default')->uri());
+				if (count($user_roles) == 0)
+					$errors[] = "You are not authorized to enter to this section of the site";
+				else
+				{
+					$_SESSION['user_roles'] = $user_roles;
+					$this->request->redirect(Route::get('admin')->uri());
+				}
 			}
 			else
 			{
-				$errors[] = 'סיסמא או שם משתמש שגויים';
+				$errors[] = 'user name or password is incorrect';
 			}
 		}
 	}
@@ -206,6 +256,6 @@ abstract class Controller_Template_Site extends Controller_Template {
 		$auth = Auth::instance();
 		// Completely destroy session and tokens
 		$auth->logout(TRUE, TRUE);
-		$this->request->redirect(Route::get('default')->uri());
+		$this->request->redirect(Route::get('admin')->uri());
 	}
 }
