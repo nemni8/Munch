@@ -12,7 +12,7 @@ class Model_Order extends ORM
     protected $_belongs_to = array(
 		'user' => array(),
 	);
-
+    
     /*public function action_add(){
 
             $order = ORM::factory('order');

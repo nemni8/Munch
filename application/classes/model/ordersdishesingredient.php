@@ -6,7 +6,7 @@ class Model_Ordersdishesingredient extends ORM
     protected $_belongs_to= array();
 
 
-    /*public function action_add($ordersdish_id,$ingredient_id,$price=NULL){
+    public function action_add($ordersdish_id,$ingredient_id,$price=NULL){
 
 
             $ordersdishesingredient = ORM::factory('ordersdishesingredient');
@@ -30,8 +30,8 @@ class Model_Ordersdishesingredient extends ORM
     {
         $ordersdishesingredient = ORM::factory('ordersdishesingredient',$id);
         $ordersdishesingredient->delete();
-        $this->request->redirect(Route::get('admin')->uri());
+        //$this->request->redirect(Route::get('admin')->uri());
 
-    }*/
+    }
 
     } 

@@ -101,31 +101,31 @@ class Controller_Admin_Orders extends Controller_Template_Admin
 
     // ORDERS DISHES GROUP SUBS FUNCTIONS
 
-    public function action_addordersdishessubgroup($ordersdish_id,$group_id,$sub_id,$price=NULL){
+    public function action_addordersdishesgroupssub($ordersdish_id,$group_id,$sub_id,$price=NULL){
 
 
-        $ordersdishessubgroup = ORM::factory('ordersdishessubgroup');
-        $ordersdishessubgroup->orders_dishes_id=$ordersdish_id;
-        $ordersdishessubgroup->group_id=$group_id;
-        $ordersdishessubgroup->sub_id=$sub_id;
-        $ordersdishessubgroup->price= (!$price) ? $price : 0 ;
-        $ordersdishessubgroup->save();
+        $ordersdishesgroupssub = ORM::factory('ordersdishesgroupssub');
+        $ordersdishesgroupssub->orders_dishes_id=$ordersdish_id;
+        $ordersdishesgroupssub->group_id=$group_id;
+        $ordersdishesgroupssub->sub_id=$sub_id;
+        $ordersdishesgroupssub->price= (!$price) ? $price : 0 ;
+        $ordersdishesgroupssub->save();
     }
 
-    public function action_editordersdishessubgroup($id,$type,$value)
+    public function action_editordersdishesgroupssub($id,$type,$value)
     {
 
-        $ordersdishessubgroup = ORM::factory('ordersdishessubgroup', $id);
-        $ordersdishessubgroup->$type=$value;
-        $ordersdishessubgroup->save();
+        $ordersdishesgroupssub = ORM::factory('ordersdishesgroupssub', $id);
+        $ordersdishesgroupssub->$type=$value;
+        $ordersdishesgroupssub->save();
 
 
     }
 
-    public function action_deleteordersdishessubgroup($id)
+    public function action_deleteordersdishesgroupssub($id)
     {
-        $ordersdishessubgroup = ORM::factory('ordersdishessubgroup',$id);
-        $ordersdishessubgroup->delete();
+        $ordersdishesgroupssub = ORM::factory('ordersdishesgroupssub',$id);
+        $ordersdishesgroupssub->delete();
         $this->request->redirect(Route::get('admin')->uri());
 
     }

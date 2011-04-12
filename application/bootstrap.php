@@ -126,7 +126,7 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)(/<second_parameter>)(/
 		'directory'  => 'admin'
 	));
 
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+Route::set('default', '(<controller>(/<action>(/<id>)(/<second_parameter>)))')
 	->defaults(array(
 		'controller' => 'main',
 		'action'     => 'index',
