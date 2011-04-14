@@ -80,8 +80,8 @@ class Controller_Site_Main extends Controller_Template_Site {
                     }
 
                 }
-
-
+                $ordersdish->calculate_total();
+                $order->calculate_total();
                 //echo debug::vars($_POST);
 
 

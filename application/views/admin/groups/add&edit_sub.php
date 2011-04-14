@@ -12,9 +12,13 @@
 											DB::select('id','name')
 											->from('dishes')
 											->execute()->as_array('id','name'), $default);?>
-
+        <div class="clear" style="height: 12px"></div>
+        <?php echo Form::label('Price');?>
+        <?php $default = ($type=='edit') ? $sub->price :NULL ;?>
+        <?php echo Form::input('price',$default,array('id'=>'price')); ?>
 		<?php echo Form::input('group_id',$group->id, array('type'=>'hidden')); ?>
-	<?php echo Form::close();?>
+	    <div class="clear" style="height: 12px"></div>
+    <?php echo Form::close();?>
 </div>
 
 

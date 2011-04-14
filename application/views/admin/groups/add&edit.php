@@ -42,14 +42,14 @@
 			<?php echo Request::factory('admin/groups/addsub/'.$id)->execute() ?>
 		</div>
 		<button class="submit" onclick="add_sub_in_group(<?php echo $group->id ;?> )">add sub dish</button>
-        <?php $subs = $group->subs->find_all(); ?>
+        <?php $subs = $group->find_subs(); ?>
 		<?php if(count($subs) > 0) :?>
 			<div class="dashed"></div>
 			<h3>Subs Dishes in <?php echo $group->name;?> Group</h3>
 			<ul>
 				<?php foreach($subs as $sub) : ?>
 					<li style=" margin-bottom: 12px;">
-                    <?php echo $sub->name ;?>
+                    <?php echo $sub->name."        ,Price: ".$sub->price ;?>
                     <button class="submit" onclick="remove_sub_from_group(<?php echo $sub->id ;?>,<?php echo $group->id ;?> )">remove sub dish</button>
 					</li>
 				<?php endforeach;?>

@@ -12,7 +12,14 @@ class Model_Ordersdishesingredient extends ORM
             $ordersdishesingredient = ORM::factory('ordersdishesingredient');
             $ordersdishesingredient->orders_dishes_id=$ordersdish_id;
             $ordersdishesingredient->ingredient_id=$ingredient_id;
-            $ordersdishesingredient->price= (!$price) ? $price : 0 ;
+            if (!$price) {
+                $dish_id=orm::factory('ordersdish',$ordersdish_id)->dish_id;
+                $temp=orm::factory('dishesingredient')->where('dish_id','=',$dish_id)->and_where('ingredient_id','=',$ingredient_id)->find();
+                $ordersdishesingredient->price=  $temp->price ;
+            }
+            else {
+                $ordersdishesingredient->price=  $price  ;
+            }
             $ordersdishesingredient->save();
     }
 
