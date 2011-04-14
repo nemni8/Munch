@@ -119,14 +119,14 @@ Kohana::modules(array(
  */
 
 // admin route
-Route::set('admin', 'admin(/<controller>(/<action>(/<id>)(/<second_parameter>)))')
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)(/<second_parameter>)(/<third_parameter>)))')
 	->defaults(array(
 		'controller' => 'main',
 		'action'     => 'index',
 		'directory'  => 'admin'
 	));
 
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+Route::set('default', '(<controller>(/<action>(/<id>)(/<second_parameter>)))')
 	->defaults(array(
 		'controller' => 'main',
 		'action'     => 'index',
