@@ -129,7 +129,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         if (isset($_POST['city_id']) AND $_POST['city_id'] > 0) {
                 $result->and_where('city_id','=',$_POST['city_id']);
         }
-        if (isset($_POST['kitchen_type']) AND ! empty($_POST['kitchen_type'])) {
+        if (isset($_POST['kitchen_type']) AND ! empty($_POST['kitchen_type']) AND $_POST['kitchen_type'] != 20) {
                 $temp= clone $result;
                 $result= DB::select('restaurants.*','categories_restaurants.category_id')
                     ->from('categories_restaurants')->join(array($temp,'restaurants'),'RIGHT')
@@ -139,10 +139,10 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         if (isset($_POST['min_order']) AND $_POST['min_order'] > 0 AND $_POST['min_order'] !=='') {
                 $result->and_where('delivery_min','<=',$_POST['min_order']);
         }
-        if (isset($_POST['delivery_cost']) AND $_POST['delivery_cost'] > 0 AND $_POST['min_order'] !=='') {
+        if (isset($_POST['delivery_cost']) AND $_POST['delivery_cost'] > 0 AND $_POST['delivery_cost'] !=='') {
                 $result->and_where('delivery_cost','<=',$_POST['delivery_cost']);
         }
-        if (isset($_POST['delivery_time']) AND $_POST['delivery_time'] > 0 AND $_POST['min_order'] !=='') {
+        if (isset($_POST['delivery_time']) AND $_POST['delivery_time'] > 0 AND $_POST['delivery_time'] !=='') {
                 $result->and_where('delivery_time','<=',$_POST['delivery_time']);
         }
         if (isset($_POST['kosher_level']) AND ! empty($_POST['kosher_level'])) {
@@ -173,10 +173,10 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $result = DB::select()
 			            ->from('dishes')
 			            ->where('restaurant_id','=',$rest)->and_where('active','=',1);
-        //if (isset($_POST['dish_name'])) {     MAYBE KOBI WILL CREATE AUTOCOMPLETE!!!!
-          //      $result->and_where('name','like','%'.$_POST['dish_name'].'%');
-        //}
-        if (isset($_POST['auto_ingredient'])) {
+		if (isset($_POST['dish_name']) AND ! empty($_POST['dish_name'])) {
+			$result->and_where('name','LIKE','%'.$_POST['dish_name'].'%');
+        }
+        if (isset($_POST['auto_ingredient']) AND ! empty($_POST['auto_ingredient'])) {
                     $ingredient=orm::factory('ingredient')->where('name','=',$_POST['auto_ingredient'])->find();
                     $temp= clone $result;
                     $result= DB::select('dishes.*')
@@ -185,13 +185,13 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
                             ->where('dishes_ingredients.ingredient_id','=',$ingredient->id);
             }
 
-        if (isset($_POST['max_price'])) {
-                    $result->and_where('price','<=',$_POST['max_price']);
-            }
-        if (isset($_POST['mdv'])) {
-                $result->and_where('mdv','<=',$_POST['mdv']);
+        if (isset($_POST['max_price']) AND $_POST['max_price'] > 0) {
+			$result->and_where('price','<=',$_POST['max_price']);
+		}
+        if (isset($_POST['mdv']) AND $_POST['mdv'] > 0) {
+			$result->and_where('mdv','=',$_POST['mdv']);
         }
-        if (isset($_POST['dish_category'])) {
+        if (isset($_POST['dish_category']) AND $_POST['dish_category'] != 19) {
                 $temp= clone $result;
                 $result= DB::select('dishes.*','categories_dishes.category_id')
                     ->from('categories_dishes')->join(array($temp,'dishes'),'INNER')
@@ -202,9 +202,9 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $dishes=$result->as_object()->execute();
         $this->template->content = View::factory('site/restaurants/dishes/search')
 			->set('post', $_POST)
-            ->set('arr_input',ORM::factory('dishes')->get_headers())
-			->set('dishes', $dishes)
-            ->bind('errors', $errors);
+            ->set('arr_input',ORM::factory('dish')->get_headers())
+			->set('dishes', $dishes);
+
 
         $this->_ajax = TRUE;
 

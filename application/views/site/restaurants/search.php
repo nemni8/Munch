@@ -13,7 +13,7 @@
 					<?php foreach( $arr_input as $input): ?>
 						<td> <?php echo $rest->$input['col_name'];?> </td>
 					<?php endforeach; ?>
-					<td><?php echo html::anchor('/main/dishes','menu');?></td>
+					<td><?php echo html::anchor('/main/dishes/'.$rest->id,'menu');?></td>
 
 				</tr>
 			<?php endforeach; ?>

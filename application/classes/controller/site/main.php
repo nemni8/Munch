@@ -6,7 +6,7 @@ class Controller_Site_Main extends Controller_Template_Site {
 	{
         $kosher_options = Kohana::config ('global.kosher_level');
 		$payment_method = Kohana::config ('global.payment_method');
-        $categories= Kohana_ORM::factory('category')->where('model','=','restaurant')->find_all();
+        $categories= Kohana_ORM::factory('category')->where('model','=','restaurant')->find_all()->as_array('id','name');
         $this->template->content = View::factory('site/main_index')
                 ->set('kosher_options',$kosher_options)
 				->set('payment_method',$payment_method)
@@ -15,11 +15,23 @@ class Controller_Site_Main extends Controller_Template_Site {
 
 ;
 	}
-    public function action_dishes()
+    public function action_dishes($rest_id)
 	{
-        $categories= Kohana_ORM::factory('category')->where('model','=','dishes')->find_all();
+        $categories= DB::select('categories.name', 'categories.id')->from('categories')
+				->join('categories_dishes','LEFT')
+				->on('categories_dishes.category_id', '=', 'categories.id')
+				->join('dishes','LEFT')
+				->on('categories_dishes.dish_id', '=', 'dishes.id')
+					->where('model','=','dish')
+					->and_where_open()
+						->or_where('categories.name', 'LIKE', '%All%')
+						->or_where('dishes.restaurant_id','=',$rest_id)
+					->and_where_close()
+				->execute();
+
         $this->template->content = View::factory('site/dishesfilter')
                 ->set('categories', $categories)
+				->set('rest_id',$rest_id);
                 //->set('is_admin', (bool)$this->_admin);
 ;
 	}
