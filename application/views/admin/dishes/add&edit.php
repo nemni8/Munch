@@ -124,9 +124,8 @@
 			<h3>Groups in  <?php echo $dish->name;?> Dish</h3>
 				<?php foreach($dish_group as $group) : ?>
 					<div id="edit_group_in_dish_<?php echo $group->id;?>">
-						<?php echo Request::factory('admin/groups/edit/'.$group->id.'/'.$id)->execute() ?>
+						<?php echo Request::factory('admin/groups/view/'.$group->id.'/'.$id)->execute() ?>
 					</div>
-					<button class="submit" onclick="edit_group_in_dish(<?php echo $group->id?>,<?php echo $id?>)">Save Group Changes</button>
 					<button class="submit" onclick="remove_group_from_dish(<?php echo $group->id?>,<?php echo $id?>)">Remove Group</button>
 					<div class="dashed"></div>
 				<?php endforeach;?>

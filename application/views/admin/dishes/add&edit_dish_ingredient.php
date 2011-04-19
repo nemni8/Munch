@@ -22,8 +22,15 @@
 		<!-- choose is basic ingred -->
 		<?php echo Form::label('basic_optional','Basic/Optional');?>
 		<?php $default = ($type == 'edit') ? $dishesingredient->basic_optional : NULL; ?>
-		<?php  echo Form::select('basic_optional',Kohana::config ('global.basic_optional'),$default);?>
+		<?php  echo Form::select('basic_optional',Kohana::config ('global.basic_optional'),$default,array('class'=>'basic_optional'));?>
 		<div class="clear" style="height: 12px"></div>
+        <?php $default = (($type=='edit') and ($dishesingredient->basic_optional)) ? 'block' : 'block';?>
+        <?php echo '<div id="pricediv_'.$edit_id.'"  style="display:'.$default.'">' ;?>
+            <?php echo Form::label('Price');?>
+            <?php $default = (($type=='edit') and ($dishesingredient->basic_optional)) ? $dishesingredient->price :NULL ;?>
+            <?php echo Form::input('price',$default,array('id'=>'price')); ?>
+        <?php echo '</div>' ;?>
+        <div class="clear" style="height: 12px"></div>
 		<?php $default = ($type == 'edit') ? $dishesingredient->dish_id : $dish_id; ?>
 		<?php echo Form::input('dish_id',$default, array('type'=>'hidden')); ?>
 		<?php //echo Form::input('ingredient_id',$default, array('type'=>'hidden')); ?>

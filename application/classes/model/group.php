@@ -8,7 +8,7 @@ class Model_Group extends ORM
 	protected $_has_many = array(
 		'subs' => array(
          'model' => 'dish',
-			'through' => 'subs'  
+			'through' => 'subs'
         ),
         'dishes' => array(
 			'model' => 'dish',
@@ -65,4 +65,11 @@ class Model_Group extends ORM
        $dish=ORM::factory('dish',$id);
        return $dish->groups->find_all();
    }
+    public  function find_subs() {
+        return DB::select( array("subs.sub_id", 'id'),'dishes.name','subs.price')->
+						from('subs')->join('dishes')->on('subs.sub_id','=','dishes.id')->
+						where('subs.group_id','=',$this->id)->
+						as_object()->execute();
+    }
+
 } 

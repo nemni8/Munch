@@ -25,6 +25,18 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 							   ->set('type',$type);
 
 	}
+    public function action_view($id,$hide=NULL)
+	{
+		$group = ORM::factory('group', $id);
+		$type = 'edit';
+		$this->_ajax = true;
+		$this->template->content = View::factory('admin/groups/view')
+							   ->set('group',$group)
+							   ->set('id',$id)
+                                ->set('hide',$hide)
+							   ->set('type',$type);
+
+	}
 	public function action_create($id = NULL)
 	{
             $group = ORM::factory('group', $id);
@@ -131,7 +143,10 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 		   {
 			   $sub_dish = ORM::factory('dish', $_POST['sub_id']);
 			   if (!$group->has('subs',$sub_dish)) {
-					$group->add('subs',$sub_dish);
+                   $group->add('subs',$sub_dish);
+                   $sub_in_group = orm::factory('sub')->where('sub_id','=',$sub_dish->id)->and_where('group_id','=',$group->id)->find() ;
+                   $sub_in_group->price=  ($_POST['price']>0) ? $_POST['price'] : 0;
+                   $sub_in_group->save();
 			   }
 			   die();
 		   }
@@ -177,6 +192,8 @@ public function action_deletesub($id)
 		$sub_dish = ORM::factory('dish', $sub_id);
 		$group= ORM::factory('group', $group_id);
 		$group->remove('subs',$sub_dish);
+        //$subgroup=ORM::factory('sub')->where('group_id','=',$group_id)->and_where('sub_id','=',$sub_id)->find();
+        //$subgroup->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 	}
 }

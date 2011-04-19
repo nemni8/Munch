@@ -68,5 +68,18 @@ class Model_Order extends ORM
         return $this;
     }
 	*/
-
+    public function get_dishes_in_order()
+    {
+        return DB::select('id','price','quantity')->from('orders_dishes')->where('order_id','=',$this->id)->as_object()->execute();
+    }
+    public function calculate_total() {
+        $temp=$this->get_dishes_in_order();
+        $price=0 ;
+        foreach ($temp as $dish) {
+            $price+=($dish->price)*($dish->quantity);
+        }
+        // NEED TO HANDLE DELIVERY FEE
+        $this->totalprice=$price;
+        $this->save();
+    }
 } 

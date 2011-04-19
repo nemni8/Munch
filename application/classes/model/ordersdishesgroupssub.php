@@ -20,7 +20,14 @@ class Model_Ordersdishesgroupssub extends ORM
         $ordersdishesgroupssub->orders_dishes_id=$ordersdish_id;
         $ordersdishesgroupssub->group_id=$group_id;
         $ordersdishesgroupssub->sub_id=$sub_id;
-        $ordersdishesgroupssub->price= (!$price) ? $price : 0 ;
+        if (!$price) {
+            $sub=orm::factory('sub')->where('group_id','=',$group_id)->and_where('sub_id','=',$sub_id)->find();
+            $group_price=orm::factory('group',$group_id)->price;
+            $ordersdishesgroupssub->price= ($sub->price>0) ?$sub->price : $group_price ;
+        }
+        else {
+            $ordersdishesgroupssub->price= $price  ;
+        }
         $ordersdishesgroupssub->save();
     }
 

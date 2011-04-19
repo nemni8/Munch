@@ -124,6 +124,8 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
             if ($_POST)
             {
 					$dishesingredient->values($_POST);
+                    if (!$dishesingredient->basic_optional)
+                        $dishesingredient->price=0;
 					if($type == 'add')
 						//echo 'in the if';
 						$dishesingredient->ingredient_id = orm::factory('ingredient')->get_id_by_name($_POST["auto_ingredient"]);
