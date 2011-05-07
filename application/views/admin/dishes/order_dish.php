@@ -97,6 +97,9 @@
 		<div class="clear"></div>
 	<?php endforeach;?>
 	<?php $group_optional_str = substr( $group_optional_str , 0 ,strlen($group_optional_str) - 1 );?>
+    <?php $default = ($type=='edit') ?  $ordersdish->quantity : 1  ; ?>
+    <?php echo form::label('Quantity') ; ?>
+    <?php echo Form::select('quantity',array(range(0,30)),$default) ;?>
 	<?php echo form::input('group_optional_str',$group_optional_str,array('id'=>'group_optional_str','hidden'=>'hidden'));?>
     <?php echo Form::close();?>
 	<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()'));?>

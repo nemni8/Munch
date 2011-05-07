@@ -45,6 +45,18 @@ class Controller_Site_Main extends Controller_Template_Site {
                     ->set('ordersdish',$ordersdish)
                     ->set('dish', $dish);
         }
+    public function action_dishorderedit($orderdish_id)
+        {
+            $type = 'edit' ;
+            $dish_id =$_SESSION['cart_array'][$orderdish_id]['dish_id'];
+            echo debug::vars($dish_id);
+            $dish = orm::factory('dish',$dish_id);
+            $ordersdish=orm::factory('ordersdish',$orderdish_id);
+            $this->template->content = View::factory('admin/dishes/order_dish')
+                    ->set('type',$type)
+                    ->set('ordersdish',$ordersdish)
+                    ->set('dish', $dish);
+        }
     public function action_dishordercreate($dish_id,$orderdish_id= NULL)
 	{
 		$type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
@@ -69,32 +81,67 @@ class Controller_Site_Main extends Controller_Template_Site {
                 ->set('ordersdish',$ordersdish)
                 ->set('type',$type)
                 ->bind('errors', $errors);
-
+        //session_start();
+        if (!isset($_SESSION['cart_array'])) {
+            $_SESSION['cart_array']=array();
+        }
         if ($_POST) {
             try { //NEED TO HANDLE EDIT AS WELL
                 if ($type=='edit') {
                 $ordersdish->remove('ingredients');
                 $ordersdish->remove('groupssubs');
+                $orderdisharray=$_SESSION['cart_array'][$orderdish_id];
                 }
-                //echo debug::vars($ordersdish);
+                if ($type=='add') {
+                    $orderdisharray=array();
+                }
+                //echo debug::vars($_POST);
+                $ingredients=array();
+                $subs=array();
                 foreach ($_POST as $key => $value) {
-                    if ($key=='ingredient') {
-                        $ordersdishesingredient=orm::factory('ordersdishesingredient');
-                        $ordersdishesingredient->action_add($ordersdish->id,$value);
+                    switch ($key) {
+                        case ("ingredient"):
+                            $ordersdishesingredient=orm::factory('ordersdishesingredient');
+                            $ordersdishesingredient->action_add($ordersdish->id,$value);
+                            $temp=orm::factory('dishesingredient')->where('dish_id','=',$dish_id)->and_where('ingredient_id','=',$value)->find();
+                            $ingredient=array('ingredient_id'=>$value,'price'=>$temp->price);
+                            array_push($ingredients, $ingredient);
+                            break;
+                        case    ("order_submit"):
+                            break;
+                        case    ("group_optional_str"):
+                            break;
+                        case ("quantity"):
+                            $quantity=$value;
+                            $ordersdish->quantity=$quantity;
+                            break;
+                        default:
+                            if (!strpos($key,'rule')) {
+                                $str= str_replace('group_',"",$key);
+                                if ($str==0) break;
+                                $ordersdishesgroupssub=orm::factory('ordersdishesgroupssub');
+                                $ordersdishesgroupssub->action_add($ordersdish->id,$str,$value);
+                                $tempsub=orm::factory('sub')->where('group_id','=',$str)->and_where('sub_id','=',$value)->find();
+                                $group_price=orm::factory('group',$str)->price;
+                                $price= ($tempsub->price>0) ?$tempsub->price : $group_price ;
+                                $sub=array('group_id'=>$str,'sub_id'=>$value,'price'=>$price);
+                                array_push($subs, $sub);
+                            }
+                            break;
                     }
-                    else
-                    {
-                        if ($key!='order_submit') {
-                            $str= str_replace('group_',"",$key);
-                            $ordersdishesgroupssub=orm::factory('ordersdishesgroupssub');
-                            $ordersdishesgroupssub->action_add($ordersdish->id,$str,$value);
-                        }
-                    }
-
                 }
+                $price=987;
+                $orderdisharray=array('rest_id'=>'0','dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$price,'ingredients'=>$ingredients,'subs'=>$subs);
+                if ($type=='add') {
+                    array_push($_SESSION['cart_array'], $orderdisharray);
+                }
+                else {
+                    $_SESSION['cart_array'][$orderdish_id]=$orderdisharray;
+                }
+
                 $ordersdish->calculate_total();
                 $order->calculate_total();
-                //echo debug::vars($_POST);
+                //echo debug::vars($_SESSION['cart_array']);
 
 
                 die();

@@ -184,7 +184,8 @@ abstract class Controller_Template_Site extends Controller_Template {
 			'media/js/jquery-1.5.1.min.js',
 			'media/jquery-ui/js/jquery-ui-1.8.10.custom.min.js',
 			'media/js/jquery.multiselect.min.js',
-         'media/js/core.js',
+            'media/js/jquery.smartCart-2.0.js',
+            'media/js/core.js',
 			);
 
 		if($this->_admin)
@@ -196,6 +197,7 @@ abstract class Controller_Template_Site extends Controller_Template {
 		$this->template->scripts  = $scripts;
 		$this->template->styles = array(
 			'media/css/layout.css',
+            'media/css/smart_cart.css',
 			'media/jquery-ui/css/cupertino/jquery-ui-1.8.10.custom.css',
 			'media/css/jquery.multiselect.css'
 			);
