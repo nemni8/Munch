@@ -8,11 +8,11 @@
 	</div>
 	<div class="dashed"></div>
 	<div>
-		<?php echo view::factory('site\orders\my_order.php'); ?>
+		<?php echo view::factory('site\orders\cart.php'); ?>
 	</div>	
 </div>
 <div class="order_right_div">
-    <?php $edit_id= ($type=='edit') ? '/'.$ordersdish->id :NULL;?>
+    <?php $edit_id= ($type=='edit') ? '/'.$orderdish_id :NULL;?>
 	<?php echo Form::open('main/dishordercreate/'.$dish->id.$edit_id,array('id'=>'form_dishorder'));?>
     <h1 align="center" style="margin-top:0px;"><?php echo $dish->name ;?></h1>
 	<h3>dish description</h3>
@@ -37,10 +37,10 @@
 		<?php foreach($dish->ingredients->find_all() as $ingred) : ?>
 		<?php $default = NULL ; ?>
                 <?php if ($type=='edit'):;?>
-                    <?php $default = $ordersdish->is_ingredient_in_order_dish($ingred->id) ?>
+                    <?php $default = $dish->is_ingredient_in_order_dish($ingred->id,$orderdish_id) ?>
                 <?php endif ; ?>
         <?php if($ingred->get_basic_optional_in_dish($dish->id)) : ?>
-                <?php echo Form::checkbox('ingredient',$ingred->id,$default,array('class'=>'order_dish_ingredients'));?>
+                <?php echo Form::checkbox('ingredient_'.$ingred->id,$ingred->id,$default,array('class'=>'order_dish_ingredients'));?>
                 <?php echo $ingred->name; ?>
 				<p class ="description">
 					<?php echo $ingred->description ;?>
@@ -59,10 +59,10 @@
 				<?php foreach($group->subs->find_all() as $sub) : ?>
                     <?php $default=NULL ; ?>
                     <?php if ($type=='edit'):;?>
-                        <?php $default = $ordersdish->is_sub_in_order_dish($sub->id) ?>
+                        <?php $default = $dish->is_sub_in_order_dish($sub->id,$orderdish_id) ?>
                     <?php endif ; ?>
 					<li>
-						<?php echo Form::checkbox('group_'.$group->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
+						<?php echo Form::checkbox('group_'.$group->id.'_'.$sub->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
                         <?php echo $sub->name; ?>
 					</li>
 				<?php endforeach; ?>
@@ -83,10 +83,10 @@
 				<?php foreach($group->subs->find_all() as $sub) : ?>
                     <?php $default=NULL ; ?>
                     <?php if ($type=='edit'):;?>
-                        <?php $default = $ordersdish->is_sub_in_order_dish($sub->id) ?>
+                        <?php $default = $dish->is_sub_in_order_dish($sub->id,$orderdish_id) ?>
                     <?php endif ; ?>
 					<li>
-                        <?php echo Form::checkbox('group_'.$group->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
+                        <?php echo Form::checkbox('group_'.$group->id.'_'.$sub->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
 						<?php echo $sub->name; ?>
 					</li>
 				<?php endforeach; ?>
@@ -97,7 +97,7 @@
 		<div class="clear"></div>
 	<?php endforeach;?>
 	<?php $group_optional_str = substr( $group_optional_str , 0 ,strlen($group_optional_str) - 1 );?>
-    <?php $default = ($type=='edit') ?  $ordersdish->quantity : 1  ; ?>
+    <?php $default = ($type=='edit') ?  $_SESSION['cart_array'][$orderdish_id]['quantity'] : 1  ; ?>
     <?php echo form::label('Quantity') ; ?>
     <?php echo Form::select('quantity',array(range(0,30)),$default) ;?>
 	<?php echo form::input('group_optional_str',$group_optional_str,array('id'=>'group_optional_str','hidden'=>'hidden'));?>

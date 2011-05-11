@@ -62,6 +62,39 @@ public function rules()
 				 )
 		;
 	}
+    public function get_ingredients_in_order_dish($ordersdish_id)
+    {
+            if (isset($_SESSION['cart_array'])) {
+                return $_SESSION['cart_array'][$ordersdish_id]['ingredients'];
+            }
+            return false;
+    }
+        public function is_ingredient_in_order_dish($ingredient_id,$ordersdish_id)
+        {
+            $ingredients=$this->get_ingredients_in_order_dish($ordersdish_id);
+            foreach ($ingredients as $ingredient) {
+                if  ($ingredient['ingredient_id']==$ingredient_id)
+                    return TRUE;
+            }
+            return FALSE;
+        }
+        public function get_subs_in_order_dish($ordersdish_id)
+        {
+            if (isset($_SESSION['cart_array'])) {
+                return $_SESSION['cart_array'][$ordersdish_id]['subs'];
+            }
+            return false;
+        }
+        public function is_sub_in_order_dish($sub_id,$ordersdish_id)
+        {
+            $subs=$this->get_subs_in_order_dish($ordersdish_id);
+            foreach ($subs as $sub) {
+                if  ($sub['sub_id']==$sub_id)
+                    return TRUE;
+            }
+            return FALSE;
+        }
+
 	public function get_all_dishes($user_id = NULL)
 	{
 		
