@@ -190,7 +190,7 @@ class Controller_Admin_Orders extends Controller_Template_Admin
                 $ordersdish = ORM::factory('ordersdish');
                 $ordersdish->order_id=$order->id;
                 $ordersdish->dish_id=$dish['dish_id'];
-                $ordersdish->restaurant_id=$dish['rest_id']; //NEED TO HANDLE REST ID IN SESSION
+                $ordersdish->restaurant_id=$dish['rest_id'];
                 $ordersdish->quantity=$dish['quantity'];
                 $ordersdish->price=$dish['price'];
                 $ordersdish->price=$dish['comments'];

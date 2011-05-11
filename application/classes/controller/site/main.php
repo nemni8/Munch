@@ -17,6 +17,7 @@ class Controller_Site_Main extends Controller_Template_Site {
 	}
     public function action_dishes($rest_id)
 	{
+        $_SESSION['rest_id']=$rest_id;
         $categories= DB::select('categories.name', 'categories.id')->from('categories')
 				->join('categories_dishes','LEFT')
 				->on('categories_dishes.category_id', '=', 'categories.id')
@@ -35,11 +36,13 @@ class Controller_Site_Main extends Controller_Template_Site {
                 //->set('is_admin', (bool)$this->_admin);
 ;
 	}
-    public function action_dishorder($dish_id,$orderdish_id= NULL)
+    public function action_dishorder($dish_id)//,$orderdish_id= NULL)
         {
-            $type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
+
+            //$type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
+            $type='add';
             $dish = orm::factory('dish',$dish_id);
-            $ordersdish=orm::factory('ordersdish',$orderdish_id);
+            //$ordersdish=orm::factory('ordersdish',$orderdish_id);
             $this->template->content = View::factory('admin/dishes/order_dish')
                     ->set('type',$type)
                     ->set('ordersdish',$ordersdish)
@@ -61,7 +64,7 @@ class Controller_Site_Main extends Controller_Template_Site {
 	{
 		$type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
         $dish = orm::factory('dish',$dish_id);
-        if ( ( ! isset($_SESSION['order_id'])) OR   ($_SESSION['order_id']==NULL) ) {
+        /*if ( ( ! isset($_SESSION['order_id'])) OR   ($_SESSION['order_id']==NULL) ) {
                     $order=orm::factory('order');
                     $order->save();
                     $_SESSION['order_id']=$order->id;
@@ -69,14 +72,14 @@ class Controller_Site_Main extends Controller_Template_Site {
         else
         {
             $order=orm::factory('order',$_SESSION['order_id']);
-        }
+        }*/
 
         //$ordersdish=orm::factory('ordersdish',$orderdish_id);
         //$ordersdish->action_add($order->id,$dish_id);
 
 		$this->template->content = View::factory('admin/dishes/order_dish')
                 ->set('post', $_POST)
-                ->set('order', $order)
+                //->set('order', $order)
                 ->set('dish', $dish)
                 //->set('ordersdish',$ordersdish)
                 ->set('type',$type)
@@ -148,8 +151,8 @@ class Controller_Site_Main extends Controller_Template_Site {
                     }
                 }
                 //echo debug::vars($subs);
-                $comments = (isset($_SESSION['comments'])) ? $_SESSION['comments'] : NULL;
-                $orderdisharray=array('rest_id'=>'0','dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$dishprice,'ingredients'=>$ingredients,'subs'=>$subs,'comments'=>$comments);
+                $comments = (isset($_POST['comments'])) ? $_POST['comments'] : NULL;
+                $orderdisharray=array('rest_id'=>$_SESSION['rest_id'],'dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$dishprice,'ingredients'=>$ingredients,'subs'=>$subs,'comments'=>$comments);
 
                 if ($type=='add') {
                     array_push($_SESSION['cart_array'], $orderdisharray);
