@@ -89,8 +89,8 @@ class Controller_Site_Main extends Controller_Template_Site {
             try { //NEED TO HANDLE EDIT AS WELL
                 $dishprice=$dish->price;
                 if ($type=='edit') {
-                $ordersdish->remove('ingredients');
-                $ordersdish->remove('groupssubs');
+                //$ordersdish->remove('ingredients');
+                //$ordersdish->remove('groupssubs');
                 $orderdisharray=$_SESSION['cart_array'][$orderdish_id];
                 }
                 if ($type=='add') {
