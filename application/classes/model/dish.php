@@ -57,10 +57,29 @@ public function rules()
 		return
 				array(
 						'name' => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
-						'price'=> array('col_name' => 'price','title' => 'Price ', 'type' => 'numeric'),
-						'size'=> array('col_name' => 'size','title' => 'Size', 'type' => 'numeric'),
 				 )
 		;
+	}
+	public function get_search_info()
+	{
+		return
+				array(
+						'name'            => array('col_name' => 'name','title' => ' Name', 'type' => 'text'),
+						
+				 )
+		;
+	}
+	public function get_categories($id){
+		$str = "";
+		$arr = DB::select('categories.name')
+				->from('categories_dishes')
+				->join('dishes')->on('categories_dishes.dish_id','=','dishes.id')
+				->join('categories')->on('categories_dishes.category_id','=','categories.id')
+                ->where('categories_dishes.dish_id','=',$id)->as_object()->execute();
+		foreach ($arr as $val){
+			$str .= $val->name.', ';
+		}
+		return $str;
 	}
     public function get_ingredients_in_order_dish($ordersdish_id)
     {

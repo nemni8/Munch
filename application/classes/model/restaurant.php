@@ -67,12 +67,23 @@ class Model_Restaurant extends ORM
 				 )
 		;
 	}
-    	public function get_headers()
+	public function get_headers()
 	{
 		return
 				array(
 						'name'            => array('col_name' => 'name','title' => ' Name', 'type' => 'text'),
-						'email' 		  => array('col_name' => 'email','title' => 'e-Mail', 'type' => 'text'),
+				 )
+		;
+	}
+	public function get_search_info()
+	{
+		return
+				array(
+						'name'            => array('col_name' => 'name','title' => ' Name', 'type' => 'text'),
+						'phone'           => array('col_name' => 'phone','title' => 'Rest Main Phone', 'type' => 'text'),
+						'delivery_time'   => array('col_name' => 'delivery_time','title' => 'Max Time To Delivery', 'type' => 'numeric'),
+						'delivery_cost'   => array('col_name' => 'delivery_cost','title' => 'Delivery Cost', 'type' => 'numeric'),
+						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Fee', 'type' => 'numeric'),
 				 )
 		;
 	}

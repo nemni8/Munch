@@ -1,9 +1,5 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: nemni
- * Date: 19/02/11
- * Time: 18:57
- * To change this template use File | Settings | File Templates.
- */
- 
+<div id="footer">
+	<div id="inner_footer_site" class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active">
+		<h3 align="center">This Is The Footer</h3>
+	</div>
+</div>

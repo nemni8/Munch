@@ -1,9 +1,7 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: nemni
- * Date: 19/02/11
- * Time: 18:58
- * To change this template use File | Settings | File Templates.
- */
- 
+<div id="navigation_site" class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active">
+	<ul id="menu">
+		<li style="margin-left:10px;">
+			<?php echo html::anchor('','Home Page');?>
+		</li>
+	</ul>
+</div>	

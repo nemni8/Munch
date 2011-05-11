@@ -2,31 +2,31 @@
 <div class="dialog">
 	<!-- start of the form -->
 	<?php echo Form::open('admin/groups/create/'.$edit_id,array('id'=>'form_group'));?>
-		<?php echo Form::label('name','Group Name',array('class'=>'fix_size_lable') );
+		<?php echo Form::label('name','Group Name',array('class'=>'fix_size_lable regular') );
 			if(isset($errors['name'])): // checking if the form has been returned with errors
 					$default =  $_POST['name'] ;
 			else : // set the values to the fields accourding to the form type (add,edit)
 					$default = ($type == 'edit') ?  $group->name : NULL ;
 			endif;
         ?>
-		<?php echo Form::input('name',$default);?>
+		<?php echo Form::input('name',$default,array('class'=>'regular'));?>
         <?php if (isset($errors['name'])) :?>
 			<div class="validate">
 				<?php echo $errors['name'];?>
 			</div>
 		<?php endif;?>
 		<div class="clear" style="height: 12px;"></div>
-		<?php echo Form::label('rule','Sub Dish Rule',array('class'=>'fix_size_lable'));?>
+		<?php echo Form::label('rule','Sub Dish Rule',array('class'=>'fix_size_lable regular'));?>
 		<?php $default = ($type == 'edit') ? $group->rule : NULL; ?>
-		<?php echo Form::input('rule',$default);?>
+		<?php echo Form::input('rule',$default,array('class'=>'regular'));?>
 		<div class="clear" style="height: 12px;"></div>
-		<?php echo Form::label('basic_optional','Basic Or Optional',array('class'=>'fix_size_lable'));?>
+		<?php echo Form::label('basic_optional','Basic Or Optional',array('class'=>'fix_size_lable regular'));?>
 		<?php $default = ($type == 'edit') ? $group->basic_optional : NULL; ?>
 		<?php echo Form::select('basic_optional',Kohana::config ('global.basic_optional'),$default);?>
 		<div class="clear" style="height: 12px;"></div>
-		<?php echo Form::label('basic_optional','Price',array('class'=>'fix_size_lable'));?>
+		<?php echo Form::label('basic_optional','Price',array('class'=>'fix_size_lable regular'));?>
 		<?php $default = ($type == 'edit') ? $group->price : NULL; ?>
-		<?php echo Form::input('price',$default);?>
+		<?php echo Form::input('price',$default,array('class'=>'regular'));?>
 		<div class="clear" style="height: 12px;"></div>
         <?php if (!isset($hide)):?>
 			<?php  echo Form::label('dish_id','Dishes who has this group');?><br />

@@ -22,9 +22,7 @@ class Model_User extends Model_Auth_User
 	{
 		return
 				array(
-						'username'   => array('col_name' => 'username','title' => 'User Name', 'type' => 'text'),
-						'email'      => array('col_name' => 'email','title' => 'User Email', 'type' => 'text'),
-
+						'username'   => array('col_name' => 'username','title' => 'Name', 'type' => 'text'),
 				 )
 		;
 	}

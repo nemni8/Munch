@@ -27,7 +27,6 @@ class Model_Category extends ORM
                 'name' => array(
                     array('not_empty'),
                     array('max_length', array(':value', 32)),
-                    array(array($this, 'name_available'), array(':validation', ':field')),
                 ),
             );
         }
@@ -70,7 +69,6 @@ class Model_Category extends ORM
 		return
 				array(
                   'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
-						'model'   => array('col_name' => 'model','title' => ' Model', 'type' => 'text'),
 				 )
 		;
 	}

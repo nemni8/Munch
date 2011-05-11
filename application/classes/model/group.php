@@ -30,8 +30,7 @@ class Model_Group extends ORM
 	{
 		return
 				array(
-						'name'          => array('col_name' => 'name','title' => 'Group Name', 'type' => 'text'),
-						'rule'      => array('col_name' => 'rule','title' => 'Rule', 'type' => 'text'),
+						'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
 				 )
 		;
 	}
