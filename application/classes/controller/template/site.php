@@ -142,7 +142,7 @@ abstract class Controller_Template_Site extends Controller_Template {
 		//header
 		if($this->_user)
 		{
-			$this->template->header = View::factory('admin/header')
+			$this->template->header = View::factory('site/header')
 								  ->set('is_admin', (bool)$this->_admin)
 								  ->set('is_supadmin', (bool)$this->_supadmin)
 								  ->set('username',$this->_user->username);

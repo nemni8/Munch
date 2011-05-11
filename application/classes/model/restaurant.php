@@ -72,7 +72,6 @@ class Model_Restaurant extends ORM
 		return
 				array(
 						'name'            => array('col_name' => 'name','title' => ' Name', 'type' => 'text'),
-						'email' 		  => array('col_name' => 'email','title' => 'e-Mail', 'type' => 'text'),
 				 )
 		;
 	}

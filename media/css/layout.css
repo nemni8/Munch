@@ -1,7 +1,9 @@
 html {
    /* direction: rtl;*/
+    background-image: url("../images/bg_munch.png");
 }
 a{cursor:pointer}
+h2{color:white;display:inline-block;}
 /*global class*/
 .clear {clear: both; float: none; margin: 0; padding: 0;}
 .dashed{clear: both; float: none; margin: 0; padding: 0; border-bottom:1px dashed #708090; height:10px}
@@ -85,15 +87,14 @@ a{cursor:pointer}
 #user_box ul li span {margin-right:5px;margin-left:5px}
 /*content*/
 #content {
-    background-image: url("../images/bg_background.png");
+    background-image: url("../images/bg_background2.png");
     border-color: #2694E8 #2694E8 -moz-use-text-color;
     border-style: solid solid none;
     border-width: 1px 1px medium;
     margin: 0 auto;
-    min-height: 1048px;
-    padding: 10px;
+    padding: 20px;
     position: static;
-    width: 990px;
+    width: 970px;
 }
 /*footer*/
 #footer {
@@ -125,12 +126,39 @@ a{cursor:pointer}
 button.submit { height: 25px;padding-bottom: 3px}
 div.validate {color:#FF7579; margin-bottom: 12px;}
 a.form_rest_links {cursor:pointer}
-.tabel_dashboard {margin: 15px}
-.tabel_dashboard table{margin: 1em 0;border-collapse: collapse; background: white;font-size: 14px}
+/*dashboard*/
+.dashboard{
+    width:31%;
+    margin-right:2%;
+    float:left;
+    margin-top:20px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.dashboard div.inner_nav{display:inline;float:right;}
+.tabel_dashboard {margin: 0 15px 15px 15px;}
+.tabel_dashboard table{ border-collapse: collapse; background: white;font-size: 12px;width:100%}
 .tabel_dashboard td,.tabel_dashboard table th{border: 1px solid #2694E8;padding: .6em 8px;text-align: left}
+.tabel_dashboard td.links{width:20px;}
 .dashboard{display: inline-block;float: left}
 .dashboard h2{font-size: 18px; margin: 20px;}
-
+ul.icons{
+    margin: 18px;
+    padding: 0;
+}
+ul.icons li{
+    cursor: pointer;
+    float: left;
+    list-style: none outside none;
+    margin-right: 3px;
+    padding: 4px 0;
+    position: relative;
+    background:#121212;
+}
+ul.icons li span{
+    float: left;
+    margin: 0 4px;
+}
 /*dish order*/
 .order_left_div{float:left;width:25%;display:inline}
 .order_right_div{float:left;width:72%;display:inline;border-left:1px dashed #708090;padding: 0px 10px 10px 10px; }

@@ -358,6 +358,18 @@ function add_dish_to_order()
 		$("#form_dishorder").submit();
 	}
 }
+function toggle_item(direction,model,num_group){
+	if(direction == 'down' && $("#current"+model).val() > 1){
+		number = parseInt($("#current"+model).val()) - 1;
+		$("#current"+model).val(number);
+	}
+	if(direction == 'up' && $("#current"+model).val() < num_group){
+		number = parseInt($("#current"+model).val()) + 1;
+		$("#current"+model).val(number);
+	}
+	$("."+model).hide();
+	$("."+model+$("#current"+model).val()).show();
+}
 /*document ready*/
 
 $(document).ready(function() {

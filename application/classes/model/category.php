@@ -70,7 +70,6 @@ class Model_Category extends ORM
 		return
 				array(
                   'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
-						'model'   => array('col_name' => 'model','title' => ' Model', 'type' => 'text'),
 				 )
 		;
 	}

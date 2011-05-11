@@ -57,8 +57,6 @@ public function rules()
 		return
 				array(
 						'name' => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
-						'price'=> array('col_name' => 'price','title' => 'Price ', 'type' => 'numeric'),
-						'size'=> array('col_name' => 'size','title' => 'Size', 'type' => 'numeric'),
 				 )
 		;
 	}
