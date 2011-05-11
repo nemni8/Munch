@@ -53,7 +53,9 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
     }
 	setlocale(LC_MONETARY, "en_US");
     //$cartTotal = money_format("%10.2n", $cartTotal);
-	$cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : ".$cartTotal." USD</div>";
+	$total_price=$cartTotal;
+    $cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : ".$cartTotal." USD</div>";
+
 }
 ?>
 
@@ -93,7 +95,8 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1) {
     <br />
 <br />
         <form action="/munch/admin/orders/cart" method="post"><input name="emptycart" type="submit" value="Empty Cart" /></form>
-        <form action="/munch/admin/orders/cart" method="post"><input name="checkout" type="submit" value="Checkout" /></form>
+        <?php echo html::anchor('/admin/orders/checkout','Checkout');?>
+        <?php // <form action="/munch/admin/orders/checkout" method="post"><input name="checkout" type="submit" value="Checkout" /><input name="total_price" type="hidden" value=<?php echo $total_price ;?>  /></form> ;?>
     <?php endif ;?>
     <?php if ($empty) echo $cartOutput;  ?>
     </div>

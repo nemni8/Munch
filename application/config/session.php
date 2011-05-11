@@ -4,12 +4,12 @@ return array(
 	'cookie' => array(
 	  'name' => 'munch_cook',
 	  'encrypted' => TRUE,
-	  'lifetime' => 43200,
+	  'lifetime' => 0,
 	),
 	'native' => array(
 	  'name' => 'munch_sess',
 	  'encrypted' => TRUE,
-	  'lifetime' => 43200,
+	  'lifetime' => 0,
 	),
 	'database' => array(
 	  'group' => 'default',

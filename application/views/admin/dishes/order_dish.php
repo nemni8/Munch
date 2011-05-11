@@ -97,6 +97,9 @@
 		<div class="clear"></div>
 	<?php endforeach;?>
 	<?php $group_optional_str = substr( $group_optional_str , 0 ,strlen($group_optional_str) - 1 );?>
+    <?php echo form::label('Comments') ;?>
+    <div class="clear"></div>
+    <?php echo form::textarea('comments') ;?>
     <?php $default = ($type=='edit') ?  $_SESSION['cart_array'][$orderdish_id]['quantity'] : 1  ; ?>
     <?php echo form::label('Quantity') ; ?>
     <?php echo Form::select('quantity',array(range(0,30)),$default) ;?>

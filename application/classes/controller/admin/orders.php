@@ -177,8 +177,45 @@ class Controller_Admin_Orders extends Controller_Template_Admin
         }
     }
     public function action_checkout(){
-        if (isset($_POST['checkout']) && $_POST['index_to_remove'] != "") {
+        $this->template->content = View::factory('site/orders/checkout');
 
+
+        if (isset($_POST['checkout']) && $_POST['total_price'] != "") {
+            $order = ORM::factory('order');
+            //$order->user_id=$_SESSION['auth_user_munch']->id; //NEED TO HANDLE USER ID IN SESSION
+            $order->totalprice=$_POST['total_price'] ;
+            echo debug::vars($order);
+            $order->save();
+            foreach ($_SESSION['cart_array'] as $key=>$dish) {
+                $ordersdish = ORM::factory('ordersdish');
+                $ordersdish->order_id=$order->id;
+                $ordersdish->dish_id=$dish['dish_id'];
+                $ordersdish->restaurant_id=$dish['rest_id']; //NEED TO HANDLE REST ID IN SESSION
+                $ordersdish->quantity=$dish['quantity'];
+                $ordersdish->price=$dish['price'];
+                $ordersdish->price=$dish['comments'];
+                $ordersdish->save();
+                if  (isset($dish['ingredients']) && $dish['ingredients'] != NULL) {
+                    foreach ($dish['ingredients'] as $key=>$ingredient) {
+                        $ordersdishesingredient=orm::factory('ordersdishesingredient');
+                        $ordersdishesingredient->orders_dishes_id=$ordersdish->id;
+                        $ordersdishesingredient->ingredient_id=$ingredient['ingredient_id'];
+                        $ordersdishesingredient->price=$ingredient['price'];
+                        $ordersdishesingredient->save();
+                    }
+                }
+                if  (isset($dish['subs']) && $dish['subs'] != NULL) {
+                    foreach ($dish['subs'] as $key=>$sub) {
+                        $ordersdishesgroupssub=orm::factory('ordersdishesgroupssub');
+                        $ordersdishesgroupssub->orders_dishes_id=$ordersdish->id;
+                        $ordersdishesgroupssub->group_id=$sub['group_id'];
+                        $ordersdishesgroupssub->sub_id=$sub['sub_id'];
+                        $ordersdishesgroupssub->price=$sub['price'];
+                        $ordersdishesgroupssub->save();
+                    }
+                }
+            }
+            session_unset();
         }
 
 

@@ -148,8 +148,8 @@ class Controller_Site_Main extends Controller_Template_Site {
                     }
                 }
                 //echo debug::vars($subs);
-                
-                $orderdisharray=array('rest_id'=>'0','dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$dishprice,'ingredients'=>$ingredients,'subs'=>$subs);
+                $comments = (isset($_SESSION['comments'])) ? $_SESSION['comments'] : NULL;
+                $orderdisharray=array('rest_id'=>'0','dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$dishprice,'ingredients'=>$ingredients,'subs'=>$subs,'comments'=>$comments);
 
                 if ($type=='add') {
                     array_push($_SESSION['cart_array'], $orderdisharray);
