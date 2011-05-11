@@ -145,7 +145,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         if (isset($_POST['delivery_time']) AND $_POST['delivery_time'] > 0 AND $_POST['delivery_time'] !=='') {
                 $result->and_where('delivery_time','<=',$_POST['delivery_time']);
         }
-        if (isset($_POST['kosher_level']) AND ! empty($_POST['kosher_level'])) {
+        if (isset($_POST['kosher_level'])) {
 			if($_POST['kosher_level'] == 1)
 				$result->and_where('kosher_type','IN',array(1,2,3));
 			else
@@ -161,7 +161,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $restaurants=$result->as_object()->execute();
         $this->template->content = View::factory('site/restaurants/search')
 			->set('post', $_POST)
-            ->set('arr_input',ORM::factory('restaurant')->get_headers())
+            ->set('arr_input',ORM::factory('restaurant')->get_search_info())
 			->set('restaurants', $restaurants)
             ->bind('errors', $errors);
 
@@ -202,7 +202,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
         $dishes=$result->as_object()->execute();
         $this->template->content = View::factory('site/restaurants/dishes/search')
 			->set('post', $_POST)
-            ->set('arr_input',ORM::factory('dish')->get_headers())
+            ->set('arr_input',ORM::factory('dish')->get_search_info())
 			->set('dishes', $dishes);
 
 

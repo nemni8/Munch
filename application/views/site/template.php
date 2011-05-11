@@ -20,7 +20,7 @@ if (isset($metas))   foreach ($metas as $meta) echo HTML::meta($meta), "\n";
 			<div id="nav"><?php echo $nav ?></div>
 			<div id="header"><?php echo $header ?></div>
 
-			<div id="content" class="">
+			<div id="content_site" class="">
 				<?php echo $content ?>
 			</div>
 

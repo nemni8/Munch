@@ -1,5 +1,5 @@
 <div id="header">
-	<div id="header_inner">
+	<div id="header_inner_site">
 		<div style="float:left;">
 			<?php echo HTML::image('media/images/logo_admin.png', array('alt' => 'Munch'));?>
 		</div>
