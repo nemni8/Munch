@@ -24,24 +24,32 @@
             <td>
                 <table border="0" >
                     <tr><td><?php echo $product_name;?></td></tr>
-                    <?php foreach ($each_item['ingredients'] as $key=>$ingredient): ?>
-                        <?php $ingredient_name=orm::factory('ingredient',$ingredient['ingredient_id'])->name; ?>
+                    <?php if ($each_item['ingredients']!=NULL): ?>
                         <tr>
-                            <td><?php echo $ingredient_name;?></td>
-                            <?php if ($ingredient['price']>0): ?>
-                                <td><?php echo $ingredient['price'];?>$ Extra</td>
-                            <?php endif ;?>
+                            <td><?php echo 'Extra Ingredients: ' ;?>
+                                <?php foreach ($each_item['ingredients'] as $key=>$ingredient): ?>
+                                    <?php $ingredient_name=orm::factory('ingredient',$ingredient['ingredient_id'])->name; ?>
+                                    <?php echo $ingredient_name." ";?>
+                                    <?php if ($ingredient['price']>0): ?>
+                                            <?php echo "(+".$ingredient['price']."$. )";?>
+                                        <?php endif ;?>
+                                <?php endforeach ;?>
+                            </td>
                         </tr>
-                    <?php endforeach ;?>
-                    <?php foreach ($each_item['subs'] as $key=>$sub): ?>
-                        <?php $sub_name=orm::factory('dish',$sub['sub_id'])->name; ?>
+                    <?php endif ; ?>
+                    <?php if ($each_item['subs']!=NULL): ?>
                         <tr>
-                            <td><?php echo $sub_name;?></td>
-                            <?php if ($ingredient['price']>0): ?>
-                                <td><?php echo $ingredient['price'];?>$ Extra</td>
-                            <?php endif ;?>
+                            <td><?php echo 'Subs: ' ;?>
+                                <?php foreach ($each_item['subs'] as $key=>$sub): ?>
+                                <?php $sub_name=orm::factory('dish',$sub['sub_id'])->name; ?>
+                                    <?php echo $sub_name." ";?>
+                                    <?php if ($sub['price']>0): ?>
+                                            <?php echo "(+".$sub['price']."$. )";?>
+                                        <?php endif ;?>
+                                <?php endforeach ;?>
+                            </td>
                         </tr>
-                    <?php endforeach ;?>
+                    <?php endif ; ?>
                 </table>
             </td>
             <td><?php echo $each_item['quantity'];?></td>
