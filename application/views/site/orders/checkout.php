@@ -29,9 +29,9 @@
                             <td><?php echo 'Extra Ingredients: ' ;?>
                                 <?php foreach ($each_item['ingredients'] as $key=>$ingredient): ?>
                                     <?php $ingredient_name=orm::factory('ingredient',$ingredient['ingredient_id'])->name; ?>
-                                    <?php echo $ingredient_name." ";?>
+                                    <?php echo $ingredient_name." . ";?>
                                     <?php if ($ingredient['price']>0): ?>
-                                            <?php echo "(+".$ingredient['price']."$. )";?>
+                                            <?php echo "(+".$ingredient['price']."$).";?>
                                         <?php endif ;?>
                                 <?php endforeach ;?>
                             </td>
@@ -42,7 +42,7 @@
                             <td><?php echo 'Subs: ' ;?>
                                 <?php foreach ($each_item['subs'] as $key=>$sub): ?>
                                 <?php $sub_name=orm::factory('dish',$sub['sub_id'])->name; ?>
-                                    <?php echo $sub_name." ";?>
+                                    <?php echo $sub_name." . ";?>
                                     <?php if ($sub['price']>0): ?>
                                             <?php echo "(+".$sub['price']."$. )";?>
                                         <?php endif ;?>
@@ -57,15 +57,13 @@
         </tr>
     <?php endforeach ;?>
     </table>
-    <?
+    <?php
 	setlocale(LC_MONETARY, "en_US");
-    //$cartTotal = money_format("%10.2n", $cartTotal);
-    //$cartTotal = "<div style='font-size:18px; margin-top:12px;' align='right'>Cart Total : ".$cartTotal." USD</div>";
     ?>
-    <? $shipping='0' ;?>
-    <? $shipping=orm::factory('restaurant',$_SESSION["cart_array"][0]['rest_id'])->delivery_cost ;?>
-    <? $min_order=orm::factory('restaurant',$_SESSION["cart_array"][0]['rest_id'])->delivery_min ;?>
-    <? $total_price=$shipping+$cartTotal ;?>
+    <?php $shipping='0';?>
+    <?php $shipping=orm::factory('restaurant',$_SESSION["cart_array"][0]['rest_id'])->delivery_cost ;?>
+    <?php $min_order=orm::factory('restaurant',$_SESSION["cart_array"][0]['rest_id'])->delivery_min ;?>
+    <?php $total_price=$shipping+$cartTotal ;?>
     <div style='font-size:18px; margin-top:12px;' align='Left'>Cart Total:<?php echo $cartTotal;?> $ </div>
     <div style='font-size:18px; margin-top:12px;' align='left'>Delivery Cost:<?php echo $shipping;?> $</div>
     <div style='font-size:18px; margin-top:12px;' align='left'> Total:<?php echo $total_price;?> $</div>
@@ -73,7 +71,5 @@
     <form action="/munch/admin/orders/cart" method="post"><input name="emptycart" type="submit" value="Empty Cart" /></form>
     <div class="clear"></div>
     <form action="/munch/admin/orders/checkout" method="post"><input name="checkout" type="submit" value="Checkout" /><input name="total_price" type="hidden" value=<?php echo $total_price ;?>  /></form>
-
     </div>
-   <br />
   </div>

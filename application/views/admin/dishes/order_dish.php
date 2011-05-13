@@ -107,3 +107,4 @@
     <?php echo Form::close();?>
 	<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()'));?>
 </div>
+<div class="clear"></div>

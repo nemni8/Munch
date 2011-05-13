@@ -150,7 +150,7 @@ abstract class Controller_Template_Site extends Controller_Template {
 		}
 		else
 		{
-			$this->template->header = View::factory('admin/header');
+			$this->template->header = View::factory('site/header');
 		}
 
 		// show logout only if admin

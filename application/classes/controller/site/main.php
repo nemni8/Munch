@@ -45,7 +45,6 @@ class Controller_Site_Main extends Controller_Template_Site {
             //$ordersdish=orm::factory('ordersdish',$orderdish_id);
             $this->template->content = View::factory('admin/dishes/order_dish')
                     ->set('type',$type)
-                    ->set('ordersdish',$ordersdish)
                     ->set('dish', $dish);
         }
     public function action_dishorderedit($orderdish_id)
