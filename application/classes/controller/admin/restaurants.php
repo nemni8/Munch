@@ -186,7 +186,7 @@ class Controller_Admin_Restaurants extends Controller_Template_Admin
             }
 
         if (isset($_POST['max_price']) AND $_POST['max_price'] > 0) {
-			$result->and_where('price','<=',$_POST['max_price']);
+			$result->and_where('dishes.price','<=',$_POST['max_price']);
 		}
         if (isset($_POST['mdv']) AND $_POST['mdv'] > 0) {
 			$result->and_where('mdv','=',$_POST['mdv']);
