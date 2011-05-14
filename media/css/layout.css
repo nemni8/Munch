@@ -4,10 +4,12 @@ html {
 }
 a{cursor:pointer}
 h2{color:white;display:inline-block;}
+h1{color:white;font-size:26px;margin:3px}
+h3{color:#2694E8;margin:3px}
 /*global class*/
 .clear {clear: both; float: none; margin: 0; padding: 0;}
 .dashed{clear: both; float: none; margin: 0; padding: 0; border-bottom:1px dashed #708090; height:10px}
-.description{font-size:12px;display:inline-block;color:#FF7579;padding:0px 10px 0px 10px}
+.description{font-size:12px;display:inline-block;color:#121212;padding:0px 10px 0px 10px}
 .border{border:1px solid #2694E8;display:inline-block;}
 .image{padding:10px}
 .padding_sides{padding:0px 10px 0px 10px}
@@ -122,6 +124,7 @@ h2{color:white;display:inline-block;}
     padding: 20px;
     position: static;
     width: 800px;
+   
 }
 /*footer*/
 #footer {
@@ -198,8 +201,8 @@ ul.icons li span{
     margin: 0 4px;
 }
 /*dish order*/
-.order_left_div{float:left;width:25%;display:inline}
-.order_right_div{float:left;width:72%;display:inline;border-left:1px dashed #708090;padding: 0px 10px 10px 10px; }
+.order_left_div{float:left;width:42%;display:inline}
+.order_right_div{float:left;width:55%;display:inline;padding: 0px 10px 10px 10px; }
 div.dish_image{border:10px solid white;display:inline-block;}
 
 /*search rest*/
@@ -213,3 +216,37 @@ div.dish_image{border:10px solid white;display:inline-block;}
 .tabel_search table{ border-collapse: collapse; background: white;font-size: 12px;width:100%}
 .tabel_search td,.tabel_search table th{border: 1px solid #2694E8;padding: .6em 8px;}
 .tabel_search td.links{width:20px;}
+.header_bg{
+    background-image: url("../images/header_bg.png");
+    padding:5px;
+     -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.descrption_con{
+    margin-top:20px;
+    background-image: url("../images/order_bg.png");
+    padding:5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.inner_order_ingred{display:inline;width:47%;float:left;font-size:14px}
+.order_ingred_con{
+    margin-top:20px;
+    background-image: url("../images/order_bg.png");
+    padding:5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.paper_gray{
+    margin-top:10px;
+    background-image: url("../images/order_bg.png");
+    padding:5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+.ingredient_radio{font-size:10px;display:inline;}
+.list_none{list-style:none}
+.add_dish_to_order{font-size:14px}
+.chart_table{font-size:12px;width:100%}
+.chart_table tr.chart_header {background-image: url("../images/header_bg.png");color:white;height:25px;}
+.chart_table tr{height:35px}

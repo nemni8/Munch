@@ -33,16 +33,12 @@ class Controller_Site_Main extends Controller_Template_Site {
         $this->template->content = View::factory('site/dishesfilter')
                 ->set('categories', $categories)
 				->set('rest_id',$rest_id);
-                //->set('is_admin', (bool)$this->_admin);
 ;
 	}
     public function action_dishorder($dish_id)//,$orderdish_id= NULL)
         {
-
-            //$type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
             $type='add';
             $dish = orm::factory('dish',$dish_id);
-            //$ordersdish=orm::factory('ordersdish',$orderdish_id);
             $this->template->content = View::factory('admin/dishes/order_dish')
                     ->set('type',$type)
                     ->set('dish', $dish);
@@ -51,9 +47,7 @@ class Controller_Site_Main extends Controller_Template_Site {
         {
             $type = 'edit' ;
             $dish_id =$_SESSION['cart_array'][$orderdish_id]['dish_id'];
-            //echo debug::vars($dish_id);
             $dish = orm::factory('dish',$dish_id);
-            //$ordersdish_id=orm::factory('ordersdish',$orderdish_id);
             $this->template->content = View::factory('admin/dishes/order_dish')
                     ->set('type',$type)
                     ->set('orderdish_id',$orderdish_id)
@@ -63,24 +57,9 @@ class Controller_Site_Main extends Controller_Template_Site {
 	{
 		$type = ($orderdish_id== NULL) ? 'add' : 'edit' ;
         $dish = orm::factory('dish',$dish_id);
-        /*if ( ( ! isset($_SESSION['order_id'])) OR   ($_SESSION['order_id']==NULL) ) {
-                    $order=orm::factory('order');
-                    $order->save();
-                    $_SESSION['order_id']=$order->id;
-        }
-        else
-        {
-            $order=orm::factory('order',$_SESSION['order_id']);
-        }*/
-
-        //$ordersdish=orm::factory('ordersdish',$orderdish_id);
-        //$ordersdish->action_add($order->id,$dish_id);
-
 		$this->template->content = View::factory('admin/dishes/order_dish')
                 ->set('post', $_POST)
-                //->set('order', $order)
                 ->set('dish', $dish)
-                //->set('ordersdish',$ordersdish)
                 ->set('type',$type)
                 ->bind('errors', $errors);
         //session_start();
@@ -91,33 +70,25 @@ class Controller_Site_Main extends Controller_Template_Site {
             try { //NEED TO HANDLE EDIT AS WELL
                 $dishprice=$dish->price;
                 if ($type=='edit') {
-                //$ordersdish->remove('ingredients');
-                //$ordersdish->remove('groupssubs');
                 $orderdisharray=$_SESSION['cart_array'][$orderdish_id];
                 }
                 if ($type=='add') {
                     $orderdisharray=array();
                 }
-                //echo debug::vars($_POST);
                 $ingredients=array();
                 $subs=array();
                 foreach ($_POST as $key => $value) {
                     $ingredient=array();
                     $sub=array();
                     $swit=NULL;
-                    if (strstr($key,'ingredient')!=FALSE)
+                    if (strstr($key,'ingredient') !== FALSE )
                         $swit='ingredient' ;
-                    if (strstr($key,'group')!=FALSE)
+                    if (strstr($key,'group') !==FALSE )
                             $swit='group';
-                     if (!$swit)
+                     if ( ! $swit)
                             $swit=$key;
-                    
-
-                    //echo debug::vars($swit);
                     switch ($swit) {
                         case ("ingredient"):
-                            //$ordersdishesingredient=orm::factory('ordersdishesingredient');
-                            //$ordersdishesingredient->action_add($ordersdish->id,$value);
                             $temp=orm::factory('dishesingredient')->where('dish_id','=',$dish_id)->and_where('ingredient_id','=',$value)->find();
                             $ingredient=array('ingredient_id'=>$value,'price'=>$temp->price);
                             $dishprice+=$temp->price;
@@ -129,7 +100,6 @@ class Controller_Site_Main extends Controller_Template_Site {
                             break;
                         case ("quantity"):
                             $quantity=$value;
-                            //$ordersdish->quantity=$quantity;
                             break;
                         case("group"):
                             if (!strstr($key,'rule')) {
@@ -137,8 +107,6 @@ class Controller_Site_Main extends Controller_Template_Site {
                                 $str2=strstr( $str3, '_');
                                 $str=str_replace($str2,"",$str3);
                                 if ($str==0 ||$str=='basic' || $str=='optional' ) break;
-                                //$ordersdishesgroupssub=orm::factory('ordersdishesgroupssub');
-                                //$ordersdishesgroupssub->action_add($ordersdish->id,$str,$value);
                                 $tempsub=orm::factory('sub')->where('group_id','=',$str)->and_where('sub_id','=',$value)->find();
                                 $group_price=orm::factory('group',$str)->price;
                                 $price= ($tempsub->price>0) ?$tempsub->price : $group_price ;
@@ -149,7 +117,6 @@ class Controller_Site_Main extends Controller_Template_Site {
                             break;
                     }
                 }
-                //echo debug::vars($subs);
                 $comments = (isset($_POST['comments'])) ? $_POST['comments'] : NULL;
                 $orderdisharray=array('rest_id'=>$_SESSION['rest_id'],'dish_id'=>$dish_id,'quantity'=>$quantity,'price'=>$dishprice,'ingredients'=>$ingredients,'subs'=>$subs,'comments'=>$comments);
 
@@ -159,13 +126,8 @@ class Controller_Site_Main extends Controller_Template_Site {
                 else {
                     $_SESSION['cart_array'][$orderdish_id]=$orderdisharray;
                 }
-
-                //$ordersdish->calculate_total();
-                //$order->calculate_total();
-                //echo debug::vars($_SESSION['cart_array']);
-
-
-                die();
+				$this->request->redirect('main/dishes/'.$dish->restaurant->id);
+				//echo debug::vars($_SESSION['cart_array']);
             }
                 catch (ORM_Validation_Exception $e)
                 {
@@ -173,10 +135,7 @@ class Controller_Site_Main extends Controller_Template_Site {
                 }
 
         }
-        $this->_ajax = TRUE;
-
-
-		//echo debug::vars($dish->groups->subs);
+       // $this->_ajax = TRUE;
 	}
 
 } // End Welcome

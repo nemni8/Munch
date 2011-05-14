@@ -370,6 +370,9 @@ function toggle_item(direction,model,num_group){
 	$("."+model).hide();
 	$("."+model+$("#current"+model).val()).show();
 }
+function toggle_item($desc_id){
+	$("#"+$desc_id).toggle();
+}
 /*document ready*/
 
 $(document).ready(function() {
@@ -970,7 +973,12 @@ $(document).ready(function() {
 		}
 		});
 	});
+	$(".ingredient_radio").buttonset();
+	$(".radio_ingredient").change(function(){
 
+	});
+	$("#add_dish_to_order").button();
+	$(".adjustBtn").button();
 });
 /*end of document ready*/
 
