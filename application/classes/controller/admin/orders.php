@@ -175,6 +175,7 @@ class Controller_Admin_Orders extends Controller_Template_Admin
                 sort($_SESSION["cart_array"]);
             }
         }
+		$this->request->redirect($_POST['current_url']);
     }
     public function action_checkout(){
         $this->template->content = View::factory('site/orders/checkout');

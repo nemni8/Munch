@@ -12,12 +12,12 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 		}
 		$user = ORM::factory('user',$_SESSION['auth_user_munch']->id);
 		$dish = ORM::factory('dish');
-			$this->template->content = View::factory('admin/dishes/add&edit')
-					->set('type','add')
-					->set('dish',$dish)
-					->set('user',$user)
-					->set('is_sup',$this->_checkSupadmin())
-					->set('arr_input',$dish->get_col());
+		$this->template->content = View::factory('admin/dishes/add&edit')
+				->set('type','add')
+				->set('dish',$dish)
+				->set('user',$user)
+				->set('is_sup',$this->_checkSupadmin())
+				->set('arr_input',$dish->get_col());
 	}
 	public function action_edit($id)
 	{
