@@ -370,12 +370,26 @@ function toggle_item(direction,model,num_group){
 	$("."+model).hide();
 	$("."+model+$("#current"+model).val()).show();
 }
-function toggle_item($desc_id){
-	$("#"+$desc_id).toggle();
-}
+
 /*document ready*/
 
 $(document).ready(function() {
+	$("#abstract").click(function(){
+		$("#abstract_con_div").dialog( "open" );
+	});
+	$("#abstract_con_div").dialog({
+		open: function (){
+		},
+		autoOpen:false,
+		autoSize:true,
+		width:800,
+		modal: true,
+		buttons: {
+			Close: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
     $( "#form_dialog_delete" ).dialog({
 		open: function (){
 		},
