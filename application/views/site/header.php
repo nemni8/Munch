@@ -1,7 +1,7 @@
 <div id="header">
 	<div id="header_inner_site">
 		<div style="float:left;">
-			<?php echo HTML::image('media/images/logo_admin.png', array('alt' => 'Munch'));?>
+			<?php echo HTML::image('media/images/logo_site.png', array('alt' => 'Munch'));?>
 		</div>
 		<?php if ( ! empty($is_admin)) : ?>
 			<div id="user_box" style="float:right;">

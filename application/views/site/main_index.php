@@ -1,9 +1,11 @@
 <div class="rest_search">
-	<div align="center"><h2 style="color:#62BBE8;margin:0">Find A Restaurant</h2></div>
-	<div class="dashed"></div>
-	<div class="clear" style="height:20px"></div>
+	<div class="order_ingred_con" style="margin:10px;">
+		<div class="header_bg" align="center">
+			<h2 style="margin:0">Find A Restaurant</h2>
+		</div>
+	</div>
 	<?php echo Form::open(NULL,array('id'=>'rest_search_form'));?>
-	<div style="width:48%;float:left;display:inline;border-right:1px dashed #708090">
+	<div class="order_ingred_con" style="width:48%;float:left;display:inline;margin-right:2%;">
 		<?php echo Form::Label('Restaurant Name');?>
 		<?php echo Form::input('rest_name',NULL,array('id'=>'rest_name','class'=>'rest_search_input auto_restaurant'));?>
 		<div class="clear" style="height:10px"></div>
@@ -31,7 +33,7 @@
             <?php endforeach ; ?>
         </div>
 	</div>
-	<div style="width:48%;float:left;display:inline; padding-left:20px">
+	<div class="order_ingred_con" style="width:44%;float:left;display:inline; padding-left:20px">
 		<?php echo Form::input('city_id',0,array('id'=>'city_id','type'=>'hidden','class'=>'rest_search_input'));?>
 		<?php echo Form::Label('min_order','Min Order',array('class'=>'label_search_rest'));?>
 		<?php echo Form::select('min_order',array_merge(array(''=>''),array(range(0,100))),NULL,array('class'=>'rest_search_select rest_search_select')); ?>
@@ -44,11 +46,10 @@
 		<div class="clear" style="height:18px"></div>
 		<?php echo Form::label('kitchen_type','Kitchen Type',array('class'=>'label_search_rest')) ;?>
 		<?php echo Form::select('kitchen_type',$categories,20,array('id'=>'kitchen_type','class'=>'rest_search_select rest_search_select'));?>
+		<div class="clear" style="height:6px"></div>
 	</div>
 	<?php echo Form::close();?>
 </div>
-<div class="clear" style="height:10px"></div>
-<div class="dashed"></div>
 <div class="clear" style="height:20px"></div>
 <div id='rest_container'>
 	<?php echo Request::factory("admin/restaurants/restaurantsearch")->execute(); ?>
