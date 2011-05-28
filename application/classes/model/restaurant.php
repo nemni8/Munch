@@ -62,7 +62,7 @@ class Model_Restaurant extends ORM
 						'fax'      		  => array('col_name' => 'fax','title' => 'Rest Fax', 'type' => 'text'),
 						'delivery_time'   => array('col_name' => 'delivery_time','title' => 'Max Time To Delivery', 'type' => 'numeric'),
 						'delivery_cost'   => array('col_name' => 'delivery_cost','title' => 'Delivery Cost', 'type' => 'numeric'),
-						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Fee', 'type' => 'numeric'),
+						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Order', 'type' => 'numeric'),
 						'about'           => array('col_name' => 'about','title' => 'About', 'type' => 'textarea')
 				 )
 		;
@@ -83,7 +83,7 @@ class Model_Restaurant extends ORM
 						'phone'           => array('col_name' => 'phone','title' => 'Rest Main Phone', 'type' => 'text'),
 						'delivery_time'   => array('col_name' => 'delivery_time','title' => 'Max Time To Delivery', 'type' => 'numeric'),
 						'delivery_cost'   => array('col_name' => 'delivery_cost','title' => 'Delivery Cost', 'type' => 'numeric'),
-						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Fee', 'type' => 'numeric'),
+						'delivery_min'    => array('col_name' => 'delivery_min','title' => 'Delivery Min Order', 'type' => 'numeric'),
 				 )
 		;
 	}
