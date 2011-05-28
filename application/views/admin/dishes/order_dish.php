@@ -148,13 +148,13 @@
 			<?php echo form::label('Quantity') ; ?>
 			<?php echo Form::select('quantity',array(range(0,30)),$default) ;?>
 			<div class="clear"></div>
-			<div align="center" style="margin-top:20px">
-				<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()','id'=>'add_dish_to_order'));?>
-			</div>
 		</div>
 		<div class="clear"></div>
 	</div>
 	<?php echo form::input('group_optional_str',$group_optional_str,array('id'=>'group_optional_str','hidden'=>'hidden'));?>
 	<?php echo Form::close();?>
 </div>
+<div align="center" style="margin-top:20px">
+				<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()','id'=>'add_dish_to_order'));?>
+			</div>	
 <div class="clear"></div>
