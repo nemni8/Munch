@@ -370,6 +370,9 @@ function toggle_item(direction,model,num_group){
 	$("."+model).hide();
 	$("."+model+$("#current"+model).val()).show();
 }
+function order_dish_toggle_item(class){
+	$("#"+class).toggle();
+}
 
 /*document ready*/
 

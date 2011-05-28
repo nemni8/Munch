@@ -30,7 +30,7 @@
 				<?php if( ! $ingred->get_basic_optional_in_dish($dish->id)) : ?>
 					<?php echo $ingred->name; ?>
 					<?php if(strlen($ingred->description) > 0): ?>
-					<span onclick="toggle_item('ingred_<?php echo $ingred->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
+					<span onclick="order_dish_toggle_item('ingred_<?php echo $ingred->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
 					<p id="ingred_<?php echo $ingred->id ;?>" style="display:none" class ="description">
 						<?php echo $ingred->description ;?>
 					</p>
@@ -57,7 +57,7 @@
 					<?php echo Form::checkbox('ingredient_'.$ingred->id,$ingred->id,$default,array('class'=>'order_dish_ingredients'));?>
 					<?php echo $ingred->name; ?>
 					<?php if(strlen($ingred->description) > 0): ?>
-						<span onclick="toggle_item('ingred_<?php echo $ingred->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
+						<span onclick="order_dish_toggle_item('ingred_<?php echo $ingred->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
 						<p id="ingred_<?php echo $ingred->id ;?>" style="display:none" class ="description">
 							<?php echo $ingred->description ;?>
 						</p>
@@ -87,7 +87,7 @@
 								<?php echo Form::checkbox('group_'.$group->id.'_'.$sub->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
 								<?php echo $sub->name; ?>
 								<?php if(strlen($sub->description) > 0): ?>
-									<span onclick="toggle_item('ingred_<?php echo $sub->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
+									<span onclick="order_dish_toggle_item('ingred_<?php echo $sub->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
 									<p id="ingred_<?php echo $sub->id ;?>" style="display:none" class ="description">
 										<?php echo $sub->description ;?>
 									</p>
@@ -119,7 +119,7 @@
 								<?php echo Form::checkbox('group_'.$group->id.'_'.$sub->id,$sub->id,$default,array('class'=>'order_dish_groupssubs group_'.$group->id));?>
 								<?php echo $sub->name; ?>
 								<?php if(strlen($sub->description) > 0): ?>
-									<span onclick="toggle_item('ingred_<?php echo $sub->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
+									<span onclick="order_dish_toggle_item('ingred_<?php echo $sub->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
 									<p id="ingred_<?php echo $sub->id ;?>" style="display:none" class ="description">
 										<?php echo $sub->description ;?>
 									</p>
