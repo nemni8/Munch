@@ -327,30 +327,34 @@ function add_dish_to_order()
 	basic_arr = basic.split(",");
 	optional_arr = optional.split(",");
 	flag = true;
-	for(i=0; i< optional_arr.length; i++)
-	{
-		$("#val_"+optional_arr[i]).html("");
-		var numSelected = $("input."+optional_arr[i]+":checked").length;
-		temp = $("#"+optional_arr[i]+"_rule").val();
-		if(temp != "" && temp != numSelected)
+	if(optional_arr.length > 1){
+		for(i=0; i< optional_arr.length; i++)
 		{
-			flag = false;
-			str = "you must choose exactly "+temp+" from this group";
-			$("#val_"+optional_arr[i]).show();
-			$("#val_"+optional_arr[i]).html(str);
+			$("#val_"+optional_arr[i]).html("");
+			var numSelected = $("input."+optional_arr[i]+":checked").length;
+			temp = $("#"+optional_arr[i]+"_rule").val();
+			if(temp != "" && temp != numSelected)
+			{
+				flag = false;
+				str = "you must choose exactly "+temp+" from this group";
+				$("#val_"+optional_arr[i]).show();
+				$("#val_"+optional_arr[i]).html(str);
+			}
 		}
 	}
-	for(i=0; i< basic_arr.length; i++)
-	{
-		$("#val_"+basic_arr[i]).html("");
-		var numSelected = $("input."+basic_arr[i]+":checked").length;
-		temp = $("#"+basic_arr[i]+"_rule").val();
-		if(temp != "" && temp != numSelected)
+	if(basic_arr.length > 1){
+		for(i=0; i< basic_arr.length; i++)
 		{
-			flag = false;
-			str = "you must choose exactly "+temp+" from this group";
-			$("#val_"+basic_arr[i]).show();
-			$("#val_"+basic_arr[i]).html(str);
+			$("#val_"+basic_arr[i]).html("");
+			var numSelected = $("input."+basic_arr[i]+":checked").length;
+			temp = $("#"+basic_arr[i]+"_rule").val();
+			if(temp != "" && temp != numSelected)
+			{
+				flag = false;
+				str = "you must choose exactly "+temp+" from this group";
+				$("#val_"+basic_arr[i]).show();
+				$("#val_"+basic_arr[i]).html(str);
+			}
 		}
 	}
 	if(flag)
