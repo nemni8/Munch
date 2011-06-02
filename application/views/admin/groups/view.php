@@ -16,7 +16,6 @@
 					</li>
 				<?php endforeach;?>
 			</ul>
-			<div class="dashed"></div>
 		<?php endif;?>
 		<div class="clear"></div>
 </div>

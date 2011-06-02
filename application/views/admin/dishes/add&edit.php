@@ -80,7 +80,6 @@
 		<!-- end of the form -->
 	<?php echo Form::close();?>	
 	<?php if($type == 'edit') : ?>
-		<div class="dashed"></div>
 		<?php
 			$dish_ingred = ORM::factory('dishesingredient')->get_all_ingredients_in_dish($dish->id);
 			if(count($dish_ingred) > 0) : ?>
@@ -96,7 +95,6 @@
 						</li>
 					<?php endforeach;?>
 				</ul>
-				<div class="dashed"></div>
 			<?php endif;?>
 			<h3>Add new Ingredient To <?php echo $dish->name;?> Dish</h3>
 			<div id="add_ingred_in_dish">
@@ -127,17 +125,14 @@
 						<?php echo Request::factory('admin/groups/view/'.$group->id.'/'.$id)->execute() ?>
 					</div>
 					<button class="submit" onclick="remove_group_from_dish(<?php echo $group->id?>,<?php echo $id?>)">Remove Group</button>
-					<div class="dashed"></div>
 				<?php endforeach;?>
 		<?php endif;?>
-        <div class="dashed"></div>
 		<h3>Add new Group To <?php echo $dish->name;?> Dish</h3>
 		<div id="add_group_in_dish">
 			<?php echo Request::factory('admin/dishes/addgroup/'.$id)->execute() ?>
 			<div class="clear"></div>
 			<button class="submit" onclick="add_group_in_dish(<?php echo $id; ?>)">add group</button>
 		</div>
-		<div class="dashed"></div>
 	<?php endif; ?>
 </div>
 

@@ -147,7 +147,6 @@
 			<?php echo form::label('Quantity') ; ?>
 			<?php echo Form::select('quantity',array(range(0,30)),$default) ;?>
 			<div class="clear"></div>
-
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -155,6 +154,6 @@
 	<?php echo Form::close();?>
 </div>
 <div align="center" style="margin-top:20px">
-				<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()','id'=>'add_dish_to_order'));?>
-			</div>	
+	<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()','id'=>'add_dish_to_order'));?>
+</div>
 <div class="clear"></div>
