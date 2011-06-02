@@ -88,7 +88,8 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 		$dish = ORM::factory('dish',$id);
 		$dish->remove('ingredients');
 		$dish->remove('groups');
-		$dish->remove('subs');
+        $dish->remove('categories');
+		$dish->remove('fathers');
 		$dish->delete();
 		$this->request->redirect(Route::get('admin')->uri());
 	}

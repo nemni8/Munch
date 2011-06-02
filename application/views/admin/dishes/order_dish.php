@@ -56,12 +56,18 @@
 					</div-->
 					<?php echo Form::checkbox('ingredient_'.$ingred->id,$ingred->id,$default,array('class'=>'order_dish_ingredients'));?>
 					<?php echo $ingred->name; ?>
+                    <?php $dishingred=ORM::factory('dishesingredient')->where('dish_id','=',$dish->id)->and_where('ingredient_id','=',$ingred->id)->find();  ;?>
+                    <?php if($dishingred->price >0 ): ?>
+						<?php echo '  '.$dishingred->price.'$' ;?>
+					<?php endif;?>
 					<?php if(strlen($ingred->description) > 0): ?>
 						<span onclick="order_dish_toggle_item('ingred_<?php echo $ingred->id ;?>')" class="ui-icon ui-icon-info" style="display:inline-block;float:none; vertical-align:middle; cursor:pointer"></span>
 						<p id="ingred_<?php echo $ingred->id ;?>" style="display:none" class ="description">
 							<?php echo $ingred->description ;?>
 						</p>
 					<?php endif;?>
+
+
 			<?php endif; ?>
 			<div class="clear"></div>
 			<?php endforeach;?>
@@ -156,5 +162,5 @@
 </div>
 <div align="center" style="margin-top:20px">
 				<?php echo Form::button(NULL,'Add dish To order',array('onClick'=>'add_dish_to_order()','id'=>'add_dish_to_order'));?>
-			</div>	
+</div>
 <div class="clear"></div>

@@ -16,7 +16,8 @@ class Model_Dish extends ORM
         ),
         'fathers' => array(
 			'model' => 'group',
-			'through' => 'subs'
+			'through' => 'subs',
+            'foreign_key' => 'sub_id',
 		),
 	);
     protected $_belongs_to = array(
