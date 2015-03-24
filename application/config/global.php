@@ -5,10 +5,10 @@ return
 					/*kosher level array*/
 					'kosher_level' => array
 					(
-						'not kosher',
-						'kosher',
-						'mehadrin kosher',
-						'badatz kosher'
+						'Not Kosher',
+						'Kosher',
+						'Mehadrin Kosher',
+						'Badatz Kosher'
 
 
 					),
@@ -21,9 +21,9 @@ return
 					'meat_dairy' => array
 					(
 						'',
-						'meat',
-						'dairy',
-						'parve'
+						'Meat',
+						'Dairy',
+						'Parve'
 					),
 					'meat_index' =>1,
 					'dairy_index' =>2,
@@ -33,22 +33,22 @@ return
 					'mdv' => array
 					(
 						'',
-						'meat',
-						'dairy',
-                        'veggy',
-						'parve',
+						'Meat',
+						'Dairy',
+						'Veggy',
+						'Parve',
 					),
-					'meat_index' =>1,
-					'dairy_index' =>2,
-                    'veggy_index' =>2,
-					'parve_index' =>4,
+					'meat_index' =>4,
+					'dairy_index' =>5,
+               'veggy_index' =>6,
+					'parve_index' =>7,
 
 					/*payment method array*/
 					'payment_method' => array
 					(
 						'',
-						'creditcard',
-						'cash',
+						'Creditcard',
+						'Cash',
 					),
 					'creditcard_index' =>1,
 					'cash_index' =>2,
@@ -56,9 +56,9 @@ return
 					'info_method' => array
 					(
 						'',
-						'email',
-						'fax',
-                        'sms'
+						'Email',
+						'Fax',
+                        'Sms'
 					),
 					'email_index' =>1,
 					'fax_index' =>2,
@@ -87,12 +87,18 @@ return
 					/*categories models array*/
 					'categories_models' => array
 					(
-						'ingredient' =>'ingredient',
-						'restaurant' =>'restaurant',
-                        'dish' =>'dish'
-					)
-
+						'ingredient' =>'Ingredient',
+						'restaurant' =>'Restaurant',
+						'dish' =>'Dish'
+					),
+					/*dish model size_unit array */
+					'unit_arr' => array
+					(
+						''=>'',
+						'ML' =>'ML (milli liter)',
+						'L' =>'L (liter)',
+						'GR' =>'GR (gram)',
+						'KG' =>'KG (kilo)'
+					),
 				)
-
-
 		);

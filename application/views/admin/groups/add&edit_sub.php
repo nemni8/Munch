@@ -1,4 +1,5 @@
 <?php $edit_id = ($type == 'edit') ? $id : NULL;?>
+<?php //echo 'fsdfsdf';?>
 <div class="dish_subdish">
 	<?php echo Form::open('admin/groups/createsub/'.$edit_id,array('id'=>'form_group_sub_'.$group_id.'_'.$edit_id));?>
 		<div class="clear"></div>

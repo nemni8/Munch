@@ -185,7 +185,8 @@ abstract class Controller_Template_Admin extends Controller_Template
 		$scripts = array(
 			'media/js/jquery-1.5.1.min.js',
 			'media/jquery-ui/js/jquery-ui-1.8.10.custom.min.js',
-            'media/js/core.js'
+			'media/js/jquery.multiselect.min.js',
+         'media/js/core.js',
 			);
 
 		if($this->_admin)
@@ -198,12 +199,11 @@ abstract class Controller_Template_Admin extends Controller_Template
 		$this->template->styles = array(
 			'media/css/layout.css',
 			'media/jquery-ui/css/cupertino/jquery-ui-1.8.10.custom.css',
-            'media/js/core.js'
+			'media/css/jquery.multiselect.css'
 			);
 
 		$this->template->controller = Request::initial()->controller();
 	}
-
 	/**
 	 * Triggered when bootstrap try and catch fails (404 Page not found)
 	 *

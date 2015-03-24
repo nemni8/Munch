@@ -13,10 +13,11 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 		$user = ORM::factory('user',$_SESSION['auth_user_munch']->id);
 		$dish = ORM::factory('dish');
 			$this->template->content = View::factory('admin/dishes/add&edit')
-				->set('type','add')
-				->set('dish',$dish)
-				->set('user',$user)
-				->set('arr_input',$dish->get_col());
+					->set('type','add')
+					->set('dish',$dish)
+					->set('user',$user)
+					->set('is_sup',$this->_checkSupadmin())
+					->set('arr_input',$dish->get_col());
 	}
 	public function action_edit($id)
 	{
@@ -30,12 +31,13 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 			die();
 		}
 			$this->template->content = View::factory('admin/dishes/add&edit')
-				->set('dish',$dish)
-				->set('id',$id)
-				->set('type','edit')
-				->set('user',$user)
-				->set('rest_id',$dish->restaurant->id)
-				->set('arr_input',$dish->get_col());
+					->set('dish',$dish)
+					->set('id',$id)
+					->set('type','edit')
+					->set('user',$user)
+					->set('is_sup',$this->_checkSupadmin())
+					->set('rest_id',$dish->restaurant->id)
+					->set('arr_input',$dish->get_col());
 	}
 	public function action_create($id = NULL)
 	{
@@ -48,6 +50,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 				->set('id',$id)
 				->set('type',$type)
 				->set('user',$user)
+				->set('is_sup',$this->_checkSupadmin())
 				->set('rest_id',$dish->restaurant->id)
 				->set('arr_input',$dish->get_col())
 				->bind('errors', $errors);
@@ -92,11 +95,7 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
     /*dish ingredient CRUD*/
     public function action_addingredient($dish_id)
 	{
-		if( ! $this->_checkAdmin())
-		{
-			echo 'you can not access to this page';
-			die();
-		}
+
 		$this->_ajax = TRUE;
 		$this->template->content = View::factory('admin/dishes/add&edit_dish_ingredient')
 			->set('type','add')
@@ -104,21 +103,14 @@ class Controller_Admin_Dishes extends Controller_Template_Admin
 }
 	public function action_editingredient($id)
 	{
-            $dishesingredient = ORM::factory('dishesingredient', $id);
-            $type = 'edit';
-            // check if the current user have access
-            if(! $this->_checkSupadmin())
-            {
-                echo 'you can not access to this page';
-                die();
-            }
+		$dishesingredient = ORM::factory('dishesingredient', $id);
+		$type = 'edit';
 		$this->_ajax = true;
-            //$dishesingredient = ORM::factory('dishesingredient')->where('dish_id','=',$dish_id)->and_where('ingredient_id','=',$ingredient_id);
-            $this->template->content = View::factory('admin/dishes/add&edit_dish_ingredient')
-										   ->set('dishesingredient',$dishesingredient)
-                                           ->set('type',$type)
-                                           ->set('id',$dishesingredient->id);
-        }
+		$this->template->content = View::factory('admin/dishes/add&edit_dish_ingredient')
+									   ->set('dishesingredient',$dishesingredient)
+										->set('type',$type)
+									   ->set('id',$dishesingredient->id);
+	}
 	public function action_createingredient($id = NULL)
 	{
             $dishesingredient = ORM::factory('dishesingredient', $id);

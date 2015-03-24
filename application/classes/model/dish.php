@@ -1,5 +1,4 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
-
 class Model_Dish extends ORM
 {
 	protected $_has_many = array(
@@ -11,10 +10,9 @@ class Model_Dish extends ORM
 			'model' => 'category',
 			'through' => 'categories_dishes'
         )
-        
 	);
     protected $_belongs_to = array(
-		'restaurant' => array('id'),
+		'restaurant' => array(),
 	);
 
 	protected $_rules = array(
@@ -28,28 +26,64 @@ class Model_Dish extends ORM
 	{
 		return
 				array(
-					    'name'          => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
-                        'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
-                        'size'   => array('col_name' => 'size','title' => 'Size', 'type' => 'text'),
-                        'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
+					'name'       => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
+					'price'			=> array('col_name' => 'price','title' => 'Price ', 'type' => 'numeric'),
+					'size'			=> array('col_name' => 'size','title' => 'Size', 'type' => 'numeric'),
+					'description'  => array('col_name' => 'description','title' => 'Description', 'type' => 'textarea'),
+					
 				 )
 		;
 	}
-    public function get_headers()
+   public function get_headers()
 	{
 		return
 				array(
-
-                        'name'          => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
-                        'price'          => array('col_name' => 'price','title' => 'Price ', 'type' => 'double'),
-                        'size'   => array('col_name' => 'size','title' => 'Size', 'type' => 'text'),
-                        'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
+						'name' => array('col_name' => 'name','title' => 'Dish Name', 'type' => 'text'),
+						'rest_name' => array('col_name' => 'rest_name','title' => 'Rest Name', 'type' => 'text'),
+						'cat_name' => array('col_name' => 'cat_name','title' => 'Dish Type', 'type' => 'text'),
 				 )
 		;
 	}
-	public function get_all_dishes()
+	public function get_all_dishes($user_id = NULL)
 	{
-		return DB::select()->from('dishes')->as_object()->execute();
+		
+		if(isset($user_id))
+		{			
+			$user = ORM::factory('user',$user_id);
+			if( ! $user->has('roles',3))
+			{
+				$result = DB::select('dishes.*',array('restaurants.name','rest_name'),array('categories.name','cat_name'))->
+						from('dishes')->
+						join('restaurants')->
+						on('dishes.restaurant_id', '=', 'restaurants.id')->
+						join('categories_dishes', 'LEFT')->
+						on('dishes.id', '=', 'categories_dishes.dish_id')->
+						join('categories', 'LEFT')->
+						on('categories.id', '=', 'categories_dishes.category_id')->
+						where('restaurants.user_id','=',$_SESSION['auth_user_munch']->id)->
+						as_object()->execute();
+				
+			}
+			else 
+			{
+				$result = DB::select('dishes.*',array('restaurants.name','rest_name'),array('categories.name','cat_name'))->
+						from('dishes')->
+						join('restaurants')->
+						on('dishes.restaurant_id', '=', 'restaurants.id')->
+						join('categories_dishes', 'LEFT')->
+						on('dishes.id', '=', 'categories_dishes.dish_id')->
+						join('categories', 'LEFT')->
+						on('categories.id', '=', 'categories_dishes.category_id')->
+						on('dishes.restaurant_id', '=', 'restaurants.id')->
+						as_object()->execute();
+			}	
+			
+		}
+		else
+		{
+			$result = DB::select()->from('dishes')->as_object()->execute();
+		}	
+		return $result;
 	}
 public function get_all_dishes_visible_for_rest($id)
     {

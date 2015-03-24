@@ -2,13 +2,11 @@
 
 class Model_User extends Model_Auth_User
 {
-
 	protected $_has_many = array(
 		'restaurants' => array(),
 		'user_tokens' => array('model' => 'user_token'),
 		'roles'       => array('model' => 'role', 'through' => 'roles_users'),
 	);
-
     public function get_col()
 	{
 		return
@@ -16,7 +14,7 @@ class Model_User extends Model_Auth_User
 						'username'   => array('col_name' => 'username','title' => 'User Name', 'type' => 'text'),
 						'email'      => array('col_name' => 'email','title' => 'User Email', 'type' => 'text'),
 						'password'   => array('col_name' => 'password','title' => 'User Password', 'type' => 'password'),
-                        'password_confirm'   => array('col_name' => 'password_confirm','title' => 'Repeat Password', 'type' => 'password'),
+						'password_confirm'   => array('col_name' => 'password_confirm','title' => 'Repeat Password', 'type' => 'password'),
 				 )
 		;
 	}

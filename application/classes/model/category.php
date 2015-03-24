@@ -13,8 +13,7 @@ class Model_Category extends ORM
 		),
          'dishes' => array(
 			'model' => 'dish',
-			'through' => 'categories_dishes',
-             
+			'through' => 'categories_dishes',             
 		),
 		'sub_dishes' => array(
 			'model' => 'subdish',
@@ -33,21 +32,21 @@ class Model_Category extends ORM
             );
         }
 
-    public function name_available(Validation $validation, $field)
-        {
-            if ($this->unique_key_exists($validation[$field], 'name'))
-            {
-                $validation->error($field, 'name_available', array($validation[$field]));
-            }
-        }
+	public function name_available(Validation $validation, $field)
+		{
+			if ($this->unique_key_exists($validation[$field], 'name'))
+			{
+				$validation->error($field, 'name_available', array($validation[$field]));
+			}
+		}
 
-        public function unique_key_exists($value, $field = NULL)
-        {
-            if ($field === NULL)
-            {
-                // Automatically determine field by looking at the value
-                $field = 'name';
-            }
+	public function unique_key_exists($value, $field = NULL)
+	{
+		if ($field === NULL)
+		{
+			// Automatically determine field by looking at the value
+			$field = 'name';
+		}
 
             return (bool) DB::select(array('COUNT("*")', 'total_count'))
                 ->from($this->_table_name)
@@ -70,8 +69,8 @@ class Model_Category extends ORM
 	{
 		return
 				array(
-                        'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
-						'description'   => array('col_name' => 'description','title' => ' Description', 'type' => 'text'),
+                  'name'          => array('col_name' => 'name','title' => 'Name', 'type' => 'text'),
+						'model'   => array('col_name' => 'model','title' => ' Model', 'type' => 'text'),
 				 )
 		;
 	}

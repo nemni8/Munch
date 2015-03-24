@@ -54,7 +54,7 @@ class Model_Ingredient extends ORM
 		return
 				array(
 						'name'          => array('col_name' => 'name','title' => 'Ingredient Name', 'type' => 'text'),
-						'description'   => array('col_name' => 'description','title' => 'Ingredient Description', 'type' => 'text'),
+						'description'   => array('col_name' => 'description','title' => 'Ingredient Description', 'type' => 'textarea'),
 				 )
 		;
 	}
@@ -63,7 +63,6 @@ class Model_Ingredient extends ORM
 		return
 				array(
 						'name'          => array('col_name' => 'name','title' => 'Name ', 'type' => 'text'),
-						'description'   => array('col_name' => 'description','title' => 'Description', 'type' => 'text'),
 				 )
 		;
 	}

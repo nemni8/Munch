@@ -2,7 +2,7 @@
 
 class Model_Dishesingredient extends ORM
 {
-    protected $_table_name = 'dishes_ingredients';
+   protected $_table_name = 'dishes_ingredients';
 	protected $_belongs_to= array(
 		'dish' =>array(),
         'ingredient' =>array()

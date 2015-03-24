@@ -3,14 +3,10 @@
 class Controller_Admin_Groups extends Controller_Template_Admin
 {
 	/*group CRUD*/
+	/*TODO: option to add a pre orded group to a dish*/
 
     public function action_add($dish_id)
 	{
-		if( ! $this->_checkAdmin())
-		{
-			echo 'you can not access to this page';
-			die();
-		}
 		$this->_ajax = TRUE;
 		$dish = ORM::factory('dish');
 		$this->template->content = View::factory('admin/groups/add&edit')
@@ -20,22 +16,16 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 }
 	public function action_edit($id)
 	{
-            $group = ORM::factory('group', $id);
-            $type = 'edit';
-            // check if the current user have access
-            if(! $this->_checkSupadmin())
-            {
-                echo 'you can not access to this page';
-                die();
-            }
+		$group = ORM::factory('group', $id);
+		$type = 'edit';
 		$this->_ajax = true;
-            $this->template->content = View::factory('admin/groups/add&edit')
-										   ->set('group',$group)
-										   ->set('dish_id',$group->dish_id)
-										   ->set('id',$id)
-                                           ->set('type',$type);
+		$this->template->content = View::factory('admin/groups/add&edit')
+							   ->set('group',$group)
+							   ->set('dish_id',$group->dish_id)
+							   ->set('id',$id)
+							   ->set('type',$type);
 
-        }
+	}
 	public function action_create($id = NULL)
 	{
             $group = ORM::factory('group', $id);
@@ -73,11 +63,6 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 
     public function action_addsub($group_id)
 	{
-		if( ! $this->_checkAdmin())
-		{
-			echo 'you can not access to this page';
-			die();
-		}
 		$this->_ajax = TRUE;
 		$group = ORM::factory('group',$group_id);
 		$this->template->content = View::factory('admin/groups/add&edit_sub')
@@ -87,21 +72,15 @@ class Controller_Admin_Groups extends Controller_Template_Admin
 }
 	public function action_editsub($id)
 	{
-            $sub = ORM::factory('sub', $id);
-            $type = 'edit';
-            // check if the current user have access
-            if(! $this->_checkSupadmin())
-            {
-                echo 'you can not access to this page';
-                die();
-            }
+		$sub = ORM::factory('sub', $id);
+		$type = 'edit';
 		$this->_ajax = true;
-            $this->template->content = View::factory('admin/groups/add&edit_sub')
-										   ->set('sub',$sub)
-										   ->set('dish_id',$sub->group->dish_id)
-										   ->set('group_id',$sub->group->id)
-										   ->set('id',$id)
-                                           ->set('type',$type);
+		$this->template->content = View::factory('admin/groups/add&edit_sub')
+									   ->set('sub',$sub)
+									   ->set('dish_id',$sub->group->dish_id)
+									   ->set('group_id',$sub->group->id)
+									   ->set('id',$id)
+										->set('type',$type);
 
         }
 	public function action_createsub($id = NULL)
