@@ -68,8 +68,8 @@ abstract class Controller_Template_Admin extends Controller_Template
 		/**
 		 	* Adding admin users
 			$user = ORM::factory('user');
-			$user->email = 'omryoz@gmail.com';
-			$user->username = 'omryo';
+			$user->email = 'blabla@gmail.com';
+			$user->username = 'blabla';
 			$user->password = 'test123';
 			$user->save();
 			// dont forget to add roles. 'login' role needs for successful login
